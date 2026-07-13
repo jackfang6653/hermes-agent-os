@@ -1,0 +1,12 @@
+﻿# Hermes Agent OS .gitignore
+.hermes/checkpoints/
+.hermes/recovery/
+__pycache__/
+*.pyc
+node_modules/
+.env
+*.log
+.DS_Store
+Thumbs.db
+venv/
+.venv/

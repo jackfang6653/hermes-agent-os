@@ -1,0 +1,34 @@
+# Hermes Agent OS 项目配置
+project:
+  name: Hermes Agent OS
+  version: 1.0.0
+  team:
+    ceo: Hermes (主实例)
+    cto: Hermes sub-agent
+    qa: Hermes sub-agent
+    devs: Codex / Hermes sub-agents
+    research: Hermes sub-agent
+    memory: Hermes memory system
+
+  workflows:
+    - path: docs/sop/DEV_WORKFLOW.md
+    - path: docs/sop/ERROR_RECOVERY.md
+    - path: docs/sop/SEARCH.md
+    - path: docs/sop/VERIFICATION_PIPELINE.md
+
+  checkpoints:
+    dir: .hermes/checkpoints
+    auto_create: true
+    max_keep: 20
+
+  recovery:
+    dir: .hermes/recovery
+    max_retries: 3
+    fallback_strategy: escalate
+
+  knowledge:
+    dir: .hermes/knowledge
+    sources:
+      - github
+      - web
+      - community

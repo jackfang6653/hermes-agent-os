@@ -1,0 +1,73 @@
+# Hermes Agent OS 优化配置
+# 针对多智能体协调开发场景的全局优化
+
+model:
+  base_url: https://api.deepseek.com
+  default: deepseek-v4-pro
+  provider: deepseek
+
+agent:
+  max_turns: 150
+  reasoning_effort: high
+  service_tier: normal
+
+delegation:
+  model: qwen/qwen3-coder:free
+  provider: openrouter
+  max_iterations: 50
+  reasoning_effort: medium
+  max_concurrent_children: 10
+
+  # 优化: 子Agent超时和重试
+  child_timeout: 600
+  child_retry_on_failure: true
+  child_max_retries: 3
+
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  memory_char_limit: 2200
+  user_char_limit: 1375
+  flush_min_turns: 6
+  nudge_interval: 10
+
+compression:
+  enabled: true
+  threshold: 0.5
+  target_ratio: 0.2
+  protect_last_n: 20
+  protect_first_n: 3
+
+terminal:
+  backend: local
+  cwd: .
+  timeout: 300
+
+web:
+  backend: firecrawl
+  use_gateway: true
+
+browser:
+  inactivity_timeout: 120
+  cloud_provider: browser-use
+  use_gateway: true
+
+skills:
+  creation_nudge_interval: 15
+
+# 工具循环防护 - 防止死循环
+tool_loop_guardrails:
+  warnings_enabled: true
+  hard_stop_enabled: true
+  warn_after:
+    exact_failure: 2
+    same_tool_failure: 3
+    idempotent_no_progress: 2
+  hard_stop_after:
+    exact_failure: 5
+    same_tool_failure: 8
+    idempotent_no_progress: 5
+
+code_execution:
+  max_tool_calls: 50
+  timeout: 300
