@@ -1,0 +1,14 @@
+ModelRouter:
+  enabled: true
+
+  routing:
+    reasoning: DeepSeek
+    vision: Doubao
+    schema: Qwen
+    advanced_reasoning: OpenAI
+
+  fallback:
+    enabled: true
+
+  retry:
+    enabled: true

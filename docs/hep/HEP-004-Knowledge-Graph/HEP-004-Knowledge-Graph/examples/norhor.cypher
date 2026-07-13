@@ -1,0 +1,1 @@
+CREATE (:Brand {name:'NORHOR'});

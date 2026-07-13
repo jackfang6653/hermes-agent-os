@@ -1,0 +1,8 @@
+QAEngine:
+  enabled: true
+  stages:
+    - brand
+    - image
+    - prompt
+    - layout
+    - export

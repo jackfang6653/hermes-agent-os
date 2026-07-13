@@ -1,0 +1,5 @@
+services:
+  backend:
+    build: ../docker
+  desktop:
+    image: hermes-desktop

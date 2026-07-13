@@ -1,0 +1,9 @@
+package:
+  id: HEP-020
+  name: Release & Installer
+  version: 1.0.0
+  depends:
+    - HEP-017
+    - HEP-019
+  purpose:
+    Final Hermes delivery and installation system

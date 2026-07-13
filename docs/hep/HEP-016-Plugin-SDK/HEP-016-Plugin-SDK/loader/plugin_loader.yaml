@@ -1,0 +1,4 @@
+PluginLoader:
+  auto_discovery: true
+  hot_reload: true
+  sandbox: enabled

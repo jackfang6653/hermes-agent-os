@@ -1,0 +1,6 @@
+Kernel:
+  scheduler: enabled
+  message_bus: enabled
+  registry: enabled
+  model_router: enabled
+  memory: enabled

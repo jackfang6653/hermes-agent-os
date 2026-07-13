@@ -1,0 +1,7 @@
+formats:
+- zip
+- json
+- yaml
+- md
+- html
+- png

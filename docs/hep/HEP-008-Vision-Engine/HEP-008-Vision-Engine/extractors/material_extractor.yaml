@@ -1,0 +1,7 @@
+MaterialExtractor:
+  detect:
+    - fabric
+    - wood
+    - metal
+    - stone
+    - glass

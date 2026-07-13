@@ -1,0 +1,9 @@
+pipeline:
+- ImportBrand
+- VisionAnalysis
+- BuildKnowledgeGraph
+- ExtractBrandDNA
+- CompilePrompt
+- GenerateImage
+- QA
+- Export

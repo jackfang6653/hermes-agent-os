@@ -1,0 +1,3 @@
+migration:
+  version: 001
+  action: create_core_schema

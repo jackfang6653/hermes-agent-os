@@ -1,0 +1,19 @@
+RoutingPolicy:
+
+rules:
+
+- task:
+    type: image_analysis
+  provider: Doubao
+
+- task:
+    type: json_generation
+  provider: Qwen
+
+- task:
+    type: brand_reasoning
+  provider: DeepSeek
+
+- task:
+    type: complex_design_review
+  provider: OpenAI

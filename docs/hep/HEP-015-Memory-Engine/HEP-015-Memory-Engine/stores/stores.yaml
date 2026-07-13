@@ -1,0 +1,6 @@
+stores:
+- SessionMemory
+- ProjectMemory
+- BrandMemory
+- WorkflowMemory
+- GlobalMemory

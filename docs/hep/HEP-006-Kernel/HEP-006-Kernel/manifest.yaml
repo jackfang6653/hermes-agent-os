@@ -1,0 +1,4 @@
+package:
+  id: HEP-006
+  name: Hermes Kernel
+  depends: [HEP-001,HEP-002,HEP-003,HEP-004,HEP-005]

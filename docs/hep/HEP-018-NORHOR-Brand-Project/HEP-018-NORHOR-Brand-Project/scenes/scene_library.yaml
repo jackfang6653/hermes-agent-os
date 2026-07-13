@@ -1,0 +1,11 @@
+SceneLibrary:
+  styles:
+    - nordic_home
+    - modern_living
+    - boutique_space
+
+  parameters:
+    lighting:
+    camera:
+    decoration:
+    color_palette:

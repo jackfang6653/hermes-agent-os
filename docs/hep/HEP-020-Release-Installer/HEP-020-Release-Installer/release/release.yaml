@@ -1,0 +1,8 @@
+Release:
+  channel:
+    - stable
+    - beta
+  artifact:
+    - desktop
+    - backend
+    - full_bundle

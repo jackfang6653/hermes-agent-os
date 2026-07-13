@@ -1,0 +1,12 @@
+nodes:
+- Brand
+- Series
+- Category
+- Product
+- SKU
+- Scene
+- Camera
+- Material
+- Grammar
+- Rule
+- Asset

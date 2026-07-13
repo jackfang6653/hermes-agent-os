@@ -1,0 +1,6 @@
+LayoutProcessor:
+  detect:
+    - grid
+    - alignment
+    - spacing
+    - hierarchy

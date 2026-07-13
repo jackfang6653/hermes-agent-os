@@ -1,0 +1,12 @@
+package:
+  id: HEP-005
+  name: Agent SDK
+  version: 1.0.0
+  priority: P0
+  depends:
+    - HEP-001
+    - HEP-002
+    - HEP-003
+    - HEP-004
+  purpose:
+    Create unified Hermes Agent development framework

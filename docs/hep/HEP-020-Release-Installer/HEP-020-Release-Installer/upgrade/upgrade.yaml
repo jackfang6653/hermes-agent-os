@@ -1,0 +1,4 @@
+Upgrade:
+  check_update: true
+  backup_before_upgrade: true
+  rollback: true

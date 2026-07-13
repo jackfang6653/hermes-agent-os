@@ -1,0 +1,15 @@
+{
+  "title": "BrandDNA",
+  "type": "object",
+  "properties": {
+    "brand": {
+      "type": "string"
+    },
+    "dna": {
+      "type": "object"
+    },
+    "grammar": {
+      "type": "object"
+    }
+  }
+}

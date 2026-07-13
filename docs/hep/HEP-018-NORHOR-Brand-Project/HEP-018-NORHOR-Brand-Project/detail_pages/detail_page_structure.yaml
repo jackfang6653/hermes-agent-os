@@ -1,0 +1,8 @@
+DetailPage:
+  modules:
+    - hero_image
+    - product_features
+    - material_story
+    - dimension
+    - scene_application
+    - brand_story

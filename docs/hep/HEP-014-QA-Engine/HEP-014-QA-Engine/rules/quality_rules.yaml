@@ -1,0 +1,5 @@
+rules:
+- preserve_brand_dna
+- preserve_material
+- preserve_palette
+- verify_prompt_fields

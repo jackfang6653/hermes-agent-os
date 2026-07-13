@@ -1,0 +1,4 @@
+bootstrap:
+  create_repository: true
+  initialize_git: true
+  create_monorepo: true

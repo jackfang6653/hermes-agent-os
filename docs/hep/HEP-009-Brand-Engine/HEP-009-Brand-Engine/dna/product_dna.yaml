@@ -1,0 +1,12 @@
+ProductDNA:
+  geometry: fixed
+  proportion: fixed
+  silhouette: fixed
+  material: fixed
+  texture: fixed
+  color: fixed
+  craftsmanship: fixed
+  variable:
+    - position
+    - camera
+    - scene

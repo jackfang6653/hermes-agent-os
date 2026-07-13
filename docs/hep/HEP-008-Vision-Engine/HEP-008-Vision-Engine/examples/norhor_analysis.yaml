@@ -1,0 +1,15 @@
+brand: NORHOR
+
+vision_result:
+
+product:
+  type: furniture
+
+scene:
+  style: nordic
+
+camera:
+  lens: 35mm
+
+material:
+  fabric: detected

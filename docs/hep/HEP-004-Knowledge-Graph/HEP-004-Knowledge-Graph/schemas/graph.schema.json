@@ -1,0 +1,12 @@
+{
+  "title": "KnowledgeGraph",
+  "type": "object",
+  "properties": {
+    "nodes": {
+      "type": "array"
+    },
+    "relations": {
+      "type": "array"
+    }
+  }
+}

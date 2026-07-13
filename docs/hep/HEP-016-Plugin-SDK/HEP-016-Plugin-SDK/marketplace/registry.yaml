@@ -1,0 +1,3 @@
+Marketplace:
+  source: local
+  signature_check: true

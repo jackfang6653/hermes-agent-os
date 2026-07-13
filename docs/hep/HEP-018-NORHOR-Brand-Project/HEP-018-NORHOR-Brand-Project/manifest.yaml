@@ -1,0 +1,11 @@
+package:
+  id: HEP-018
+  name: NORHOR Brand Project
+  version: 1.0.0
+  depends:
+    - HEP-009
+    - HEP-010
+    - HEP-011
+    - HEP-017
+  purpose:
+    NORHOR brand DNA engineering project template

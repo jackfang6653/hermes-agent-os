@@ -1,0 +1,5 @@
+Distribution:
+  formats:
+    - zip
+    - installer
+    - docker_bundle

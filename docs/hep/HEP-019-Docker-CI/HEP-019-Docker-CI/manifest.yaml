@@ -1,0 +1,5 @@
+package:
+  id: HEP-019
+  name: Docker & CI
+  version: 1.0.0
+  depends: [HEP-012,HEP-013,HEP-017]

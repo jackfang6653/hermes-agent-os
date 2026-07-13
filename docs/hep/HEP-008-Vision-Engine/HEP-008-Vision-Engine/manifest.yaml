@@ -1,0 +1,11 @@
+package:
+  id: HEP-008
+  name: Vision Engine
+  version: 1.0.0
+  priority: P0
+  depends:
+    - HEP-005
+    - HEP-006
+    - HEP-007
+  purpose:
+    AI vision analysis layer for Hermes BDOS

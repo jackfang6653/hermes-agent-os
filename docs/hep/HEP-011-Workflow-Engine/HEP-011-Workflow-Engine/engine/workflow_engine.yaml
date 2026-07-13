@@ -1,0 +1,5 @@
+WorkflowEngine:
+  scheduler: enabled
+  checkpoint: enabled
+  retry: enabled
+  parallel: supported

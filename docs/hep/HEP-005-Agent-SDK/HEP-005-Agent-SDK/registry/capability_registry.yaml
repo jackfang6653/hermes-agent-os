@@ -1,0 +1,5 @@
+CapabilityRegistry:
+  vision:
+  reasoning:
+  generation:
+  validation:

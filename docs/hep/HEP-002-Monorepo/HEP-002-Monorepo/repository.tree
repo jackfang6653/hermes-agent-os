@@ -1,0 +1,15 @@
+apps/desktop
+apps/backend
+apps/worker
+packages/agent-sdk
+packages/model-router
+packages/workflow-engine
+packages/knowledge-graph
+packages/prompt-compiler
+packages/shared
+plugins
+projects/NORHOR
+datasets
+scripts
+docs
+.github/workflows

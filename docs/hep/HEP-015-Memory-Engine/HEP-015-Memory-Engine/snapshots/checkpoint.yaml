@@ -1,0 +1,4 @@
+checkpoint:
+  auto_save: true
+  restore: true
+  history: true

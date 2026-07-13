@@ -1,0 +1,7 @@
+CameraAnalyzer:
+  output:
+    lens
+    angle
+    distance
+    perspective
+    depth_of_field

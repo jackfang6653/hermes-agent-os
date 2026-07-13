@@ -1,0 +1,15 @@
+{
+  "title": "Memory",
+  "type": "object",
+  "properties": {
+    "scope": {
+      "type": "string"
+    },
+    "data": {
+      "type": "object"
+    },
+    "timestamp": {
+      "type": "string"
+    }
+  }
+}

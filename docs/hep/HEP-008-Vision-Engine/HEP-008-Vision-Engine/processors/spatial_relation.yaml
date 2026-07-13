@@ -1,0 +1,10 @@
+SpatialRelation:
+  relations:
+    - left_of
+    - right_of
+    - above
+    - below
+    - near
+    - far
+    - behind
+    - front_of

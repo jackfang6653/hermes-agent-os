@@ -1,0 +1,5 @@
+product: Hermes
+release: 1.0.0
+target:
+  - desktop
+  - backend

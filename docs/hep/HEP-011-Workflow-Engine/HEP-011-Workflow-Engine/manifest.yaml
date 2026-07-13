@@ -1,0 +1,5 @@
+package:
+  id: HEP-011
+  name: Workflow Engine
+  version: 1.0.0
+  depends: [HEP-006,HEP-007,HEP-008,HEP-009,HEP-010]

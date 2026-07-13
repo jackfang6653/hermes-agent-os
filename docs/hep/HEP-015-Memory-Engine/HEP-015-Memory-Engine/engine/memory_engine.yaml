@@ -1,0 +1,5 @@
+MemoryEngine:
+  session: enabled
+  project: enabled
+  brand: enabled
+  global: enabled

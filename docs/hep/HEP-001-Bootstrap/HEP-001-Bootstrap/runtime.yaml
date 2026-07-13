@@ -1,0 +1,3 @@
+runtime:
+  kernel: true
+  model_router: true

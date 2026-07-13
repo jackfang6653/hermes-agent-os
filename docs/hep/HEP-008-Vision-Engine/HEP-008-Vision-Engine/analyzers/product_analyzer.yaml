@@ -1,0 +1,7 @@
+ProductAnalyzer:
+  output:
+    category
+    geometry
+    material
+    color
+    texture

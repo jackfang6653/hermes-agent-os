@@ -1,0 +1,15 @@
+{
+  "title": "ExportTask",
+  "type": "object",
+  "properties": {
+    "target": {
+      "type": "string"
+    },
+    "format": {
+      "type": "string"
+    },
+    "artifacts": {
+      "type": "array"
+    }
+  }
+}

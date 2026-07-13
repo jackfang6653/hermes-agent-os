@@ -1,0 +1,6 @@
+Constraints:
+- Preserve product geometry
+- Preserve material appearance
+- Preserve color accuracy
+- Allow scene variation
+- Allow camera variation

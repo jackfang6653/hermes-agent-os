@@ -1,0 +1,21 @@
+{
+  "title": "Plugin",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "entrypoint": {
+      "type": "string"
+    },
+    "permissions": {
+      "type": "array"
+    }
+  }
+}

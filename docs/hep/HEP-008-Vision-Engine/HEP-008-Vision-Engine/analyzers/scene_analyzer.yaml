@@ -1,0 +1,9 @@
+SceneAnalyzer:
+  input:
+    image
+
+  output:
+    scene_type
+    architecture
+    lighting
+    emotion

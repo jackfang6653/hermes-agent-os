@@ -1,0 +1,5 @@
+layout:
+  sidebar: true
+  canvas: true
+  inspector: true
+  statusbar: true

@@ -1,0 +1,5 @@
+package:
+  id: HEP-009
+  name: Brand Engine
+  version: 1.0.0
+  depends: [HEP-003,HEP-004,HEP-005,HEP-006,HEP-007,HEP-008]

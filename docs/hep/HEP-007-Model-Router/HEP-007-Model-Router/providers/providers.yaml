@@ -1,0 +1,15 @@
+providers:
+
+  DeepSeek:
+    role: reasoning
+    model: DeepSeek V4 Pro
+
+  Doubao:
+    role: vision
+    model: Doubao Vision
+
+  Qwen:
+    role: schema_generation
+
+  OpenAI:
+    role: advanced_reasoning

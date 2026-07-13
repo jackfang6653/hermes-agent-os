@@ -1,0 +1,7 @@
+components:
+- Sidebar
+- Toolbar
+- Canvas
+- Inspector
+- WorkflowPanel
+- AssetPanel

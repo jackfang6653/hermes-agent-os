@@ -1,0 +1,5 @@
+BrandValidator:
+  geometry: required
+  material: required
+  color: required
+  style: required

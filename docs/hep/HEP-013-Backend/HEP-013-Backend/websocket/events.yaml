@@ -1,0 +1,4 @@
+events:
+- workflow.progress
+- task.completed
+- generation.finished

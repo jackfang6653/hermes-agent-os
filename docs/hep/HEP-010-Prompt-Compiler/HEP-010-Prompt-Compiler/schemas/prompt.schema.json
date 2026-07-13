@@ -1,0 +1,21 @@
+{
+  "title": "PromptDSL",
+  "type": "object",
+  "properties": {
+    "system": {
+      "type": "string"
+    },
+    "constraints": {
+      "type": "array"
+    },
+    "scene": {
+      "type": "object"
+    },
+    "camera": {
+      "type": "object"
+    },
+    "product": {
+      "type": "object"
+    }
+  }
+}

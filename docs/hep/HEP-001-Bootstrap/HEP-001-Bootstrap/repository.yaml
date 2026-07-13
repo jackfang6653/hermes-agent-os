@@ -1,0 +1,3 @@
+repository:
+  type: monorepo
+  default_branch: main

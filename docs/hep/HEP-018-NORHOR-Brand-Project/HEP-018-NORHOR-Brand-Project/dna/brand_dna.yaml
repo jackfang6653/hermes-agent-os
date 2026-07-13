@@ -1,0 +1,17 @@
+BrandDNA:
+  visual:
+    style: nordic
+    atmosphere:
+      - calm
+      - warm
+      - refined
+
+  preserve:
+    product_geometry: true
+    material_texture: true
+    color_accuracy: true
+
+  variable:
+    camera: true
+    scene: true
+    composition: true

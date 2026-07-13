@@ -1,0 +1,10 @@
+CREATE TABLE brand(
+id TEXT PRIMARY KEY,
+name TEXT NOT NULL
+);
+
+CREATE TABLE product(
+id TEXT PRIMARY KEY,
+brand_id TEXT,
+name TEXT
+);

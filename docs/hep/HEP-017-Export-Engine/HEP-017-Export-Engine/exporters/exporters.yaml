@@ -1,0 +1,8 @@
+exporters:
+- PromptPackage
+- HTMLDetailPage
+- Markdown
+- JSON
+- YAML
+- ImageAssets
+- ZIPBundle

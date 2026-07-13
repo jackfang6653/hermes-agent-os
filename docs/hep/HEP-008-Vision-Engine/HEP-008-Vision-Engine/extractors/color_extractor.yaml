@@ -1,0 +1,5 @@
+ColorExtractor:
+  output:
+    primary_color:
+    secondary_color:
+    palette:

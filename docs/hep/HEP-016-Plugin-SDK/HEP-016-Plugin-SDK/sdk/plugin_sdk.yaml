@@ -1,0 +1,6 @@
+PluginSDK:
+  register: true
+  install: true
+  uninstall: true
+  enable: true
+  disable: true

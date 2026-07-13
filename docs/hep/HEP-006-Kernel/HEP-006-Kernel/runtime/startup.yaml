@@ -1,0 +1,7 @@
+Startup:
+- LoadConfig
+- InitLogger
+- InitMemory
+- InitRouter
+- InitAgents
+- Ready

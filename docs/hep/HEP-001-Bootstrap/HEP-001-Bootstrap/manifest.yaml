@@ -1,0 +1,6 @@
+package:
+  id: HEP-001
+  name: Bootstrap Foundation
+  version: 1.0.0
+  priority: P0
+  next: HEP-002

@@ -1,0 +1,7 @@
+PromptCompiler:
+  input:
+    - BrandDNA
+    - KnowledgeGraph
+    - Workflow
+  output:
+    PromptDSL

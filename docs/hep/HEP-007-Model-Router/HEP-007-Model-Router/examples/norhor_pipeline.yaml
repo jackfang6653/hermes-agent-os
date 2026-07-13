@@ -1,0 +1,13 @@
+workflow:
+
+brand_analysis:
+  model: DeepSeek V4 Pro
+
+image_analysis:
+  model: Doubao Vision
+
+schema_export:
+  model: Qwen
+
+final_review:
+  model: OpenAI

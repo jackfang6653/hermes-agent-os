@@ -1,0 +1,4 @@
+default: DeepSeek V4 Pro
+vision: Doubao
+json: Qwen
+reasoning: GPT-5.5

@@ -1,0 +1,5 @@
+retention:
+  session: temporary
+  project: persistent
+  brand: persistent
+  global: persistent

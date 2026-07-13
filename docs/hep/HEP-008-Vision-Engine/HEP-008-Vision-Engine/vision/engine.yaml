@@ -1,0 +1,10 @@
+VisionEngine:
+  enabled: true
+
+  modules:
+    ocr: enabled
+    object_detection: enabled
+    scene_analysis: enabled
+    layout_analysis: enabled
+    camera_detection: enabled
+    material_detection: enabled

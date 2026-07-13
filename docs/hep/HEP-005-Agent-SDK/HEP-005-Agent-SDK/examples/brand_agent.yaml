@@ -1,0 +1,7 @@
+agent:
+  name: BrandAgent
+  capability:
+    - brand_analysis
+    - dna_extraction
+  model:
+    - DeepSeek V4 Pro

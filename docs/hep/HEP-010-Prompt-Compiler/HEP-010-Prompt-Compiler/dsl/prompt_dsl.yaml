@@ -1,0 +1,8 @@
+PromptDSL:
+  system:
+  constraints:
+  scene:
+  camera:
+  lighting:
+  product:
+  output:

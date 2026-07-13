@@ -1,0 +1,11 @@
+workflow:
+  name: NORHOR_detail_generation
+
+  steps:
+    - analyze_product
+    - extract_dna
+    - create_scene
+    - compile_prompt
+    - generate_image
+    - qa_check
+    - export

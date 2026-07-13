@@ -1,0 +1,4 @@
+plugin:
+  name: ExamplePlugin
+  version: 1.0.0
+  entrypoint: main.py

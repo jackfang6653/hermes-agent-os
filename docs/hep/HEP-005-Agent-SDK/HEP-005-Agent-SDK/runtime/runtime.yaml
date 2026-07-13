@@ -1,0 +1,6 @@
+AgentRuntime:
+  scheduler: enabled
+  message_bus: enabled
+  registry: enabled
+  memory: enabled
+  logging: enabled

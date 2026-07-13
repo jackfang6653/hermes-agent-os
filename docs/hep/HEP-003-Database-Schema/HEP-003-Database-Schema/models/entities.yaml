@@ -1,0 +1,17 @@
+entities:
+  - Brand
+  - Category
+  - Product
+  - SKU
+  - Scene
+  - Camera
+  - Material
+  - Lighting
+  - Decoration
+  - Module
+  - Layout
+  - Grammar
+  - Rule
+  - PromptDSL
+  - Asset
+  - Workflow

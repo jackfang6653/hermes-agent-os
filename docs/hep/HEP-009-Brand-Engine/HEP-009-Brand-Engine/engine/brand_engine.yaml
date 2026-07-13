@@ -1,0 +1,6 @@
+BrandEngine:
+  modules:
+    dna_extractor: enabled
+    grammar_builder: enabled
+    fingerprint: enabled
+    validator: enabled

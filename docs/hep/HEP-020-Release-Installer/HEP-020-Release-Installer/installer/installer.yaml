@@ -1,0 +1,10 @@
+Installer:
+  platforms:
+    - Windows
+    - macOS
+    - Linux
+
+  actions:
+    - install
+    - uninstall
+    - repair

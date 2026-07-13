@@ -1,0 +1,6 @@
+brand: NORHOR
+product:
+  category: furniture
+  dna:
+    geometry: fixed
+    material: controlled

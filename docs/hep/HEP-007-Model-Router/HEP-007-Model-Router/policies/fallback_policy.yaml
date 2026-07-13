@@ -1,0 +1,12 @@
+Fallback:
+
+primary_failure:
+
+DeepSeek:
+  backup: OpenAI
+
+Doubao:
+  backup: DeepSeek
+
+Qwen:
+  backup: DeepSeek

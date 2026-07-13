@@ -1,0 +1,4 @@
+package:
+  id: HEP-004
+  name: Knowledge Graph
+  depends: [HEP-001,HEP-002,HEP-003]

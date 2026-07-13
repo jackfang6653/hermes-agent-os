@@ -1,0 +1,18 @@
+{
+  "title": "Model Provider",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "capability": {
+      "type": "array"
+    },
+    "priority": {
+      "type": "number"
+    }
+  }
+}

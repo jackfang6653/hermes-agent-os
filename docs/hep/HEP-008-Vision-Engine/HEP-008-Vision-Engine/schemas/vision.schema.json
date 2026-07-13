@@ -1,0 +1,21 @@
+{
+  "title": "Vision Analysis Result",
+  "type": "object",
+  "properties": {
+    "objects": {
+      "type": "array"
+    },
+    "scene": {
+      "type": "object"
+    },
+    "camera": {
+      "type": "object"
+    },
+    "materials": {
+      "type": "array"
+    },
+    "layout": {
+      "type": "object"
+    }
+  }
+}

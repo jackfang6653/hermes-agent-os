@@ -1,0 +1,7 @@
+agent:
+  name: VisionAgent
+  capability:
+    - image_analysis
+    - layout_detection
+  model:
+    - Doubao Vision

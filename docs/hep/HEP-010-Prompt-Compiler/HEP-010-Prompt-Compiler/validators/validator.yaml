@@ -1,0 +1,3 @@
+Validator:
+  check_brand_consistency: true
+  check_required_fields: true

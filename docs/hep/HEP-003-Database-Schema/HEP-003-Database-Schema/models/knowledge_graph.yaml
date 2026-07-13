@@ -1,0 +1,12 @@
+nodes:
+  Brand:
+  Product:
+  Scene:
+  Camera:
+  Material:
+
+relations:
+  HAS_PRODUCT:
+  USES_SCENE:
+  USES_CAMERA:
+  USES_MATERIAL:

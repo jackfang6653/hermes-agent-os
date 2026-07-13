@@ -1,0 +1,10 @@
+package:
+  id: HEP-003
+  name: Database Schema Foundation
+  version: 1.0.0
+  priority: P0
+  depends:
+    - HEP-001
+    - HEP-002
+  purpose:
+    Define Hermes BDOS data structures

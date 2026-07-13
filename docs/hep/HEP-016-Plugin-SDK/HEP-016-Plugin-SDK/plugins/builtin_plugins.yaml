@@ -1,0 +1,7 @@
+builtin:
+- VisionPlugin
+- PromptPlugin
+- WorkflowPlugin
+- ExportPlugin
+- QAPlugin
+- OCRPlugin

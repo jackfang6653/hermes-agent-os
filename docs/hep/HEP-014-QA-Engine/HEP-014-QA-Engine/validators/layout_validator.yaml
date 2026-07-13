@@ -1,0 +1,4 @@
+LayoutValidator:
+  spacing: true
+  alignment: true
+  hierarchy: true

@@ -1,0 +1,10 @@
+package:
+  id: HEP-007
+  name: Model Router
+  version: 1.0.0
+  priority: P0
+  depends:
+    - HEP-005
+    - HEP-006
+  purpose:
+    Unified multi-model routing layer for Hermes

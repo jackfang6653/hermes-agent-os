@@ -1,0 +1,7 @@
+routes:
+- /health
+- /projects
+- /brands
+- /workflow
+- /generate
+- /export
