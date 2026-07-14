@@ -1,0 +1,101 @@
+{
+  "brand": "IKEA",
+  "pitch_date": "2026-07-14T06:53:05.637767",
+  "sections": [
+    {
+      "title": "1. 策略洞察 Strategy",
+      "content": {
+        "executive_summary": "基于3个产品的SceneGraph深度分析，提取品牌视觉参数范围。置信度70%。",
+        "visual_system": {
+          "core_palette": [
+            "#e8d5b7",
+            "#8b7355",
+            "#4a3728",
+            "#2c2c2c",
+            "#3b3226",
+            "#f5f0e8"
+          ],
+          "focal_length": "24.0-50.0mm",
+          "aperture": "f/5.6-f/11.0",
+          "lighting_patterns": [
+            "spot+grid",
+            "大面积柔光 + 顶光补光",
+            "均匀柔光 + 双侧补光",
+            "暖调氛围光 + 侧逆光",
+            "area+softbox_120cm"
+          ]
+        },
+        "key_insight": ""
+      }
+    },
+    {
+      "title": "2. 创意概念 Creative",
+      "content": {
+        "total_concepts": 5,
+        "recommended": {
+          "name": "材质特写 Material Focus",
+          "rationale": "品牌材质系统包含 3 类材质，微距呈现工匠品质。材质细节是品牌溢价的核心支撑",
+          "scores": {
+            "creativity": 92,
+            "brand_compliance": 90,
+            "feasibility": 82
+          }
+        },
+        "all_concepts": [
+          {
+            "name": "纯净影棚 Pure Studio",
+            "type": "studio",
+            "score": 67
+          },
+          {
+            "name": "生活场景 Living Context",
+            "type": "lifestyle",
+            "score": 79
+          },
+          {
+            "name": "戏剧大片 Dramatic Editorial",
+            "type": "editorial",
+            "score": 95
+          },
+          {
+            "name": "材质特写 Material Focus",
+            "type": "macro",
+            "score": 92
+          },
+          {
+            "name": "氛围情绪 Mood Atmosphere",
+            "type": "atmospheric",
+            "score": 89
+          }
+        ]
+      }
+    },
+    {
+      "title": "3. 执行方案 Execution",
+      "content": {
+        "photography_plan": "详见各概念灯光方案",
+        "post_production": "专业调色+精修",
+        "deliverables": [
+          "长图详情页",
+          "分图模块",
+          "品牌DNA报告",
+          "ZIP包"
+        ]
+      }
+    },
+    {
+      "title": "4. 排期与预算 Timeline & Budget",
+      "content": {
+        "estimated_timeline": "5-8个工作日",
+        "phases": [
+          "研究(1d)",
+          "创意(1d)",
+          "拍摄/生成(2d)",
+          "后期(1d)",
+          "提报(1d)"
+        ]
+      }
+    }
+  ],
+  "recommendation": "材质特写 Material Focus"
+}

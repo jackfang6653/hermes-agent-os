@@ -14,25 +14,42 @@ from typing import Optional
 from .scene_graph import *
 
 
-def _call_vision(image_url: str, prompt: str, api_key: str) -> str:
-    resp = requests.post(
-        "https://api.openai.com/v1/chat/completions",
-        headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-        json={
-            "model": "gpt-4o",
-            "messages": [{"role": "user", "content": [
-                {"type": "text", "text": prompt},
-                {"type": "image_url", "image_url": {"url": image_url, "detail": "high"}}
-            ]}],
-            "max_tokens": 8192,
-            "temperature": 0.1,
-            "response_format": {"type": "json_object"}
-        },
-        timeout=120
-    )
-    if resp.status_code != 200:
-        raise RuntimeError(f"Vision API error {resp.status_code}: {resp.text[:200]}")
-    return resp.json()["choices"][0]["message"]["content"]
+def _call_vision(image_url: str, prompt: str, api_key: str, retry_on_refusal: bool = True) -> str:
+    """调用Vision API, 自动处理 refusal 降级"""
+    def _do_call(model: str, detail: str, p: str) -> dict:
+        resp = requests.post(
+            "https://api.openai.com/v1/chat/completions",
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            json={
+                "model": model,
+                "messages": [{"role": "user", "content": [
+                    {"type": "text", "text": p},
+                    {"type": "image_url", "image_url": {"url": image_url, "detail": detail}}
+                ]}],
+                "max_tokens": 8192,
+                "temperature": 0.1,
+                "response_format": {"type": "json_object"}
+            },
+            timeout=120
+        )
+        if resp.status_code != 200:
+            raise RuntimeError(f"Vision API error {resp.status_code}: {resp.text[:200]}")
+        return resp.json()
+
+    data = _do_call("gpt-4o", "high", prompt)
+    content = data["choices"][0]["message"]["content"]
+    refusal = data["choices"][0]["message"].get("refusal")
+
+    if content is None and refusal and retry_on_refusal:
+        # 降级: 用 gpt-4o-mini + low detail 重试
+        print(f"    ⚠️  GPT-4o refused (\"{refusal[:60]}...\"), 降级到 gpt-4o-mini...")
+        data = _do_call("gpt-4o-mini", "low", prompt)
+        content = data["choices"][0]["message"]["content"]
+
+    if content is None:
+        raise RuntimeError(f"Vision API returned null content. Refusal: {refusal}")
+
+    return content
 
 
 SCENE_GRAPH_PROMPT = """你是一位顶级3D场景解析专家。请从这张产品图片中提取**完整场景图**，输出JSON。

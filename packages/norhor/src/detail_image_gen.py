@@ -214,14 +214,15 @@ def _photography_params(dna: dict) -> Image.Image:
     y = 90
 
     # 相机
+    # 相机 (支持范围)
     draw.text((M+20, y), "📷 相机", fill=h2r(MUTED), font=font(18))
     cam_lines = []
     if cam.get("camera_model"): cam_lines.append(f"机身: {cam['camera_model']}")
-    if cam.get("lens_model"): cam_lines.append(f"镜头: {cam['lens_model']}")
-    if cam.get("focal_length_mm"): cam_lines.append(f"焦距: {cam['focal_length_mm']}mm")
-    if cam.get("aperture_f"): cam_lines.append(f"光圈: f/{cam['aperture_f']}")
+    fl = cam.get("focal_length_mm","")
+    if fl: cam_lines.append(f"焦距: {fl}{'mm' if isinstance(fl,(int,float)) else ''}")
+    ap = cam.get("aperture_f","")
+    if ap: cam_lines.append(f"光圈: f/{ap}")
     if cam.get("iso"): cam_lines.append(f"ISO: {cam['iso']}")
-    if cam.get("shutter_speed"): cam_lines.append(f"快门: {cam['shutter_speed']}")
 
     for i, cl in enumerate(cam_lines[:6]):
         draw.text((M+20, y+28+i*24), f"  {cl}", fill=h2r(DARK), font=font(20))
