@@ -7,3 +7,15 @@ from .rationale import DesignRationaleEngine, DesignRationaleReport, DesignRatio
 from .dna_ref import BrandDNARef
 from .agents import AgentTeam, AgentEmployee, PLANNER_ROLE, CREATIVE_ROLE, ART_ROLE, PRODUCER_ROLE
 from .ceo import CEOSystem, TaskAssignment
+from .page_analyzer import (
+    PageAnalyzer,
+    PageDesignDNA,
+    PageSection,
+    Typography,
+    ColorPalette,
+    ImageInfo,
+    LayoutInfo,
+    analyze_page,
+    extract_brand_rules,
+    compare_dna,
+)

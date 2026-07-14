@@ -1,0 +1,192 @@
+{
+  "url": "https://www.muji.com.cn/cn/store/",
+  "title": "MUJI无印良品",
+  "brand": "MUJI",
+  "analyzed_at": "2026-07-14T07:40:17.172683",
+  "sections": [
+    {
+      "id": "s1-breadcrumb",
+      "type": "breadcrumb",
+      "content": "主页 > 商品分类 > 服装",
+      "font": "PingFang SC",
+      "size": "12px",
+      "color": "#666666",
+      "weight": "400",
+      "line_height": "1.5",
+      "position": "顶部居中",
+      "spacing": "margin-bottom:10px",
+      "alignment": "left",
+      "background": "#FFFFFF",
+      "image_count": 0,
+      "image_types": [],
+      "confidence": 0.9
+    },
+    {
+      "id": "s2-hero",
+      "type": "hero",
+      "content": "持续日用",
+      "font": "PingFang SC",
+      "size": "32px",
+      "color": "#333333",
+      "weight": "700",
+      "line_height": "1.2",
+      "position": "顶部全宽",
+      "spacing": "padding:20px 0",
+      "alignment": "center",
+      "background": "图片背景",
+      "image_count": 1,
+      "image_types": [
+        "lifestyle"
+      ],
+      "confidence": 0.95
+    },
+    {
+      "id": "s3-features",
+      "type": "features",
+      "content": "特集",
+      "font": "PingFang SC",
+      "size": "24px",
+      "color": "#333333",
+      "weight": "700",
+      "line_height": "1.4",
+      "position": "居中",
+      "spacing": "margin-bottom:20px",
+      "alignment": "center",
+      "background": "#FFFFFF",
+      "image_count": 5,
+      "image_types": [
+        "product"
+      ],
+      "confidence": 0.9
+    },
+    {
+      "id": "s4-product_gallery",
+      "type": "product_gallery",
+      "content": "新品",
+      "font": "PingFang SC",
+      "size": "24px",
+      "color": "#333333",
+      "weight": "700",
+      "line_height": "1.4",
+      "position": "居中",
+      "spacing": "margin-bottom:20px",
+      "alignment": "center",
+      "background": "#FFFFFF",
+      "image_count": 10,
+      "image_types": [
+        "product"
+      ],
+      "confidence": 0.9
+    },
+    {
+      "id": "s5-description",
+      "type": "description",
+      "content": "产品分类",
+      "font": "PingFang SC",
+      "size": "18px",
+      "color": "#333333",
+      "weight": "700",
+      "line_height": "1.4",
+      "position": "居中",
+      "spacing": "margin-bottom:20px",
+      "alignment": "center",
+      "background": "#FFFFFF",
+      "image_count": 0,
+      "image_types": [],
+      "confidence": 0.85
+    },
+    {
+      "id": "s6-reviews",
+      "type": "reviews",
+      "content": "销售排行榜",
+      "font": "PingFang SC",
+      "size": "24px",
+      "color": "#333333",
+      "weight": "700",
+      "line_height": "1.4",
+      "position": "居中",
+      "spacing": "margin-bottom:20px",
+      "alignment": "center",
+      "background": "#FFFFFF",
+      "image_count": 5,
+      "image_types": [
+        "product"
+      ],
+      "confidence": 0.9
+    },
+    {
+      "id": "s7-footer",
+      "type": "footer",
+      "content": "版权信息",
+      "font": "PingFang SC",
+      "size": "12px",
+      "color": "#999999",
+      "weight": "400",
+      "line_height": "1.5",
+      "position": "底部全宽",
+      "spacing": "padding:20px 0",
+      "alignment": "center",
+      "background": "#F5F5F5",
+      "image_count": 0,
+      "image_types": [],
+      "confidence": 0.9
+    }
+  ],
+  "typography": {
+    "primary_font": "PingFang SC",
+    "secondary_font": "",
+    "heading_font": "PingFang SC",
+    "heading_sizes": [
+      "32px H1",
+      "24px H2"
+    ],
+    "body_size": "14px",
+    "caption_size": "12px",
+    "line_height": "1.6",
+    "weight_usage": "标题700 Bold, 正文400 Regular"
+  },
+  "colors": {
+    "primary": "#333333",
+    "secondary": "#666666",
+    "accent": "#999999",
+    "background": "#FFFFFF",
+    "surface": "#F5F5F5",
+    "text_primary": "#333333",
+    "text_secondary": "#666666",
+    "text_placeholder": "#999999",
+    "border": "#E0E0E0",
+    "all_colors": [
+      "#333333",
+      "#666666",
+      "#999999"
+    ],
+    "color_harmony": "单色调"
+  },
+  "images": {
+    "total_count": 21,
+    "hero_images": 1,
+    "product_images": 15,
+    "lifestyle_images": 1,
+    "detail_images": 0,
+    "icon_count": 0,
+    "composition_styles": [
+      "白底产品图",
+      "场景叙事"
+    ],
+    "dominant_angles": [
+      "平视45°"
+    ],
+    "image_ratio": "4:3 mixed"
+  },
+  "layout": {
+    "grid_type": "混合",
+    "column_count": 3,
+    "content_max_width": "1200px",
+    "reading_flow": "纵向流",
+    "section_count": 7,
+    "vertical_rhythm": "大留白+紧凑信息交替"
+  },
+  "overall_style": "简约自然，强调产品实用性",
+  "design_language": "极简日式",
+  "summary": "页面设计简洁，突出产品和生活方式"
+}
