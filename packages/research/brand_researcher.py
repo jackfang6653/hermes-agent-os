@@ -119,11 +119,15 @@ class BrandResearcher:
         return self._analyze_brand_from_knowledge(brand_name)
 
     def _search_brand_urls(self, brand: str) -> List[str]:
-        """自动搜索品牌相关URL — DDG HTML 搜索 + Wikipedia + GitHub"""
+        """自动搜索品牌相关URL — DDG HTML + Bing + Wikipedia + GitHub
+
+        使用 requests + BeautifulSoup4 + re 进行多引擎搜索，
+        任一引擎失败不影响其他，返回汇总后去重的 URL 列表。
+        """
         urls = []
         seen = set()
 
-        # --- 1. DuckDuckGo HTML 搜索 ---
+        # --- 1. DuckDuckGo HTML 搜索 (requests + BeautifulSoup + re) ---
         ddg_queries = [
             f"{brand} official website",
             f"{brand} product design",
@@ -135,6 +139,18 @@ class BrandResearcher:
                     if u not in seen:
                         urls.append(u)
                         seen.add(u)
+            except Exception:
+                pass
+            time.sleep(0.3)
+
+        # --- 1.5. Bing 搜索 (DDG 被限流时的回退) ---
+        if len(urls) < 3:
+            try:
+                for q in ddg_queries[:2]:
+                    for u in self._search_bing(q):
+                        if u not in seen:
+                            urls.append(u)
+                            seen.add(u)
             except Exception:
                 pass
             time.sleep(0.3)
@@ -167,46 +183,133 @@ class BrandResearcher:
         return urls[:10]
 
     def _search_ddg_html(self, query: str) -> List[str]:
-        """DuckDuckGo HTML 搜索结果解析"""
+        """DuckDuckGo HTML 搜索结果解析 — requests + BeautifulSoup4 + re
+
+        优先使用 BeautifulSoup 解析 DDG HTML 结果页；
+        若 DDG 返回空或反爬页面，回退到 re 正则提取 uddg 链接；
+        若仍无结果，返回空列表让调用方走其他搜索源。
+        """
         urls = []
         try:
             r = requests.get(
                 "https://html.duckduckgo.com/html/",
                 params={"q": query},
-                headers={"User-Agent": "Mozilla/5.0"},
+                headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"},
                 timeout=15,
             )
         except requests.RequestException:
             return urls
-        if not r.ok:
+        if r.status_code not in (200, 202):
             return urls
 
+        # ── 方法1: BeautifulSoup 解析已知选择器 ──
         soup = BeautifulSoup(r.text, "html.parser")
-        for result in soup.select(".result__body"):
-            link_el = result.select_one(".result__a")
-            if not link_el:
-                continue
-            href = link_el.get("href", "")
-            if not href:
-                continue
+        result_selectors = [".result__body", ".result", ".results_links", ".web-result",
+                            "a.result__a", "a[class*=\"result\"]", ".links_main a"]
+        for selector in result_selectors:
+            for el in soup.select(selector):
+                link_el = el if el.name == "a" else el.select_one("a")
+                if not link_el:
+                    continue
+                href = link_el.get("href", "")
+                if not href:
+                    continue
+                actual_url = self._decode_ddg_url(href)
+                if actual_url not in urls:
+                    urls.append(actual_url)
 
-            # DDG HTML 返回的是重定向链接: //duckduckgo.com/l/?uddg=<encoded_url>&rut=...
-            actual_url = href
-            if "uddg=" in href:
-                full = "https:" + href if href.startswith("//") else href
-                parsed = urlparse(full)
-                uddg = parse_qs(parsed.query).get("uddg", [None])[0]
-                if uddg:
-                    actual_url = unquote(uddg)
+        # ── 方法2: re 正则回退，直接解析 HTML 中的 uddg=... 参数 ──
+        if not urls:
+            raw = r.text
+            # 匹配 uddg=<urlencoded_url> 模式
+            uddg_matches = re.findall(r'uddg=([^&\'\"]+)', raw)
+            for encoded in uddg_matches:
+                try:
+                    actual_url = unquote(encoded)
+                    if actual_url not in urls:
+                        urls.append(actual_url)
+                except Exception:
+                    pass
 
-            # 过滤搜索引擎页面
-            skip_domains = ["duckduckgo.com", "google.com", "bing.com", "yahoo.com"]
-            if any(d in actual_url.lower() for d in skip_domains):
-                continue
+            # 备用: 直接匹配 https?:// 链接（排除搜索引擎自身）
+            if not urls:
+                raw_urls = re.findall(r'https?://[^\s\'\"<>]+', raw)
+                for u in raw_urls:
+                    u_clean = u.rstrip('.,;:)')
+                    if 'duckduckgo.com' not in u_clean and 'google.com' not in u_clean:
+                        if u_clean not in urls and len(u_clean) > 20:
+                            urls.append(u_clean)
 
-            if actual_url and actual_url not in urls:
-                urls.append(actual_url)
+        # ── 过滤搜索引擎页面 ──
+        skip_domains = ["duckduckgo.com", "google.com", "bing.com", "yahoo.com",
+                        "yandex.com", "baidu.com", "startpage.com", "brave.com"]
+        urls = [u for u in urls if not any(d in u.lower() for d in skip_domains)]
+
         return urls
+
+    def _search_bing(self, query: str) -> List[str]:
+        """Bing 搜索 — requests + re 解析 (DDG 不可用时的回退)"""
+        urls = []
+        try:
+            r = requests.get(
+                "https://www.bing.com/search",
+                params={"q": query, "count": "10"},
+                headers={
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                                  "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                    "Accept": "text/html,application/xhtml+xml",
+                    "Accept-Language": "en-US,en;q=0.9",
+                },
+                timeout=12,
+            )
+        except requests.RequestException:
+            return urls
+        if r.status_code != 200:
+            return urls
+
+        # 用 re 提取 URL — Bing 结果页中外部链接通常出现在 href 属性里
+        raw = r.text
+        # 方案1: 匹配 Bing 重定向格式内的真实 URL
+        href_matches = re.findall(r'href="(https?://[^"]+)"', raw)
+        for href in href_matches:
+            if len(href) < 30:
+                continue
+            skip = ["bing.com", "microsoft.com", "live.com", "msn.com", "go.microsoft.com"]
+            if any(s in href.lower() for s in skip):
+                continue
+            if href not in urls:
+                urls.append(href)
+
+        # 方案2: 匹配所有可见域名
+        if not urls:
+            domain_matches = re.findall(r'(?:https?://)?([a-zA-Z0-9][-a-zA-Z0-9]*\.)+[a-zA-Z]{2,}[^\s<>\"\')\]]*', raw)
+            seen_domains = set()
+            for dm in domain_matches:
+                dm_clean = dm.strip('.,;:!?')
+                if dm_clean.startswith('http'):
+                    full = dm_clean
+                else:
+                    full = f"https://{dm_clean}"
+                domain_part = urlparse(full).netloc.lower()
+                if domain_part and domain_part not in seen_domains:
+                    skip = ["bing.com", "microsoft.com", "live.com", "msn.com",
+                            "w3.org", "schema.org"]
+                    if not any(s in domain_part for s in skip):
+                        seen_domains.add(domain_part)
+                        urls.append(full)
+
+        return urls
+
+    @staticmethod
+    def _decode_ddg_url(href: str) -> str:
+        """解码 DDG HTML 重定向链接，提取真实 URL"""
+        if "uddg=" in href:
+            full = "https:" + href if href.startswith("//") else href
+            parsed = urlparse(full)
+            uddg = parse_qs(parsed.query).get("uddg", [None])[0]
+            if uddg:
+                return unquote(uddg)
+        return href
 
     def _search_wikipedia(self, brand: str) -> List[str]:
         """Wikipedia API 搜索品牌页面"""
