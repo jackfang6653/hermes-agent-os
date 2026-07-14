@@ -40,12 +40,14 @@ class Agency4A:
         from .pitch import PresentationDept
         from .rationale import DesignRationaleEngine
         from .dna_ref import BrandDNARef
+        from .agents import AgentTeam, AgentEmployee, PLANNER_ROLE, CREATIVE_ROLE, ART_ROLE, PRODUCER_ROLE
         self._briefing = Briefing()
         self._strategy = StrategyDept(self.api_key)
         self._creative = CreativeDept()
         self._pitch = PresentationDept()
         self._rationale = DesignRationaleEngine(self.api_key)
         self._dna_ref = BrandDNARef()
+        self._team = AgentTeam()
         import importlib
         try:
             self._img_gen = importlib.import_module("detail_image_gen").generate_brand_detail
@@ -85,6 +87,7 @@ class Agency4A:
         print(f"  🏢  4A Agency — 品牌视觉全流程")
         print(f"  品牌: {brand}  |  项目: {project}")
         print(f"  输出: {od}")
+        print(f"  🤖 团队: {', '.join([a.name for a in self._team.agents.values()])}")
         print(f"{'='*60}")
 
         # ════════════════════════════════════════════════════════
