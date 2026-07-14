@@ -2,7 +2,25 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "@hermes-os/backend": ["../backend/src"],
+      "@hermes-os/workflow-engine": ["../workflow-engine/src"],
+      "@hermes-os/brand-engine": ["../brand-engine/src"],
+      "@hermes-os/vision-engine": ["../vision-engine/src"],
+      "@hermes-os/prompt-compiler": ["../prompt-compiler/src"],
+      "@hermes-os/qa-engine": ["../qa-engine/src"],
+      "@hermes-os/core": ["../core/src"],
+      "@hermes-os/agent-sdk": ["../agent-sdk/src"],
+      "@hermes-os/model-router": ["../model-router/src"],
+      "@hermes-os/export-engine": ["../export-engine/src"],
+      "@hermes-os/knowledge-graph": ["../knowledge-graph/src"],
+      "@hermes-os/memory-engine": ["../memory-engine/src"],
+      "@hermes-os/plugin-sdk": ["../plugin-sdk/src"],
+      "@hermes-os/database-schema": ["../database-schema/src"],
+      "@hermes-os/desktop": ["../desktop/src"],
+      "@hermes-os/workflow-engine": ["../workflow-engine/src"]
+    }
   },
   "include": ["src/**/*"]
 }
