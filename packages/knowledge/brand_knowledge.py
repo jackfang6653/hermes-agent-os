@@ -178,35 +178,47 @@ class BrandKnowledgeBase:
 
     # ── 从Research结果构建品牌档案 ────────────────────
 
-    def build_from_research(self, brand_name: str, research_result: Dict[str, Any]) -> BrandProfile:
-        """从品牌研究结果构建品牌档案"""
+    def build_from_research(self, brand_name: str, research_result: Any) -> BrandProfile:
+        """从品牌研究结果构建品牌档案（兼容dict和dataclass）"""
         profile = self.get_brand(brand_name) or BrandProfile(brand_name=brand_name)
+        
+        # 统一处理，兼容 dict 和 dataclass
+        if hasattr(research_result, '__dict__'):
+            d = research_result.__dict__
+        elif isinstance(research_result, dict):
+            d = research_result
+        else:
+            d = {}
 
-        def safe_get(d, *keys):
-            for k in keys:
-                if isinstance(d, dict):
-                    d = d.get(k, {})
-                else:
-                    return ""
-            return d if isinstance(d, (str, list, dict)) else ""
+        def sg(key, default=""):
+            val = d.get(key, default)
+            return val if val else default
 
-        palette = research_result.get("primary_palette", [])
-        if palette:
-            profile.primary_palette = palette
+        palette = d.get("primary_palette", d.get("palette", []))
+        if isinstance(palette, list) and len(palette) > 0:
+            profile.primary_palette = palette[:6]
 
-        rationale = research_result.get("design_rationale", {})
+        rationale = d.get("design_rationale", {})
+        if hasattr(rationale, '__dict__'):
+            rationale = rationale.__dict__
+        elif not isinstance(rationale, dict):
+            rationale = {}
+
         if rationale.get("brand_positioning"):
             profile.brand_positioning = rationale["brand_positioning"]
         if rationale.get("target_audience"):
             profile.target_audience = rationale["target_audience"]
-        if rationale.get("design_principles"):
-            profile.layout_patterns = rationale["design_principles"]
         if rationale.get("psychological_effect"):
             profile.color_psychology = rationale["psychological_effect"]
+        if rationale.get("layout_purpose"):
+            profile.layout_patterns = [rationale["layout_purpose"]]
+        if rationale.get("design_principles") and isinstance(rationale["design_principles"], list):
+            profile.layout_patterns = list(set(profile.layout_patterns + rationale["design_principles"]))
 
-        scene = research_result.get("scene_composition", "")
-        if scene:
-            profile.typical_scenes = [scene]
+        if d.get("scene_composition"):
+            profile.typical_scenes = [d["scene_composition"]]
+        if d.get("lighting_mood"):
+            profile.lighting_signature = d["lighting_mood"]
 
         self.save_brand(profile)
         return profile

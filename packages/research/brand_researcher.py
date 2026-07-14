@@ -12,6 +12,8 @@ import os, json, requests, re, time
 from typing import Optional, List, Dict, Any
 from dataclasses import dataclass, field
 from datetime import datetime
+from urllib.parse import urlparse, parse_qs, unquote, quote
+from bs4 import BeautifulSoup
 
 
 @dataclass
@@ -117,30 +119,161 @@ class BrandResearcher:
         return self._analyze_brand_from_knowledge(brand_name)
 
     def _search_brand_urls(self, brand: str) -> List[str]:
-        """自动搜索品牌相关URL"""
-        queries = [
-            f"{brand} official website product",
-            f"{brand} e-commerce product detail",
-            f"{brand} design style",
-        ]
+        """自动搜索品牌相关URL — DDG HTML 搜索 + Wikipedia + GitHub"""
         urls = []
-        for q in queries:
+        seen = set()
+
+        # --- 1. DuckDuckGo HTML 搜索 ---
+        ddg_queries = [
+            f"{brand} official website",
+            f"{brand} product design",
+            f"{brand} brand design style",
+        ]
+        for q in ddg_queries:
             try:
-                r = requests.get(
-                    "https://api.duckduckgo.com/",
-                    params={"q": q, "format": "json"},
-                    timeout=10
-                )
-                if r.ok:
-                    data = r.json()
-                    for result in data.get("Results", []):
-                        u = result.get("FirstURL", "")
-                        if u and u not in urls:
-                            urls.append(u)
-            except:
+                for u in self._search_ddg_html(q):
+                    if u not in seen:
+                        urls.append(u)
+                        seen.add(u)
+            except Exception:
                 pass
-            time.sleep(0.5)
-        return urls[:5]
+            time.sleep(0.3)
+
+        # --- 2. Wikipedia API ---
+        try:
+            for u in self._search_wikipedia(brand):
+                if u not in seen:
+                    urls.append(u)
+                    seen.add(u)
+        except Exception:
+            pass
+
+        # --- 3. GitHub API (搜索品牌相关仓库) ---
+        try:
+            for u in self._search_github(brand):
+                if u not in seen:
+                    urls.append(u)
+                    seen.add(u)
+        except Exception:
+            pass
+
+        # --- 4. Fallback: 推测常见品牌URL ---
+        if len(urls) < 3:
+            for u in self._guess_brand_urls(brand):
+                if u not in seen:
+                    urls.append(u)
+                    seen.add(u)
+
+        return urls[:10]
+
+    def _search_ddg_html(self, query: str) -> List[str]:
+        """DuckDuckGo HTML 搜索结果解析"""
+        urls = []
+        try:
+            r = requests.get(
+                "https://html.duckduckgo.com/html/",
+                params={"q": query},
+                headers={"User-Agent": "Mozilla/5.0"},
+                timeout=15,
+            )
+        except requests.RequestException:
+            return urls
+        if not r.ok:
+            return urls
+
+        soup = BeautifulSoup(r.text, "html.parser")
+        for result in soup.select(".result__body"):
+            link_el = result.select_one(".result__a")
+            if not link_el:
+                continue
+            href = link_el.get("href", "")
+            if not href:
+                continue
+
+            # DDG HTML 返回的是重定向链接: //duckduckgo.com/l/?uddg=<encoded_url>&rut=...
+            actual_url = href
+            if "uddg=" in href:
+                full = "https:" + href if href.startswith("//") else href
+                parsed = urlparse(full)
+                uddg = parse_qs(parsed.query).get("uddg", [None])[0]
+                if uddg:
+                    actual_url = unquote(uddg)
+
+            # 过滤搜索引擎页面
+            skip_domains = ["duckduckgo.com", "google.com", "bing.com", "yahoo.com"]
+            if any(d in actual_url.lower() for d in skip_domains):
+                continue
+
+            if actual_url and actual_url not in urls:
+                urls.append(actual_url)
+        return urls
+
+    def _search_wikipedia(self, brand: str) -> List[str]:
+        """Wikipedia API 搜索品牌页面"""
+        urls = []
+        try:
+            r = requests.get(
+                "https://en.wikipedia.org/w/api.php",
+                params={
+                    "action": "query",
+                    "list": "search",
+                    "srsearch": brand,
+                    "srlimit": 3,
+                    "format": "json",
+                },
+                headers={"User-Agent": "BrandResearchBot/1.0"},
+                timeout=10,
+            )
+        except requests.RequestException:
+            return urls
+        if not r.ok:
+            return urls
+
+        data = r.json()
+        for page in data.get("query", {}).get("search", []):
+            title = page.get("title", "")
+            if title:
+                safe_title = title.replace(" ", "_")
+                urls.append(f"https://en.wikipedia.org/wiki/{quote(safe_title)}")
+        return urls
+
+    def _search_github(self, brand: str) -> List[str]:
+        """GitHub API 搜索品牌相关仓库"""
+        urls = []
+        github_token = os.environ.get("GITHUB_TOKEN", "")
+        headers = {
+            "User-Agent": "BrandResearchBot/1.0",
+            "Accept": "application/vnd.github.v3+json",
+        }
+        if github_token:
+            headers["Authorization"] = f"token {github_token}"
+
+        try:
+            r = requests.get(
+                "https://api.github.com/search/repositories",
+                params={"q": brand, "per_page": 3, "sort": "stars"},
+                headers=headers,
+                timeout=10,
+            )
+        except requests.RequestException:
+            return urls
+        if not r.ok:
+            return urls
+
+        data = r.json()
+        for item in data.get("items", []):
+            html_url = item.get("html_url", "")
+            if html_url:
+                urls.append(html_url)
+        return urls
+
+    def _guess_brand_urls(self, brand: str) -> List[str]:
+        """Fallback: 推测常见品牌URL"""
+        brand_lower = brand.lower().replace(" ", "")
+        return [
+            f"https://www.{brand_lower}.com",
+            f"https://en.wikipedia.org/wiki/{quote(brand)}",
+        ]
 
     def _fetch_page(self, url: str) -> Optional[str]:
         """抓取页面内容"""
