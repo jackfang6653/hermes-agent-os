@@ -1,0 +1,2 @@
+class ResearchPipeline:
+    pass

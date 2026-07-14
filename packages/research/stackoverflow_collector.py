@@ -1,0 +1,2 @@
+class StackOverflowCollector:
+    pass

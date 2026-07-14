@@ -1,0 +1,2 @@
+class ReleaseCollector:
+    pass

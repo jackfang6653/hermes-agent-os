@@ -1,0 +1,2 @@
+class SelfHealingPipeline:
+    pass

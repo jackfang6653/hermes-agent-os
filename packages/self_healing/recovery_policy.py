@@ -1,0 +1,2 @@
+class RecoveryPolicy:
+    pass

@@ -1,0 +1,2 @@
+class QualityGate:
+    pass

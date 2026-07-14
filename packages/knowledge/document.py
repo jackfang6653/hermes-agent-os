@@ -1,0 +1,2 @@
+class KnowledgeDocument:
+    pass

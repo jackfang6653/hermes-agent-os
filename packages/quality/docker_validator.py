@@ -1,0 +1,2 @@
+class DockerValidator:
+    pass

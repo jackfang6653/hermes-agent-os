@@ -1,0 +1,2 @@
+class RedditCollector:
+    pass

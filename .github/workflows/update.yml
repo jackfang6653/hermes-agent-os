@@ -1,0 +1,4 @@
+name: Auto Update
+on:
+  schedule:
+    - cron: '0 0 * * 0'

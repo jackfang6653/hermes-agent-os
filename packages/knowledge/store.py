@@ -1,0 +1,2 @@
+class KnowledgeStore:
+    pass

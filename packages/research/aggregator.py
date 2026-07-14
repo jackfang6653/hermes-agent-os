@@ -1,0 +1,2 @@
+class ResearchAggregator:
+    pass
