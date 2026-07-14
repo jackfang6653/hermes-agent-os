@@ -1,21 +1,18 @@
 """
-品牌DNA流水线 — 全流程编排
+品牌DNA流水线 — 完整版
 
-完整流程:
-1. 接收产品图URL
-2. ReverseEngineer → 全维度逆向分析（相机/灯光/后期/构图/软件/材质）
-3. BrandDatabase → 保存分析结果到品牌DNA库
-4. BrandDatabase → 搜索相似历史配置
-5. BrandDatabase → 更新品牌聚合配置文件
-6. (可选) SceneReplacer → 场景替换Prompt
-7. 输出: 分析报告 + 品牌匹配度 + 场景替换Prompt
+流程：
+1. SceneParser → 图片 → 完整场景图（含PBR材质/灯光/相机/空间关系）
+2. BrandDatabase → 存入品牌DNA库（自进化）
+3. SceneRenderer → 场景图 → 参数化生图指令
+4. (可选) 场景替换 → 保持灯光/相机/材质只换背景
+5. (可选) 编辑 → 修改场景图参数后重新生成
 """
-import os, json
 from typing import Optional, Dict, Any
-from .types import ImageAnalysisResult, SceneReplaceRequest
-from .reverse_engineer import ReverseEngineer
+from .scene_graph import SceneGraph
+from .scene_parser import SceneParser
+from .scene_renderer import SceneRenderer
 from .brand_db import BrandDatabase
-from .scene_replacer import SceneReplacer
 
 
 class DNAPipeline:
@@ -23,70 +20,57 @@ class DNAPipeline:
 
     def __init__(self, api_key: Optional[str] = None, db_path: Optional[str] = None):
         self.api_key = api_key
-        self.engine = ReverseEngineer(api_key)
+        self.parser = SceneParser(api_key)
+        self.renderer = SceneRenderer()
         self.db = BrandDatabase(db_path)
-        self.replacer = SceneReplacer(api_key)
 
-    def run_analysis(self, image_url: str, brand: str = "norhor") -> Dict[str, Any]:
+    def analyze(self, image_url: str, brand: str = "norhor") -> Dict[str, Any]:
         """
-        执行完整的品牌DNA分析流程
-        
-        返回:
-        {
-            "analysis": ImageAnalysisResult (dict),
-            "brand_profile": 品牌聚合参数,
-            "similar_history": 相似历史配置,
-            "scene_prompts": 各场景替换Prompt,
-        }
+        完整分析流程：图片→场景图→品牌库→生成指令
         """
-        # Step 1: 逆向分析
-        result = self.engine.analyze(image_url)
+        # Step 1: Parse into Scene Graph
+        graph = self.parser.parse(image_url)
 
-        # Step 2: 存入品牌库
-        self.db.save_analysis(result, brand)
+        # Step 2: Save to brand database
+        self.db.save_scene_graph(graph, brand)
 
-        # Step 3: 获取品牌聚合配置
+        # Step 3: Generate rendering prompt
+        prompt = self.renderer.render_generation_prompt(graph)
+
+        # Step 4: Get brand profile
         profile = self.db.get_brand_profile(brand)
 
-        # Step 4: 搜索相似历史
-        similar_camera = self.db.search_similar(result.camera.to_dict(), "camera", 3)
-        similar_lighting = self.db.search_similar(
-            {k: v for k, v in result.lighting.__dict__.items() if v is not None},
-            "lighting", 3
-        )
-
-        # Step 5: 为每个场景生成替换Prompt
-        scene_prompts = {}
-        for scene_id in self.replacer.available_scenes():
-            req = SceneReplaceRequest(
-                product_image_url=image_url,
-                target_scene=scene_id,
-            )
-            prompt = self.replacer.build_prompt(result, req)
-            scene_prompts[scene_id] = prompt
-
         return {
-            "analysis": {
-                "camera": result.camera.to_dict(),
-                "lighting": {k: v for k, v in result.lighting.__dict__.items() if v is not None},
-                "color_grading": {k: v for k, v in result.color_grading.__dict__.items() if v is not None},
-                "composition": result.composition.__dict__,
-                "software": result.software.__dict__,
-                "materials": result.materials_detected,
-                "style_keywords": result.style_keywords,
-                "brand_match": result.brand_match,
-                "raw": result.raw_analysis,
-            },
+            "scene_graph": graph.to_dict(),
+            "generation_prompt": prompt,
             "brand_profile": profile,
-            "similar_history": {
-                "camera": similar_camera,
-                "lighting": similar_lighting,
-            },
-            "scene_prompts": scene_prompts,
-            "total_brand_analyses": profile.get("total_analyses", 0),
+            "elements_count": len(graph.elements),
+            "lights_count": len(graph.lights),
+            "camera": graph.camera.to_dict(),
             "status": "success",
         }
 
-    def search_similar_images(self, params: dict, dimension: str = "camera") -> list:
-        """搜索相似参数的历史图像"""
-        return self.db.search_similar(params, dimension)
+    def replace_scene(self, image_url: str, target_scene: str) -> Dict[str, Any]:
+        """场景替换：保持产品/灯光/相机，只换背景"""
+        graph = self.parser.parse(image_url)
+        prompt = self.renderer.render_generation_prompt(graph, target_scene)
+        return {
+            "original_scene_graph": graph.to_dict(),
+            "scene_replace_prompt": prompt,
+            "target_scene": target_scene,
+            "status": "success",
+        }
+
+    def edit_scene(self, image_url: str, edit_instruction: str) -> Dict[str, Any]:
+        """编辑场景：修改变量后重新生成"""
+        graph = self.parser.parse(image_url)
+        edit_prompt = self.renderer.render_scene_edit(graph, edit_instruction)
+        return {
+            "original_scene_graph": graph.to_dict(),
+            "edit_prompt": edit_prompt,
+            "edit_instruction": edit_instruction,
+            "status": "success",
+        }
+
+    def close(self):
+        self.db.close()

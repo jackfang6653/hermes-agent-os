@@ -72,26 +72,41 @@ class BrandDatabase:
 
     # ── 写入 ──────────────────────────────────────────
 
-    def save_analysis(self, analysis: ImageAnalysisResult, brand: str = "norhor"):
+    def save_analysis(self, analysis, brand: str = "norhor"):
+        """(旧接口) 保存ImageAnalysisResult"""
         now = datetime.utcnow().isoformat()
-        dimensions = [
-            ("camera", analysis.camera.to_dict()),
-            ("lighting", {k: v for k, v in analysis.lighting.__dict__.items() if v is not None}),
-            ("color_grading", {k: v for k, v in analysis.color_grading.__dict__.items() if v is not None}),
-            ("composition", analysis.composition.__dict__),
-            ("software", analysis.software.__dict__),
+        dims = [
+            ("camera", analysis.camera.to_dict() if hasattr(analysis.camera, 'to_dict') else {}),
             ("materials", {"materials": analysis.materials_detected}),
             ("style", {"style_keywords": analysis.style_keywords}),
         ]
-        for dim, params in dimensions:
+        for dim, params in dims:
             vec = self._compute_embedding(params)
             self._conn.execute(
                 "INSERT INTO brand_dna (brand,dimension,parameters,confidence,source_url,embedding,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?)",
-                (brand, dim, json.dumps(params, ensure_ascii=False),
-                 getattr(analysis, dim.split("_")[0] if "_" in dim else dim, {}).get("confidence", 0)
-                 if hasattr(getattr(analysis, dim.split("_")[0] if "_" in dim else dim, {}), "get") else 0,
-                 analysis.image_url, json.dumps(vec), now, now)
-            )
+                (brand, dim, json.dumps(params, ensure_ascii=False), 0.8,
+                 getattr(analysis, 'image_url', ''), json.dumps(vec), now, now))
+        self._conn.commit()
+        self._reload_cache()
+
+    def save_scene_graph(self, graph, brand: str = "norhor"):
+        """保存完整场景图到品牌DNA库"""
+        from .scene_graph import SceneGraph
+        now = datetime.utcnow().isoformat()
+        d = graph.to_dict()
+        dims = [
+            ("scene_graph", d),
+            ("camera", d.get("camera", {})),
+            ("lights", d.get("lights", [])),
+            ("elements", d.get("elements", [])),
+            ("post_processing", d.get("post_processing", {})),
+        ]
+        for dim, params in dims:
+            vec = self._compute_embedding({k: str(v) for k, v in d.get("camera", {}).items() if isinstance(v, (int, float))})
+            self._conn.execute(
+                "INSERT INTO brand_dna (brand,dimension,parameters,confidence,source_url,embedding,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?)",
+                (brand, dim, json.dumps(params, ensure_ascii=False), d.get("confidence", 0.8),
+                 d.get("source_image_url", ""), json.dumps(vec), now, now))
         self._conn.commit()
         self._reload_cache()
 
