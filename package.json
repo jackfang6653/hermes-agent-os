@@ -9,11 +9,12 @@
     "dev": "turbo run dev",
     "test": "turbo run test",
     "lint": "turbo run lint",
-    "format": "prettier --write \"packages/*/src/**/*.ts\"",
     "clean": "turbo run clean",
-    "changeset": "changeset",
-    "version": "changeset version",
-    "release": "turbo run build && changeset publish"
+    "cli": "pnpm --filter @hermes-os/core cli",
+    "serve": "pnpm --filter @hermes-os/core cli -- serve",
+    "start": "node packages/backend/dist/server.js",
+    "setup": "node scripts/setup.js",
+    "bootstrap": "node scripts/bootstrap.js"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.0",
