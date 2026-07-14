@@ -76,10 +76,9 @@ class Agency4A:
         t0 = datetime.utcnow()
         project = project_name or f"{brand}-4A-Project"
 
-        # 统一的输出目录
-        od = output_dir or os.path.expanduser(
-            f"~/Desktop/{brand.lower().replace(' ', '-')}-4a"
-        )
+        # 统一的输出目录 — 相对于项目根目录 output/
+        project_root = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", ".."))
+        od = output_dir or os.path.join(project_root, "output", f"{brand.lower().replace(' ', '-')}-4a")
         os.makedirs(od, exist_ok=True)
 
         step_status: Dict[str, Any] = {}

@@ -403,7 +403,7 @@ def generate_brand_detail(
 
     # 导出
     if output_dir is None:
-        output_dir = Path.home() / "Desktop" / "brand-dna-report"
+        output_dir = Path(__file__).resolve().parent.parent.parent.parent / "output" / "brand-detail"
     os.makedirs(output_dir, exist_ok=True)
 
     long_path = os.path.join(output_dir, "brand_dna_report.png")

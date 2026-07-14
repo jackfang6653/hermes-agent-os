@@ -91,7 +91,8 @@ class StrategyDept:
             {"image": "https://.../product2.jpg", "name": "Table B"},
             {"image": "https://.../product3.jpg", "name": "Chair C"},
         ])
-        report_path = dept.export_report(system, "~/Desktop/brand_visual_system_report.json")
+        project_root = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", ".."))
+        report_path = dept.export_report(system, os.path.join(project_root, "output", f"{system.brand.lower().replace(' ', '_')}_visual_system_report.json"))
     """
 
     def __init__(self, api_key: Optional[str] = None):
@@ -523,10 +524,10 @@ class StrategyDept:
                       output_path: Optional[str] = None) -> str:
         """导出品牌视觉系统报告为JSON"""
         if output_path is None:
-            output_path = os.path.expanduser(
-                f"~/Desktop/{system.brand.lower().replace(' ', '_')}_visual_system_report.json"
+            output_path = os.path.join(
+                os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..")),
+                "output", f"{system.brand.lower().replace(' ', '_')}_visual_system_report.json"
             )
-        output_path = os.path.expanduser(output_path)
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
         report = self._build_report(system)

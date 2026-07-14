@@ -42,7 +42,7 @@ class BrandDesignPipeline:
     def __init__(self, api_key: Optional[str] = None, output_dir: Optional[str] = None,
                  cache_dir: Optional[str] = None, cache_ttl_minutes: int = 30):
         self.api_key = api_key or os.environ.get("OPENAI_API_KEY")
-        self.output_dir = output_dir or os.path.expanduser("~/Desktop/norhor-output")
+        self.output_dir = output_dir or os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "..", "output", "brand-pipeline"))
         os.makedirs(self.output_dir, exist_ok=True)
 
         # ── 缓存: brand_name → result ──────────────────────

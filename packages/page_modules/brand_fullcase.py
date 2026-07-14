@@ -95,7 +95,7 @@ class BrandFullCase:
     def __init__(self, api_key: Optional[str] = None,
                  output_dir: Optional[str] = None):
         self.api_key = api_key or os.environ.get("OPENAI_API_KEY")
-        self.output_dir = output_dir or os.path.expanduser("~/Desktop/brand-fullcase")
+        self.output_dir = output_dir or os.path.join(os.path.dirname(__file__), "..", "..", "output", "brand-fullcase")
         os.makedirs(self.output_dir, exist_ok=True)
         self.results: Dict[str, ModuleResult] = {}
 
