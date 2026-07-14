@@ -8,10 +8,10 @@ export async function workflowCommand(
   const context = options.context ? JSON.parse(options.context) : {};
 
   try {
-    const { WorkflowEngine } = await import('@hermes-os/workflow-engine');
-    const engine = new WorkflowEngine();
-    engine.registerHandler('analyze', async (_step, ctx) => ({ status: 'ok', data: ctx }));
-    engine.registerHandler('export', async (_step, ctx) => ({ status: 'ok', data: ctx }));
+    const mod = await import('@hermes-os/workflow-engine');
+    const engine = new mod.WorkflowEngine();
+    engine.registerHandler('analyze', async (_step: any, _ctx: any) => ({ status: 'ok', data: _ctx }));
+    engine.registerHandler('export', async (_step: any, _ctx: any) => ({ status: 'ok', data: _ctx }));
 
     const result = await engine.start(workflowId, context);
     console.log(`  ✅ Workflow ${result.status}`);

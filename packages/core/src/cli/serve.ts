@@ -10,16 +10,16 @@ export async function serveCommand(options: { port: string; host: string }) {
   console.log(`\n  Press Ctrl+C to stop\n`);
 
   try {
-    // dynamic import — works at runtime via workspace link
+    // Dynamic import — at runtime pnpm links workspace packages
     const mod = await import('@hermes-os/backend');
-    const server = mod as any;
+    const server = mod as { createServer?: (port: number, host: string) => Promise<{ close: () => void }> };
     if (server.createServer) {
       await server.createServer(port, options.host);
     } else {
-      console.log(`  Server module loaded. Install express to start:`);
-      console.log(`  pnpm add express @types/express --filter @hermes-os/backend`);
+      console.log('  Server module loaded but createServer not found');
     }
   } catch (e: any) {
     console.error(`  ❌ ${e.message}`);
+    console.log('\n  To start the server directly:\n    node packages/backend/dist/server.js\n');
   }
 }
