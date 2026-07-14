@@ -52,10 +52,11 @@ describe('NORHOR Pipeline', () => {
   });
 
   it('should validate brand compliance', () => {
-    const valid = pipeline.validateBrand('nordic', '#f5f0e8', 'natural');
+    const engine = pipeline.getBrandEngine();
+    const valid = engine.validate('norhor', { style: 'nordic', color: '#f5f0e8', lighting: 'natural', geometryChanged: false });
     expect(valid.valid).toBe(true);
 
-    const invalid = pipeline.validateBrand('industrial', '#ff0000', 'fluorescent');
+    const invalid = engine.validate('norhor', { style: 'industrial', color: '#ff0000', lighting: 'fluorescent', geometryChanged: true });
     expect(invalid.valid).toBe(false);
   });
 });

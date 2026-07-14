@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 import { describe, it, expect } from 'vitest';
 import { BrandEngine } from '../src/engine';
-import { extractDNA } from '../src/dna';
-import { createNORHORGrammar, validateLighting, validateColor } from '../src/grammar';
+import { distillDNA } from '../src/dna.js';
+import { createNORHORGrammar, validateLighting, validateColor } from '../src/grammar.js';
 import type { BrandProfile } from '../src/types';
 
 describe('BrandEngine', () => {
@@ -44,7 +44,7 @@ describe('BrandEngine', () => {
 
 describe('DNA extraction', () => {
   it('should extract from partial profile', () => {
-    const dna = extractDNA({});
+    const dna = distillDNA({});
     expect(dna.visual.style).toBe('nordic');
     expect(dna.preserve.productGeometry).toBe(true);
   });

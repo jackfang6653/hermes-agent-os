@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-export { BrandEngine } from './engine';
-export { extractDNA, validateDNARules } from './dna';
-export { createNORHORGrammar, validateLighting, validateColor } from './grammar';
+export { BrandEngine } from './engine.js';
+export { distillDNA, evaluateBrandFit } from './dna.js';
+export { createNORHORGrammar, validateLighting, validateColor } from './grammar.js';
 export type {
   BrandProfile,
   DNASchema,

@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-import type { BrandProfile, DNASchema, ValidationResult, Constraint, ConstraintViolation } from './types';
-import { extractDNA, validateDNARules } from './dna';
-import { createNORHORGrammar, validateLighting, validateColor } from './grammar';
+import type { BrandProfile, DNASchema, ValidationResult, Constraint, ConstraintViolation } from './types.js';
+import { distillDNA } from './dna.js';
+import { createNORHORGrammar, validateLighting, validateColor } from './grammar.js';
 
 export class BrandEngine {
   private profiles: Map<string, BrandProfile> = new Map();
@@ -16,7 +16,7 @@ export class BrandEngine {
   }
 
   analyze(profile: Partial<BrandProfile>): DNASchema {
-    return extractDNA(profile);
+    return distillDNA({}, profile);
   }
 
   validate(profileId: string, data: Record<string, unknown>): ValidationResult {
@@ -29,7 +29,16 @@ export class BrandEngine {
     const warnings: ConstraintViolation[] = [];
 
     // DNA preservation check
-    const dnaViolations = validateDNARules(profile.dna, data);
+    const dnaViolations: string[] = [];
+    if (profile.dna.preserve.productGeometry && data.geometryChanged === true) {
+      dnaViolations.push('Product geometry must be preserved');
+    }
+    if (profile.dna.preserve.materialTexture && data.textureChanged === true) {
+      dnaViolations.push('Material texture must be preserved');
+    }
+    if (profile.dna.preserve.colorAccuracy && data.colorShifted === true) {
+      dnaViolations.push('Color accuracy must be maintained');
+    }
     for (const v of dnaViolations) {
       errors.push({ constraint: 'dna_preserve', field: 'dna', message: v });
     }
