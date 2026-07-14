@@ -38,14 +38,18 @@ class Agency4A:
         from .strategy import StrategyDept
         from .creative import CreativeDept
         from .pitch import PresentationDept
-        import importlib
+        from .rationale import DesignRationaleEngine
+        from .dna_ref import BrandDNARef
         self._briefing = Briefing()
         self._strategy = StrategyDept(self.api_key)
         self._creative = CreativeDept()
         self._pitch = PresentationDept()
+        self._rationale = DesignRationaleEngine(self.api_key)
+        self._dna_ref = BrandDNARef()
+        import importlib
         try:
             self._img_gen = importlib.import_module("detail_image_gen").generate_brand_detail
-        except Exception:
+        except:
             self._img_gen = None
 
     def run(self, brand: str = "",
@@ -139,7 +143,22 @@ class Agency4A:
             visual_system = None
             strategy_doc = {}
 
-        # ════════════════════════════════════════════════════════
+        # ── Phase 2.5: Rationale (WHY) ──
+        print(f"\n  ── Phase 2.5/5: Rationale (WHY) ──")
+        rationale_report = None
+        try:
+            if visual_system and hasattr(visual_system, 'scene_graphs') and visual_system.scene_graphs:
+                sg = visual_system.scene_graphs[0]
+                if hasattr(sg, 'to_dict'):
+                    sg = sg.to_dict()
+                rationale_report = self._rationale.analyze_rationale(sg, brand,
+                    products[0].get('name','') if products else '')
+                stored = self._dna_ref.store_rationale(brand, rationale_report)
+                print(f"  💡 WHY分析完成 — {stored} 条设计理由已入库")
+        except Exception as e:
+            print(f"  ⚠️  Rationale: {e}")
+
+        # ── Phase 3/5: Creative ──
         # PHASE 3: Creative — 5套创意概念
         # ════════════════════════════════════════════════════════
         print(f"\n  ── Phase 3/5: Creative ──")
