@@ -148,6 +148,34 @@ importers:
         specifier: ^1.4.0
         version: 1.6.1(@types/node@26.1.1)
 
+  packages/norhor:
+    dependencies:
+      '@hermes-os/brand-engine':
+        specifier: workspace:*
+        version: link:../brand-engine
+      '@hermes-os/core':
+        specifier: workspace:*
+        version: link:../core
+      '@hermes-os/model-router':
+        specifier: workspace:*
+        version: link:../model-router
+      '@hermes-os/prompt-compiler':
+        specifier: workspace:*
+        version: link:../prompt-compiler
+      '@hermes-os/vision-engine':
+        specifier: workspace:*
+        version: link:../vision-engine
+      '@hermes-os/workflow-engine':
+        specifier: workspace:*
+        version: link:../workflow-engine
+    devDependencies:
+      typescript:
+        specifier: ^5.4.0
+        version: 5.9.3
+      vitest:
+        specifier: ^1.4.0
+        version: 1.6.1(@types/node@26.1.1)
+
   packages/plugin-sdk:
     devDependencies:
       typescript:

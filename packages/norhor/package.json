@@ -1,0 +1,26 @@
+{
+  "name": "@hermes-os/norhor",
+  "version": "1.0.0",
+  "description": "NORHOR 品牌智能 — 产品详情页流水线",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@hermes-os/brand-engine": "workspace:*",
+    "@hermes-os/workflow-engine": "workspace:*",
+    "@hermes-os/prompt-compiler": "workspace:*",
+    "@hermes-os/vision-engine": "workspace:*",
+    "@hermes-os/model-router": "workspace:*",
+    "@hermes-os/core": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.4.0"
+  }
+}
