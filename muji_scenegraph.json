@@ -1,0 +1,255 @@
+{
+  "metadata": {
+    "source": "https://www.muji.com/sg/products/",
+    "scraped_at": "2026-07-14",
+    "total_products_listed": 3834,
+    "products_captured": 4,
+    "method": "Real requests + browser automation, no mocking"
+  },
+  "products": [
+    {
+      "id": "MUJI-001",
+      "name": "Acrylic Picture frame / M",
+      "product_code": "4945247913620",
+      "price_sgd": 46.00,
+      "category": ["Goods and Daily necessities", "Stationery", "Frame"],
+      "country_of_origin": "CHINA",
+      "materials": {
+        "frame": "ACRYLIC RESIN",
+        "metal_part": "BRASS",
+        "wire": "STEEL"
+      },
+      "dimensions": {
+        "internal": "364 x 515 mm",
+        "external": "435 x 590 mm",
+        "weight": "1.6 kg"
+      },
+      "detail_url": "https://www.muji.com/sg/products/cmdty/detail/4945247913620",
+      "images": {
+        "main": "https://img.muji.net/img/item/4945247913620_1260.jpg",
+        "gallery": [
+          "https://img.muji.net/img/item/4945247913620_01_400.jpg",
+          "https://img.muji.net/img/item/4945247913620_02_400.jpg",
+          "https://img.muji.net/img/item/4945247913620_03_400.jpg",
+          "https://img.muji.net/img/item/4945247913620_04_400.jpg",
+          "https://img.muji.net/img/item/4945247913620_05_400.jpg"
+        ]
+      },
+      "vision_analysis": {
+        "product_type": "Frameless acrylic picture frame / wall-mounted display panel",
+        "shape": "Strict rectangular, portrait orientation, straight edges",
+        "color": "Transparent/clear with silver-toned metallic corner fasteners (brass)",
+        "material_appearance": "Clear acrylic (appears glass-like), polished metal hardware",
+        "style": "Minimalist, frameless, MUJI no-brand philosophy",
+        "staging": "Pure white seamless studio background, even diffused lighting, no props",
+        "notable_features": [
+          "Four corner metal fasteners for wall mounting",
+          "Frameless transparent design blends into any wall",
+          "Precision symmetry"
+        ],
+        "scene_context": "Studio product photography — isolated on white, clinical presentation",
+        "suggested_3d_attributes": {
+          "geometry": "box",
+          "width_m": 0.435,
+          "height_m": 0.590,
+          "depth_m": 0.01,
+          "material": "acrylic_clear",
+          "metal_accents": "brass_silver"
+        }
+      }
+    },
+    {
+      "id": "MUJI-002",
+      "name": "Wooden desk W110×D55×H70cm",
+      "product_code": "4550512828808",
+      "price_sgd": 339.00,
+      "category": ["Furniture and Interior", "Desk and Chair", "Rubberwood desk"],
+      "country_of_origin": "CHINA",
+      "materials": {
+        "primary": "RUBBER WOOD (sap-collected)"
+      },
+      "dimensions": {
+        "width": "110 cm",
+        "depth": "55 cm",
+        "height": "70 cm"
+      },
+      "detail_url": "https://www.muji.com/sg/products/cmdty/detail/4550512828808",
+      "images": {
+        "main": "https://img.muji.net/img/item/4550512828808_1260.jpg",
+        "gallery": [
+          "https://img.muji.net/img/item/4550512828808_01_400.jpg",
+          "https://img.muji.net/img/item/4550512828808_02_400.jpg",
+          "https://img.muji.net/img/item/4550512828808_03_400.jpg",
+          "https://img.muji.net/img/item/4550512828808_04_400.jpg",
+          "https://img.muji.net/img/item/4550512828808_05_400.jpg",
+          "https://img.muji.net/img/item/4550512828808_06_400.jpg",
+          "https://img.muji.net/img/item/4550512828808_07_400.jpg"
+        ]
+      },
+      "vision_analysis": {
+        "product_type": "Wooden desk / writing table",
+        "shape": "Rectangular tabletop with slightly rounded corners, four square legs, centered drawer unit with two sections",
+        "color": "Light natural wood — pale oak/ash, warm beige to light tan, uniform finish",
+        "material_appearance": "Solid wood or high-quality veneer, subtle grain, matte/satin finish, no gloss",
+        "style": "Strictly Minimalist, Scandinavian/Japanese — no ornamentation, clean lines, functional",
+        "staging": "Pure white seamless background, even diffuse lighting, no props",
+        "notable_features": [
+          "Handle-less drawers — push-to-open, flush with frame",
+          "Four square legs positioned slightly inward",
+          "Centered two-section drawer unit",
+          "Chamfered/rounded front edge",
+          "Perfect symmetry"
+        ],
+        "scene_context": "Studio product shot, isolated on white. No room context in gallery images.",
+        "suggested_3d_attributes": {
+          "geometry": "box_with_legs",
+          "width_m": 1.10,
+          "depth_m": 0.55,
+          "height_m": 0.70,
+          "material": "wood_rubber_light",
+          "finish": "matte_natural"
+        }
+      }
+    },
+    {
+      "id": "MUJI-003",
+      "name": "Wooden Round chair W45×D52×H78cm",
+      "product_code": "4550512841098",
+      "price_sgd": 169.00,
+      "category": ["Furniture and Interior", "Table and Chair", "Rubberwood"],
+      "country_of_origin": "VIETNAM",
+      "materials": {
+        "primary": "RUBBER WOOD"
+      },
+      "dimensions": {
+        "width": "45 cm",
+        "depth": "52 cm",
+        "height": "78 cm"
+      },
+      "detail_url": "https://www.muji.com/sg/products/cmdty/detail/4550512841098",
+      "images": {
+        "main": "https://img.muji.net/img/item/4550512841098_1260.jpg",
+        "gallery": [
+          "https://img.muji.net/img/item/4550512841098_01_400.jpg",
+          "https://img.muji.net/img/item/4550512841098_02_400.jpg",
+          "https://img.muji.net/img/item/4550512841098_03_400.jpg",
+          "https://img.muji.net/img/item/4550512841098_04_400.jpg"
+        ]
+      },
+      "vision_analysis": {
+        "product_type": "Wooden dining / side chair",
+        "shape": "Rectangular open backrest (two vertical stiles + flat top rail), concave ergonomic seat, four cylindrical slightly splayed legs, horizontal stretchers",
+        "color": "Light natural wood — warm beige/pale tan, consistent ash or beech tone",
+        "material_appearance": "Smooth polished wood, matte/satin finish, subtle fine grain",
+        "style": "Minimalist functional, Scandinavian design — clean lines, no ornamentation, natural material emphasis",
+        "staging": "Pure white background, soft diffuse studio lighting, subtle ground shadow only, no props",
+        "notable_features": [
+          "Curved ergonomic seat (dished/concave)",
+          "Open backrest — light airy feel, no slats",
+          "Splayed cylindrical legs for stability",
+          "Horizontal stretchers between front and back legs",
+          "Rounded edges throughout — soft approachable look",
+          "Simple visible joinery"
+        ],
+        "scene_context": "Studio product shot, isolated on white. No room context.",
+        "suggested_3d_attributes": {
+          "geometry": "chair_four_leg",
+          "width_m": 0.45,
+          "depth_m": 0.52,
+          "height_m": 0.78,
+          "seat_height_m": 0.45,
+          "material": "wood_rubber_light",
+          "finish": "matte_natural"
+        }
+      }
+    },
+    {
+      "id": "MUJI-004",
+      "name": "Wooden Chest 4 Drawers W56×D40×H83.5cm",
+      "product_code": "4550512828846",
+      "price_sgd": 389.00,
+      "category": ["Furniture and Interior", "Storage furniture", "Oak Wooden Storage"],
+      "country_of_origin": "VIETNAM",
+      "materials": {
+        "primary": "RUBBER WOOD (sap-collected)"
+      },
+      "dimensions": {
+        "width": "56 cm",
+        "depth": "40 cm",
+        "height": "83.5 cm"
+      },
+      "detail_url": "https://www.muji.com/sg/products/cmdty/detail/4550512828846",
+      "images": {
+        "main": "https://img.muji.net/img/item/4550512828846_1260.jpg",
+        "gallery": [
+          "https://img.muji.net/img/item/4550512828846_01_400.jpg",
+          "https://img.muji.net/img/item/4550512828846_02_400.jpg",
+          "https://img.muji.net/img/item/4550512828846_03_400.jpg",
+          "https://img.muji.net/img/item/4550512828846_04_400.jpg"
+        ]
+      },
+      "vision_analysis": {
+        "product_type": "Tall chest of drawers / dresser (5 drawers)",
+        "shape": "Tall rectangular prism, 5 drawers stacked vertically in single column, flush fronts",
+        "color": "Light natural wood — pale beige/tan, birch/beech tone, consistent across piece",
+        "material_appearance": "Wood veneer or solid panels, horizontal grain on drawer fronts, vertical grain on side, matte/satin finish",
+        "style": "Minimalist functional Japanese (MUJI) — handle-less, clean straight lines, no ornamentation",
+        "staging": "Pure white background, bright even diffuse lighting, soft shadow to left and beneath, no props",
+        "notable_features": [
+          "Handle-less design — push-to-open or recessed grip mechanism",
+          "Horizontal grain on drawer fronts contrasts with vertical side grain",
+          "Drawer fronts flush with cabinet edges — seamless block look",
+          "5 uniform drawers, single column layout",
+          "Thin horizontal separator strips between drawers"
+        ],
+        "scene_context": "Studio product shot, isolated on white. No room context.",
+        "suggested_3d_attributes": {
+          "geometry": "chest_of_drawers",
+          "width_m": 0.56,
+          "depth_m": 0.40,
+          "height_m": 0.835,
+          "drawer_count": 5,
+          "material": "wood_rubber_light",
+          "finish": "matte_natural"
+        }
+      }
+    }
+  ],
+  "scene_graph_template": {
+    "description": "MUJI product SceneGraph parameters for 3D scene generation",
+    "common_scene_attributes": {
+      "lighting": {
+        "type": "studio_diffuse",
+        "direction": "front_above",
+        "intensity": "high_key",
+        "shadows": "soft_subtle",
+        "color_temperature_k": 5500
+      },
+      "background": {
+        "type": "solid_color",
+        "color": "#FFFFFF",
+        "seamless": true
+      },
+      "camera": {
+        "type": "three_quarter_product_shot",
+        "fov": 45,
+        "distance_m": 3.0
+      },
+      "style": "minimalist_japanese_scandinavian",
+      "brand": "MUJI (Mujirushi Ryohin)"
+    },
+    "muij_design_system": {
+      "aesthetic": "No-brand quality goods",
+      "materials_palette": ["natural_wood", "acrylic", "brass", "steel", "rubberwood"],
+      "colors": ["natural_wood_light", "white", "transparent", "silver_metal"],
+      "finishes": ["matte", "satin", "natural_grain"],
+      "principles": ["simplicity", "functionality", "no_ornamentation", "natural_materials", "clean_lines"]
+    },
+    "url_patterns": {
+      "product_list": "https://www.muji.com/sg/products/",
+      "product_detail": "https://www.muji.com/sg/products/cmdty/detail/{product_code}",
+      "product_image_main": "https://img.muji.net/img/item/{product_code}_1260.jpg",
+      "product_image_gallery": "https://img.muji.net/img/item/{product_code}_{n}_400.jpg"
+    }
+  }
+}

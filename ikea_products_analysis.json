@@ -1,0 +1,148 @@
+{
+  "task": "IKEA SG Product Image Analysis via GPT-4o Vision",
+  "generated_at": "2026-07-14",
+  "products": [
+    {
+      "id": 1,
+      "name": "RULLERUM 3-seat sofa w/ 2 electric recliners",
+      "variant": "Grann/Bomstad golden-brown",
+      "price_sgd": 1699,
+      "article_number": "096.249.99",
+      "url": "https://www.ikea.com/sg/en/p/rullerum-3-seat-sofa-w-2-electric-recliners-grann-bomstad-golden-brown-s09624999/",
+      "image_url": "https://www.ikea.com/sg/en/images/products/rullerum-3-seat-sofa-w-2-electric-recliners-grann-bomstad-golden-brown__1303667_pe938431_s5.jpg?f=s",
+      "image_count": 8,
+      "rating": "4.9/5 (8 reviews)",
+      "vision_analysis": {
+        "materials": {
+          "upholstery": "Faux leather (PU) or high-quality vinyl — smooth with slight sheen",
+          "legs": "Dark wood or metal (black-painted), matte finish, short tapered",
+          "hardware": "Silver/grey electric recliner control panel on left armrest"
+        },
+        "colors": {
+          "primary": "Warm camel brown — approx #C19A6B or #D2B48C",
+          "secondary": "Black legs (#000000)",
+          "accent": "Metallic silver control panel",
+          "background": "Pure white (#FFFFFF)"
+        },
+        "lighting": {
+          "type": "Professional studio lighting",
+          "key_light": "Front-left, soft diffused",
+          "fill_light": "Front-right, balanced exposure",
+          "shadows": "Subtle rightward cast shadow for depth",
+          "quality": "Softboxes/diffusers — no harsh shadows"
+        },
+        "composition": {
+          "angle": "Slightly elevated frontal 3/4 angle",
+          "framing": "Centered horizontally with ample negative space above/below",
+          "depth_of_field": "Deep — entire sofa in sharp focus",
+          "product_placement": "Isolated center placement"
+        },
+        "scene_context": {
+          "type": "White void / seamless white background",
+          "props": "None",
+          "lifestyle": "None — pure catalog/e-commerce product shot",
+          "purpose": "Showcase design, color, and recliner feature"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "name": "LANDSKRONA 2-seat sofa",
+      "variant": "Gunnared dark grey / metal legs",
+      "price_sgd": 669,
+      "article_number": "292.702.75",
+      "url": "https://www.ikea.com/sg/en/p/landskrona-2-seat-sofa-gunnared-dark-grey-metal-s29270275/",
+      "image_url": "https://www.ikea.com/sg/en/images/products/landskrona-2-seat-sofa-gunnared-dark-grey-metal__1576949_pe1032848_s5.jpg?f=s",
+      "image_count": 10,
+      "rating": "4.6/5 (7 reviews)",
+      "vision_analysis": {
+        "materials": {
+          "upholstery": "Textured woven fabric — polyester/cotton blend, heathered nubby texture",
+          "legs": "Chrome-plated steel or aluminum, cylindrical, polished reflective",
+          "frame": "Implied wood/engineered wood (MDF/particle board)"
+        },
+        "colors": {
+          "primary": "Medium-dark grey — approx #666666 or #5A5A5A",
+          "secondary": "Pure white background (#FFFFFF)",
+          "accent": "Chrome/silver legs (#C0C0C0 reflective)"
+        },
+        "lighting": {
+          "type": "Studio lighting for commercial photography",
+          "key_light": "Front-left, creating highlights on left armrest and seat cushions",
+          "fill_light": "Large softboxes or overhead diffusion for even illumination",
+          "shadows": "Soft subtle shadow beneath sofa grounding it",
+          "quality": "Soft, diffused — no harsh shadows"
+        },
+        "composition": {
+          "angle": "3/4 angle, rotated slightly right — shows front, left profile, backrest",
+          "framing": "Centrally framed, slightly lower on vertical axis for breathing room",
+          "depth_of_field": "Deep — full sofa in sharp focus",
+          "product_placement": "Sole subject, centered for catalog layout"
+        },
+        "scene_context": {
+          "type": "Pure studio — seamless white cyclorama/backdrop",
+          "props": "None — no pillows, blankets, plants, or people",
+          "lifestyle": "None — isolated e-commerce product shot",
+          "purpose": "Focus on functional/aesthetic qualities of the sofa"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "name": "GRIMSARBO Side table",
+      "variant": "Pine plywood / black",
+      "price_sgd": 49.90,
+      "article_number": "706.061.66",
+      "url": "https://www.ikea.com/sg/en/p/grimsarbo-side-table-pine-plywood-black-70606166/",
+      "image_url": "https://www.ikea.com/sg/en/images/products/grimsarbo-side-table-pine-plywood-black__1388880_pe965001_s5.jpg?f=s",
+      "image_count": 11,
+      "rating": "4.5/5 (2 reviews)",
+      "vision_analysis": {
+        "materials": {
+          "tabletop": "Light-colored wood — plywood or veneer (birch/beech), visible grain, smooth flat finish, center cable management hole",
+          "base": "Metal (steel/aluminum), matte black, rigid central column + cross-shaped foot",
+          "feet_caps": "Plastic or rubber floor protectors — dark caps"
+        },
+        "colors": {
+          "primary": "Matte black base — approx #1A1A1A",
+          "secondary": "Pale natural wood tone — approx #E6DCC6 or #F5E9D3",
+          "background": "Pure white (#FFFFFF)",
+          "shadows": "Dark grey/black cast shadows"
+        },
+        "lighting": {
+          "type": "Professional studio lighting",
+          "key_light": "Front-left — highlights on top-left edge and front column face",
+          "fill_light": "Reflector/softbox from opposite side to soften right shadows",
+          "quality": "Soft diffused — softboxes/large reflectors, even illumination"
+        },
+        "composition": {
+          "angle": "Slightly elevated isometric (~30-45°) — shows top, side rim, cross-base",
+          "framing": "Centrally framed, balanced horizontally",
+          "depth_of_field": "Deep — entire object sharp from front to back leg tips",
+          "product_placement": "Centered on floor plane, stable balanced composition"
+        },
+        "scene_context": {
+          "type": "White void / cutout — no walls, floors, or environmental cues",
+          "props": "None — no chairs, people, food",
+          "lifestyle": "None — pure product isolation shot",
+          "purpose": "Catalog/website — focus on form, function, and Scandinavian design"
+        }
+      }
+    }
+  ],
+  "methodology": {
+    "step_1": "Navigated to IKEA SG sofas listing page (https://www.ikea.com/sg/en/cat/sofas-fu003/) — 192 items",
+    "step_2": "Extracted product detail page URLs via DOM query (a[href*='/sg/en/p/'])",
+    "step_3": "Visited 3 product detail pages; extracted main image URLs via JavaScript DOM inspection",
+    "step_4": "Analyzed each image with GPT-4o Vision — identifying materials, colors, lighting, composition, scene",
+    "step_5": "Compiled structured JSON output with all findings"
+  },
+  "ikea_photography_patterns": {
+    "summary": "IKEA's product photography follows consistent patterns across categories:",
+    "lighting": "All 3 products use professional studio lighting with front-left key light, soft diffusion (softboxes), subtle shadow for depth, and no harsh shadows",
+    "background": "All 3 use pure white (#FFFFFF) seamless backgrounds — 'white void' style for e-commerce isolation",
+    "composition": "All 3 use slightly elevated angles (3/4 or isometric), centered framing, deep depth of field (everything in focus)",
+    "props": "None of the main catalog images use props or lifestyle context — pure product isolation. Scene/lifestyle shots exist as separate secondary images",
+    "image_size": "All main images are 600×600px JPEGs ('s5' size on IKEA CDN, with 'xl' variants available)"
+  }
+}

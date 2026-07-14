@@ -102,9 +102,10 @@ def _draw_hero(product_name, category, material, color, style, scene, brand_scor
     font_tag = try_font(16)
     
     # 品牌标签
-    tag_w = draw.textlength(bs["name"], font_tag) + 20
+    brand_label = bs.get("brand_name", bs["name"])
+    tag_w = draw.textlength(brand_label, font_tag) + 20
     draw.rounded_rectangle([MARGIN, 30, MARGIN+tag_w, 60], 6, fill=hex_to_rgb(bs["accent"]))
-    draw.text((MARGIN+10, 34), bs["name"], fill=(255,255,255), font=font_tag)
+    draw.text((MARGIN+10, 34), brand_label, fill=(255,255,255), font=font_tag)
 
     # 产品名
     draw.text((MARGIN, H//2 - 60), product_name, fill=hex_to_rgb(bs["font_color"]), font=font_big)
@@ -190,21 +191,22 @@ def _draw_scene(scene_name, palette, mood_keywords, bs):
         x += tw + 8
     return img
 
-def _draw_story(bs):
+def _draw_story(bs, brand_name=None, brand_story=None):
     """品牌故事"""
     H = 280
+    name = brand_name or bs["name"]
     img = Image.new("RGB", (W, H), hex_to_rgb(bs["bg"]))
     draw = ImageDraw.Draw(img)
     font_title = try_font(32, bold=True)
     font_body = try_font(22)
+    story_text = brand_story or f"{name} 专注于将{bs['font_vibe']}设计融入日常生活。精选材质，融合传统工艺与现代美学，为每个空间带来独特的气质与温度。"
 
     draw.rounded_rectangle([MARGIN, MARGIN, W-MARGIN, H-MARGIN],
                             bs["radius"], fill=hex_to_rgb(bs["card_bg"]))
     draw.rounded_rectangle([MARGIN+8, MARGIN+24, MARGIN+14, MARGIN+24+32],
                             4, fill=hex_to_rgb(bs["accent"]))
     draw.text((MARGIN+32, MARGIN+24), "品牌故事", fill=hex_to_rgb(bs["font_color"]), font=font_title)
-    story = f"{bs['name']} 专注于将{bs['font_vibe']}设计融入日常生活。精选材质，融合传统工艺与现代美学，为每个空间带来独特的气质与温度。"
-    lines = textwrap.wrap(story, width=28)
+    lines = textwrap.wrap(story_text, width=28)
     y = MARGIN + 90
     for line in lines:
         draw.text((MARGIN+32, y), line, fill=hex_to_rgb(bs["font_color"]), font=font_body)
@@ -225,10 +227,14 @@ def generate_detail_images(
     mood_keywords: Optional[List[str]] = None,
     features: Optional[List] = None,
     brand_style: str = "nordic",
+    brand_name: Optional[str] = None,
+    brand_story: Optional[str] = None,
     output_dir: Optional[str] = None,
 ) -> str:
     """生成品牌详情页全套图片"""
     bs = get_style(brand_style)
+    if brand_name:
+        bs["brand_name"] = brand_name
     if palette is None:
         palette = bs["palette"]
     if mood_keywords is None:
@@ -241,9 +247,9 @@ def generate_detail_images(
         ("01_features", _draw_section("产品特征", features, bs)),
         ("02_material", _draw_section("材质故事",
             [f"精选{material}材质", "自然质感表面", "手工精制细节", "耐用环保工艺"],
-            bs, note=f"每一处细节都体现 {bs['name']} 的品质坚持")),
+            bs, note=f"每一处细节都体现 {(brand_name or bs['name'])} 的品质坚持")),
         ("03_scene", _draw_scene(scene, palette, mood_keywords, bs)),
-        ("04_story", _draw_story(bs)),
+        ("04_story", _draw_story(bs, brand_name=brand_name, brand_story=brand_story)),
     ]
 
     total_h = sum(s[1].height for s in sections) + 60
@@ -255,7 +261,7 @@ def generate_detail_images(
 
     draw = ImageDraw.Draw(long_img)
     font_small = try_font(16)
-    draw.text((W//2 - 100, y+20), f"{bs['name']} · 品牌详情页",
+    draw.text((W//2 - 100, y+20), f"{(brand_name or bs['name'])} · 品牌详情页",
               fill=hex_to_rgb(bs["muted"]), font=font_small)
 
     # 导出
@@ -285,7 +291,7 @@ def generate_detail_images(
             "material": material, "color": color, "style": style,
             "scene": scene, "brand_score": brand_score,
             "palette": palette, "mood_keywords": mood_keywords,
-            "brand_style": brand_style,
+            "brand_style": brand_style, "brand_name": brand_name,
         }, ensure_ascii=False, indent=2))
 
     print(f"✅ ZIP包: {zip_path}")
