@@ -1,7 +1,7 @@
 {
   "name": "@hermes-os/prompt-compiler",
   "version": "1.0.0",
-  "description": "Prompt 编译器",
+  "description": "Prompt \u7f16\u8bd1\u5668",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,5 +15,6 @@
   "devDependencies": {
     "typescript": "^5.4.0",
     "vitest": "^1.4.0"
-  }
+  },
+  "type": "module"
 }

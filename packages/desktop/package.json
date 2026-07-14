@@ -1,7 +1,7 @@
 {
   "name": "@hermes-os/desktop",
   "version": "1.0.0",
-  "description": "Electron 桌面端",
+  "description": "Electron \u684c\u9762\u7aef",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,5 +15,6 @@
   "devDependencies": {
     "typescript": "^5.4.0",
     "vitest": "^1.4.0"
-  }
+  },
+  "type": "module"
 }

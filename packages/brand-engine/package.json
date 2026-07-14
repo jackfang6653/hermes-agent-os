@@ -1,7 +1,7 @@
 {
   "name": "@hermes-os/brand-engine",
   "version": "1.0.0",
-  "description": "品牌 DNA 引擎",
+  "description": "\u54c1\u724c DNA \u5f15\u64ce",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,5 +15,6 @@
   "devDependencies": {
     "typescript": "^5.4.0",
     "vitest": "^1.4.0"
-  }
+  },
+  "type": "module"
 }

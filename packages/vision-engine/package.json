@@ -1,7 +1,7 @@
 {
   "name": "@hermes-os/vision-engine",
   "version": "1.0.0",
-  "description": "视觉分析引擎",
+  "description": "\u89c6\u89c9\u5206\u6790\u5f15\u64ce",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,5 +15,6 @@
   "devDependencies": {
     "typescript": "^5.4.0",
     "vitest": "^1.4.0"
-  }
+  },
+  "type": "module"
 }

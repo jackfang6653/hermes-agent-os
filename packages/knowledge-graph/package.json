@@ -1,7 +1,7 @@
 {
   "name": "@hermes-os/knowledge-graph",
   "version": "1.0.0",
-  "description": "知识图谱",
+  "description": "\u77e5\u8bc6\u56fe\u8c31",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,5 +15,6 @@
   "devDependencies": {
     "typescript": "^5.4.0",
     "vitest": "^1.4.0"
-  }
+  },
+  "type": "module"
 }

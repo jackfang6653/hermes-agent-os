@@ -1,7 +1,7 @@
 {
   "name": "@hermes-os/qa-engine",
   "version": "1.0.0",
-  "description": "QA 质量检测引擎",
+  "description": "QA \u8d28\u91cf\u68c0\u6d4b\u5f15\u64ce",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,5 +15,6 @@
   "devDependencies": {
     "typescript": "^5.4.0",
     "vitest": "^1.4.0"
-  }
+  },
+  "type": "module"
 }

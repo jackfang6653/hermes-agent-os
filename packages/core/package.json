@@ -1,7 +1,7 @@
 {
   "name": "@hermes-os/core",
   "version": "1.0.0",
-  "description": "Hermes Agent OS 核心运行时",
+  "description": "Hermes Agent OS \u6838\u5fc3\u8fd0\u884c\u65f6",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -27,5 +27,6 @@
     "cross-env": "^10.1.0",
     "typescript": "^5.4.0",
     "vitest": "^1.4.0"
-  }
+  },
+  "type": "module"
 }

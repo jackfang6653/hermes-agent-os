@@ -1,7 +1,7 @@
 {
   "name": "@hermes-os/agent-sdk",
   "version": "1.0.0",
-  "description": "Agent 开发框架",
+  "description": "Agent \u5f00\u53d1\u6846\u67b6",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,5 +15,6 @@
   "devDependencies": {
     "typescript": "^5.4.0",
     "vitest": "^1.4.0"
-  }
+  },
+  "type": "module"
 }

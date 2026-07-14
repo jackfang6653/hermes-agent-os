@@ -1,7 +1,7 @@
 {
   "name": "@hermes-os/memory-engine",
   "version": "1.0.0",
-  "description": "记忆管理引擎",
+  "description": "\u8bb0\u5fc6\u7ba1\u7406\u5f15\u64ce",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,5 +15,6 @@
   "devDependencies": {
     "typescript": "^5.4.0",
     "vitest": "^1.4.0"
-  }
+  },
+  "type": "module"
 }
