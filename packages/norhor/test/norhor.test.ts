@@ -59,6 +59,21 @@ describe('NORHOR Pipeline', () => {
     const invalid = engine.validate('norhor', { style: 'industrial', color: '#ff0000', lighting: 'fluorescent', geometryChanged: true });
     expect(invalid.valid).toBe(false);
   });
+
+  it('should create E2E workflow with all 7 steps', () => {
+    const wf = pipeline.createE2EWorkflow();
+    expect(wf.steps).toHaveLength(7);
+    expect(wf.steps.map(s => s.id)).toEqual([
+      'analyze_product', 'extract_dna', 'create_scene',
+      'compile_prompt', 'generate_image', 'qa_check', 'export',
+    ]);
+  });
+
+  it('should generate image API call (graceful fallback)', async () => {
+    const { generateImage } = await import('../src/image-gen.js');
+    const result = await generateImage('test prompt');
+    expect(result.status).toBe('failed');
+  });
 });
 
 describe('NORHOR Presets', () => {

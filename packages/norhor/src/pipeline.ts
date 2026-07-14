@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 
-import { BrandEngine } from '@hermes-os/brand-engine';
-import { distillDNA, evaluateBrandFit } from '@hermes-os/brand-engine';
-import { WorkflowEngine } from '@hermes-os/workflow-engine';
+import { BrandEngine, distillDNA, evaluateBrandFit } from '@hermes-os/brand-engine';
+import { WorkflowEngine, createNorhorPipeline as __createNorhorPipeline } from '@hermes-os/workflow-engine';
 import { PromptCompiler, PRODUCT_PROMPT, SCENE_PROMPT, DETAIL_PROMPT } from '@hermes-os/prompt-compiler';
 import { VisionEngine } from '@hermes-os/vision-engine';
-import { NORHOR_PROFILE, SCENE_PRESETS } from './presets.js';
+import { NORHOR_PROFILE, SCENE_PRESETS, PRODUCT_CATEGORIES } from './presets.js';
+import { generateImage } from './image-gen.js';
 import type { SceneId, CategoryId } from './presets.js';
 
 export interface GenerateOptions {
@@ -158,6 +158,62 @@ export class NorhorPipeline {
   getWorkflowEngine() { return this.engine; }
   getPromptCompiler() { return this.compiler; }
   getVisionEngine() { return this.vision; }
+
+  /**
+   * 注册完整的 7 步 NORHOR 流水线并返回 engine
+   * 步骤: analyze → extract_dna → create_scene → compile_prompt → generate_image → qa_check → export
+   */
+  createE2EWorkflow() {
+    const wf = __createNorhorPipeline();
+    this.engine.register(wf);
+
+    this.engine.registerHandler('analyze', async (step, ctx) => {
+      const result = await this.generateProduct(ctx as any);
+      return { ...result, status: 'analyzed' };
+    });
+
+    this.engine.registerHandler('extract_dna', async (_step, ctx: any) => {
+      const features = ctx['analyze_product']?.analysis?.product ?? {};
+      const dna = distillDNA(features, NORHOR_PROFILE);
+      return { dna, score: evaluateBrandFit(dna, features) };
+    });
+
+    this.engine.registerHandler('create_scene', async (_step, ctx: any) => {
+      const analysis = ctx['analyze_product']?.analysis?.product ?? {};
+      const category = analysis.category ?? 'living';
+      const sceneId = (Object.keys(SCENE_PRESETS).find((id): id is SceneId => {
+        const cat = PRODUCT_CATEGORIES.find(c => c.id === category);
+        return cat ? (cat.scenes as readonly string[]).includes(id) : false;
+      }) ?? 'nordic_living') as SceneId;
+      return { sceneId, scene: SCENE_PRESETS[sceneId] };
+    });
+
+    this.engine.registerHandler('compile_prompt', async (_step, ctx: any) => {
+      return { prompts: ctx['analyze_product']?.imagePrompts ?? [] };
+    });
+
+    this.engine.registerHandler('generate_image', async (_step, ctx: any) => {
+      const prompts = ctx['compile_prompt']?.prompts ?? [];
+      const results = [];
+      for (const p of prompts.slice(0, 1)) {
+        const img = await generateImage(p.prompt, { provider: 'openai' }, p.negativePrompt);
+        results.push(img);
+      }
+      return { images: results };
+    });
+
+    this.engine.registerHandler('qa_check', async (_step, ctx) => {
+      const result = ctx['analyze_product'] as any;
+      return { passed: result?.brandScore >= 0.5, score: result?.brandScore ?? 0 };
+    });
+
+    this.engine.registerHandler('export', async (_step, ctx) => {
+      const result = ctx['analyze_product'] as any;
+      return { html: result?.detailPage ?? '', format: 'html', status: 'exported' };
+    });
+
+    return wf;
+  }
 }
 
 function buildDetailPageHTML(data: {
