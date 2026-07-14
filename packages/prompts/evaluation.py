@@ -1,2 +1,0 @@
-class PromptEvaluation:
-    pass

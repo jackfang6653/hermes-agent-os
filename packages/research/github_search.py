@@ -1,2 +1,0 @@
-class GitHubSearch:
-    pass

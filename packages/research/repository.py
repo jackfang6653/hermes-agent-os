@@ -1,2 +1,0 @@
-class RepositoryCollector:
-    pass

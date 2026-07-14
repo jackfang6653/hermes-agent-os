@@ -1,2 +1,0 @@
-class SecurityScanner:
-    pass

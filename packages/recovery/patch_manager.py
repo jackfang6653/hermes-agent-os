@@ -1,2 +1,0 @@
-class PatchManager:
-    pass

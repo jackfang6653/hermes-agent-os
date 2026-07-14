@@ -1,0 +1,1 @@
+此目录为Python基础设施预留。当前NORHOR品牌管道运行在TypeScript上。
