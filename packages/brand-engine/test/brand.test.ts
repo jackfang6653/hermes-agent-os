@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 import { describe, it, expect } from 'vitest';
-import { BrandEngine } from '../src/engine';
+import { BrandEngine } from '../src/engine.js';
 import { distillDNA } from '../src/dna.js';
 import { createNORHORGrammar, validateLighting, validateColor } from '../src/grammar.js';
-import type { BrandProfile } from '../src/types';
+import type { BrandProfile } from '../src/types.js';
 
 describe('BrandEngine', () => {
   it('should create NORHOR engine with defaults', () => {

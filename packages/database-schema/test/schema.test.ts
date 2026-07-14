@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import type {
   Brand, Category, Product, SKU, Scene,
   Material, User, Project, Workflow,
-} from '../src/entities';
+} from '../src/entities.js';
 
 describe('Database Schema Types', () => {
   it('Brand should validate structure', () => {

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { AgentConfig, AgentStatus, AgentCapability, Message, MessageHandler } from './types';
+import type { AgentConfig, AgentStatus, AgentCapability, Message, MessageHandler } from './types.js';
 
 export abstract class Agent {
   readonly id: string;

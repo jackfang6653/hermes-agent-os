@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 import { describe, it, expect } from 'vitest';
-import { MemoryStore } from '../src/store';
-import { SnapshotManager, RetentionManager } from '../src/snapshots';
+import { MemoryStore } from '../src/store.js';
+import { SnapshotManager, RetentionManager } from '../src/snapshots.js';
 
 describe('MemoryStore', () => {
   it('should set and get values', () => {

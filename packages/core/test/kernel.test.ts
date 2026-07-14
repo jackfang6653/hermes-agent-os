@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 import { describe, it, expect, vi } from 'vitest';
-import { Kernel } from '../src/kernel';
-import { EventBus } from '../src/event-bus';
-import { Scheduler } from '../src/scheduler';
-import { ConfigLoader } from '../src/config/loader';
-import type { PluginManifest, LifecycleMethods } from '../src/types';
+import { Kernel } from '../src/kernel.js';
+import { EventBus } from '../src/event-bus.js';
+import { Scheduler } from '../src/scheduler.js';
+import { ConfigLoader } from '../src/config/loader.js';
+import type { PluginManifest, LifecycleMethods } from '../src/types.js';
 
 describe('Kernel', () => {
   it('should start and stop', async () => {

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { ApiRequest, ApiResponse } from './types';
+import type { ApiRequest, ApiResponse } from './types.js';
 
 export async function healthCheck(_req: ApiRequest<void>): Promise<ApiResponse<{ status: string; version: string }>> {
   return {

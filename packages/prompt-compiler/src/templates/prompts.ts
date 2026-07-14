@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { PromptTemplate } from '../types';
+import type { PromptTemplate } from '../types.js';
 
 export const PRODUCT_PROMPT: PromptTemplate = {
   id: 'product-main',

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { DesktopConfig, WindowConfig, ThemeConfig, EditorConfig } from './types';
+import type { DesktopConfig, WindowConfig, ThemeConfig, EditorConfig } from './types.js';
 
 export function createDefaultConfig(): DesktopConfig {
   return {

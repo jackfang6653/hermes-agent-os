@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-export { QAEngine } from './engine';
-export { DEFAULT_RULES, DEFAULT_CONFIG } from './rules';
+export { QAEngine } from './engine.js';
+export { DEFAULT_RULES, DEFAULT_CONFIG } from './rules.js';
 export type {
   QAReport,
   QACheck,
@@ -11,5 +11,5 @@ export type {
   BrandComplianceCheck,
   ImageQualityCheck,
   LayoutCheck,
-} from './types';
+} from './types.js';
 export const VERSION = '1.0.0';

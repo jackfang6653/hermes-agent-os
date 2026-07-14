@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { VisualGrammar, LightingRule, CompositionRule, ColorRule } from './types';
+import type { VisualGrammar, LightingRule, CompositionRule, ColorRule } from './types.js';
 
 export const DEFAULT_LIGHTING: LightingRule = {
   preferred: ['natural', 'soft_diffuse', 'warm_ambient'],

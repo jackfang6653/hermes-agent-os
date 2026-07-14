@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { PageRoute } from './types';
+import type { PageRoute } from './types.js';
 
 export const ROUTES: PageRoute[] = [
   { path: '/', name: 'Dashboard', icon: 'layout-dashboard', component: 'Dashboard' },

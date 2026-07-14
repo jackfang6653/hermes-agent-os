@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-import type { QAReport, QACheck, QAConfig, QARule, QAReportType, BrandComplianceCheck, ImageQualityCheck } from './types';
-import { DEFAULT_CONFIG } from './rules';
+import type { QAReport, QACheck, QAConfig, QARule, QAReportType, BrandComplianceCheck, ImageQualityCheck } from './types.js';
+import { DEFAULT_CONFIG } from './rules.js';
 
 export class QAEngine {
   private config: QAConfig;

@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 import { describe, it, expect } from 'vitest';
-import { PromptCompiler } from '../src/compiler';
-import { PRODUCT_PROMPT, SCENE_PROMPT, DETAIL_PROMPT } from '../src/templates/prompts';
-import { validatePrompt, sanitizePrompt } from '../src/validators';
+import { PromptCompiler } from '../src/compiler.js';
+import { PRODUCT_PROMPT, SCENE_PROMPT, DETAIL_PROMPT } from '../src/templates/prompts.js';
+import { validatePrompt, sanitizePrompt } from '../src/validators.js';
 
 describe('PromptCompiler', () => {
   it('should compile a template with variables', () => {

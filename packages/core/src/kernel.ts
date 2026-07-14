@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-import type { KernelState, KernelConfig, KernelEvent, PluginInfo, PluginManifest, LifecycleMethods } from './types';
-import { EventBus } from './event-bus';
+import type { KernelState, KernelConfig, KernelEvent, PluginInfo, PluginManifest, LifecycleMethods } from './types.js';
+import { EventBus } from './event-bus.js';
 
 export class Kernel {
   readonly eventBus: EventBus;

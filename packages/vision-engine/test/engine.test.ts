@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 import { describe, it, expect } from 'vitest';
-import { VisionEngine } from '../src/engine';
-import { ProductAnalyzer } from '../src/analyzers/product-analyzer';
-import { ColorAnalyzer } from '../src/analyzers/color-analyzer';
+import { VisionEngine } from '../src/engine.js';
+import { ProductAnalyzer } from '../src/analyzers/product-analyzer.js';
+import { ColorAnalyzer } from '../src/analyzers/color-analyzer.js';
 
 describe('VisionEngine', () => {
   it('should create engine', () => {

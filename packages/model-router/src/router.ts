@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 
-import type { RouteConfig, RouteRequest, RouteResult, ModelProvider } from './types';
-import { selectModel, buildFallbackChain } from './policies/strategy';
-import { BaseProvider } from './providers/base';
-import { DeepSeekProvider } from './providers/deepseek';
-import { OpenAIProvider } from './providers/openai';
+import type { RouteConfig, RouteRequest, RouteResult, ModelProvider } from './types.js';
+import { selectModel, buildFallbackChain } from './policies/strategy.js';
+import { BaseProvider } from './providers/base.js';
+import { DeepSeekProvider } from './providers/deepseek.js';
+import { OpenAIProvider } from './providers/openai.js';
 
 type ProviderFactory = (config: { apiKey: string; baseUrl?: string }) => BaseProvider;
 

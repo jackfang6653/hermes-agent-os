@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { QARule, QAReportType } from './types';
+import type { QARule, QAReportType } from './types.js';
 
 export const DEFAULT_RULES: QARule[] = [
   // Brand compliance

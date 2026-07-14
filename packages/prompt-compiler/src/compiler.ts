@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { PromptTemplate, PromptVariable, CompiledPrompt, CompilerConfig } from './types';
+import type { PromptTemplate, PromptVariable, CompiledPrompt, CompilerConfig } from './types.js';
 
 export class PromptCompiler {
   private templates: Map<string, PromptTemplate> = new Map();

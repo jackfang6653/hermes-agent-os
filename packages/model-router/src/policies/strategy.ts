@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { RouteConfig, RouteRequest, RouteStrategy } from '../types';
+import type { RouteConfig, RouteRequest, RouteStrategy } from '../types.js';
 
 export function selectModel(
   configs: RouteConfig[],

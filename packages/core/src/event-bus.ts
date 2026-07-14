@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 import { EventEmitter } from 'events';
-import type { KernelEvent, KernelEventCallback } from './types';
+import type { KernelEvent, KernelEventCallback } from './types.js';
 
 export class EventBus {
   private emitter = new EventEmitter();

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-export { ExportEngine } from './engine';
-export { FORMATTERS, getFormatter, validateOptions } from './exporters';
+export { ExportEngine } from './engine.js';
+export { FORMATTERS, getFormatter, validateOptions } from './exporters.js';
 export type {
   ExportFormat,
   ExportRequest,
@@ -9,5 +9,5 @@ export type {
   ExportResult,
   FormatterDef,
   ExportTemplate,
-} from './types';
+} from './types.js';
 export const VERSION = '1.0.0';

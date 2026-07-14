@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 import { describe, it, expect } from 'vitest';
-import { WorkflowEngine } from '../src/engine';
-import { createNorhorPipeline } from '../src/pipeline';
-import { CheckpointManager } from '../src/checkpoint';
-import type { StepDef } from '../src/types';
+import { WorkflowEngine } from '../src/engine.js';
+import { createNorhorPipeline } from '../src/pipeline.js';
+import { CheckpointManager } from '../src/checkpoint.js';
+import type { StepDef } from '../src/types.js';
 
 describe('WorkflowEngine', () => {
   it('should execute a simple workflow', async () => {

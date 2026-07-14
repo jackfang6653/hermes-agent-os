@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-export { WorkflowEngine } from './engine';
-export { createNorhorPipeline } from './pipeline';
-export { CheckpointManager } from './checkpoint';
+export { WorkflowEngine } from './engine.js';
+export { createNorhorPipeline } from './pipeline.js';
+export { CheckpointManager } from './checkpoint.js';
 export type {
   WorkflowDef,
   StepDef,
@@ -11,5 +11,5 @@ export type {
   StepResult,
   WorkflowResult,
   Checkpoint,
-} from './types';
+} from './types.js';
 export const VERSION = '1.0.0';

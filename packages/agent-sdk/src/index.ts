@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
-export { Agent } from './agent';
-export { AgentRegistry } from './registry';
-export { MessageBus } from './message-bus';
-export { RuntimeContext } from './runtime';
+export { Agent } from './agent.js';
+export { AgentRegistry } from './registry.js';
+export { MessageBus } from './message-bus.js';
+export { RuntimeContext } from './runtime.js';
 export type {
   AgentConfig,
   AgentStatus,
@@ -12,5 +12,5 @@ export type {
   MessageType,
   MessageHandler,
   RuntimeContext as IRuntimeContext,
-} from './types';
+} from './types.js';
 export const VERSION = '1.0.0';

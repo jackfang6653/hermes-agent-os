@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { ServerConfig } from './types';
+import type { ServerConfig } from './types.js';
 
 export const DEFAULT_CONFIG: ServerConfig = {
   port: 3000,

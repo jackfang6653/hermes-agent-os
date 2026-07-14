@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { MCPToolDef } from './types';
+import type { MCPToolDef } from './types.js';
 
 export const MCP_TOOLS: MCPToolDef[] = [
   {

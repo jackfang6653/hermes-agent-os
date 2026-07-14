@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 import { EventEmitter } from 'events';
-import type { Message, MessageHandler } from './types';
+import type { Message, MessageHandler } from './types.js';
 
 export class MessageBus {
   private emitter = new EventEmitter();

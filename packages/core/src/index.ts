@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 
-export { Kernel } from './kernel';
-export { EventBus } from './event-bus';
-export { Scheduler } from './scheduler';
-export { ConfigLoader } from './config/loader';
+export { Kernel } from './kernel.js';
+export { EventBus } from './event-bus.js';
+export { Scheduler } from './scheduler.js';
+export { ConfigLoader } from './config/loader.js';
 export type {
   KernelState,
   KernelConfig,
@@ -13,5 +13,5 @@ export type {
   LifecycleHook,
   LifecycleMethods,
   KernelEventCallback,
-} from './types';
+} from './types.js';
 export const VERSION = '1.0.0';

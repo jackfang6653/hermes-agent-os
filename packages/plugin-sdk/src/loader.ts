@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { PluginManifest, PluginContext, PluginAPI, PluginLogger, PluginStorage, PluginEvents } from './types';
+import type { PluginManifest, PluginContext, PluginAPI, PluginLogger, PluginStorage, PluginEvents } from './types.js';
 
 export class PluginLoader {
   private loaded: Map<string, PluginContext> = new Map();

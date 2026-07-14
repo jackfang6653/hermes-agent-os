@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 import { describe, it, expect } from 'vitest';
-import { ExportEngine } from '../src/engine';
-import { FORMATTERS, getFormatter, validateOptions } from '../src/exporters';
-import type { ExportRequest } from '../src/types';
+import { ExportEngine } from '../src/engine.js';
+import { FORMATTERS, getFormatter, validateOptions } from '../src/exporters.js';
+import type { ExportRequest } from '../src/types.js';
 
 describe('ExportEngine', () => {
   const request: ExportRequest = {

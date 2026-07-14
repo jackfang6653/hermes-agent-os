@@ -13,5 +13,5 @@ export type {
   Constraint,
   ValidationResult,
   ConstraintViolation,
-} from './types';
+} from './types.js';
 export const VERSION = '1.0.0';

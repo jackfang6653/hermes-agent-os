@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 import { describe, it, expect } from 'vitest';
-import { ROUTES, findRouteDef } from '../src/routes';
-import { DEFAULT_CONFIG, createAppConfig } from '../src/config';
-import { handlers } from '../src/handlers';
-import { MCP_TOOLS } from '../src/mcp';
+import { ROUTES, findRouteDef } from '../src/routes.js';
+import { DEFAULT_CONFIG, createAppConfig } from '../src/config.js';
+import { handlers } from '../src/handlers.js';
+import { MCP_TOOLS } from '../src/mcp.js';
 
 describe('API Routes', () => {
   it('should have defined routes', () => {

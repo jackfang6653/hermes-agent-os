@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-import { BaseProvider } from './base';
-import type { ModelCapability } from '../types';
+import { BaseProvider } from './base.js';
+import type { ModelCapability } from '../types.js';
 
 export class OpenAIProvider extends BaseProvider {
   readonly name = 'openai';

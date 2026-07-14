@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 import { describe, it, expect } from 'vitest';
-import { PluginLoader } from '../src/loader';
-import { PluginMarketplace, BUILTIN_PLUGINS } from '../src/marketplace';
-import type { PluginManifest } from '../src/types';
+import { PluginLoader } from '../src/loader.js';
+import { PluginMarketplace, BUILTIN_PLUGINS } from '../src/marketplace.js';
+import type { PluginManifest } from '../src/types.js';
 
 const testManifest: PluginManifest = {
   id: 'test-plugin',

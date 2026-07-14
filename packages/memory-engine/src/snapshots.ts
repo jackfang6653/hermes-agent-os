@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-import type { Checkpoint } from './types';
-import { MemoryStore } from './store';
+import type { Checkpoint } from './types.js';
+import { MemoryStore } from './store.js';
 
 export class SnapshotManager {
   private checkpoints: Map<string, Checkpoint> = new Map();

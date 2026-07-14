@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 import { describe, it, expect, vi } from 'vitest';
-import { Agent } from '../src/agent';
-import { AgentRegistry } from '../src/registry';
-import { MessageBus } from '../src/message-bus';
-import { RuntimeContext } from '../src/runtime';
-import type { AgentConfig, Message } from '../src/types';
+import { Agent } from '../src/agent.js';
+import { AgentRegistry } from '../src/registry.js';
+import { MessageBus } from '../src/message-bus.js';
+import { RuntimeContext } from '../src/runtime.js';
+import type { AgentConfig, Message } from '../src/types.js';
 
 class TestAgent extends Agent {
   protected async onInit() { /* noop */ }

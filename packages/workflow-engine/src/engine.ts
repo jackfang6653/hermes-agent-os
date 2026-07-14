@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { WorkflowDef, StepDef, WorkflowResult, StepResult, WorkflowStatus, Checkpoint, StepType } from './types';
+import type { WorkflowDef, StepDef, WorkflowResult, StepResult, WorkflowStatus, Checkpoint, StepType } from './types.js';
 
 type StepHandler = (step: StepDef, context: Record<string, unknown>) => Promise<Record<string, unknown>>;
 

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { VisionResult, ColorAnalysis, AnalyzerConfig } from '../types';
+import type { VisionResult, ColorAnalysis, AnalyzerConfig } from '../types.js';
 
 export class ColorAnalyzer {
   constructor(private config: AnalyzerConfig) {}

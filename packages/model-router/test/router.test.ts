@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 import { describe, it, expect } from 'vitest';
-import { ModelRouter } from '../src/router';
-import { selectModel, buildFallbackChain } from '../src/policies/strategy';
-import type { RouteConfig, RouteRequest } from '../src/types';
+import { ModelRouter } from '../src/router.js';
+import { selectModel, buildFallbackChain } from '../src/policies/strategy.js';
+import type { RouteConfig, RouteRequest } from '../src/types.js';
 
 describe('selectModel', () => {
   const configs: RouteConfig[] = [

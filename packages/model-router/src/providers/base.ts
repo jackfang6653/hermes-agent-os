@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { ModelCapability } from '../types';
+import type { ModelCapability } from '../types.js';
 
 export abstract class BaseProvider {
   abstract readonly name: string;

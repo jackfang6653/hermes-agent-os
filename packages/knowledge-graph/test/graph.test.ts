@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 import { describe, it, expect } from 'vitest';
-import { Graph } from '../src/graph';
-import { QueryEngine } from '../src/query';
-import type { BrandNode, ProductNode, SceneNode } from '../src/types';
+import { Graph } from '../src/graph.js';
+import { QueryEngine } from '../src/query.js';
+import type { BrandNode, ProductNode, SceneNode } from '../src/types.js';
 
 function createTestGraph(): Graph {
   const g = new Graph('test', '1.0.0');

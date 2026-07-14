@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { VisionResult, OCRResult, AnalyzerConfig } from '../types';
+import type { VisionResult, OCRResult, AnalyzerConfig } from '../types.js';
 
 export class OCRAnalyzer {
   constructor(private config: AnalyzerConfig) {}

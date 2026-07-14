@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 import { describe, it, expect } from 'vitest';
-import { createDefaultConfig, mergeConfig } from '../src/config';
-import { ROUTES, SIDEBAR_ROUTES, findRoute } from '../src/routes';
+import { createDefaultConfig, mergeConfig } from '../src/config.js';
+import { ROUTES, SIDEBAR_ROUTES, findRoute } from '../src/routes.js';
 
 describe('Desktop Config', () => {
   it('should create default config', () => {

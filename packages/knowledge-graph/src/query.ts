@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-import type { Graph } from './graph';
-import type { GraphNode, ProductNode, BrandNode, SceneNode, MaterialNode } from './types';
+import type { Graph } from './graph.js';
+import type { GraphNode, ProductNode, BrandNode, SceneNode, MaterialNode } from './types.js';
 
 export interface ProductQuery {
   brandId?: string;

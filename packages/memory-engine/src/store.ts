@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { MemoryEntry, MemoryQuery, MemoryType } from './types';
+import type { MemoryEntry, MemoryQuery, MemoryType } from './types.js';
 
 export class MemoryStore {
   private entries: Map<string, MemoryEntry> = new Map();

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { VisionResult, MaterialAnalysis, AnalyzerConfig } from '../types';
+import type { VisionResult, MaterialAnalysis, AnalyzerConfig } from '../types.js';
 
 export class MaterialAnalyzer {
   constructor(private config: AnalyzerConfig) {}

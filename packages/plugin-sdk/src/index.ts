@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-export { PluginLoader } from './loader';
-export { PluginMarketplace, BUILTIN_PLUGINS } from './marketplace';
+export { PluginLoader } from './loader.js';
+export { PluginMarketplace, BUILTIN_PLUGINS } from './marketplace.js';
 export type {
   PluginManifest,
   PluginHook,
@@ -11,5 +11,5 @@ export type {
   PluginEvents,
   PluginContext,
   MarketplaceEntry,
-} from './types';
+} from './types.js';
 export const VERSION = '1.0.0';

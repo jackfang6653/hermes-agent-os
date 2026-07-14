@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-import type { ExportRequest, ExportResult, ExportOptions, ExportFormat, FormatterDef } from './types';
-import { getFormatter, validateOptions } from './exporters';
+import type { ExportRequest, ExportResult, ExportOptions, ExportFormat, FormatterDef } from './types.js';
+import { getFormatter, validateOptions } from './exporters.js';
 
 export class ExportEngine {
   private history: ExportResult[] = [];

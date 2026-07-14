@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { FormatterDef, ExportOptions } from './types';
+import type { FormatterDef, ExportOptions } from './types.js';
 
 export const FORMATTERS: FormatterDef[] = [
   {

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-import { Agent } from './agent';
-import type { AgentCapability } from './types';
+import { Agent } from './agent.js';
+import type { AgentCapability } from './types.js';
 
 export class AgentRegistry {
   private agents: Map<string, Agent> = new Map();

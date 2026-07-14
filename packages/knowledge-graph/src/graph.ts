@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { GraphNode, GraphEdge, KnowledgeGraph, NodeType, RelationshipType } from './types';
+import type { GraphNode, GraphEdge, KnowledgeGraph, NodeType, RelationshipType } from './types.js';
 
 export class Graph {
   private nodes: Map<string, GraphNode> = new Map();

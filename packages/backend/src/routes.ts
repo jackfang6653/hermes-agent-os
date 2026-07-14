@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { RouteDef } from './types';
+import type { RouteDef } from './types.js';
 
 export const ROUTES: RouteDef[] = [
   // Health

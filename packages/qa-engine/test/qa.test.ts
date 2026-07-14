@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 import { describe, it, expect } from 'vitest';
-import { QAEngine } from '../src/engine';
-import { DEFAULT_RULES, DEFAULT_CONFIG } from '../src/rules';
-import type { QAReport } from '../src/types';
+import { QAEngine } from '../src/engine.js';
+import { DEFAULT_RULES, DEFAULT_CONFIG } from '../src/rules.js';
+import type { QAReport } from '../src/types.js';
 
 describe('QAEngine', () => {
   it('should create with default config', () => {

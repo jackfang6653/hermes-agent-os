@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 
-import type { AnalysisType, VisionResult, AnalyzerConfig } from './types';
-import { ProductAnalyzer } from './analyzers/product-analyzer';
-import { MaterialAnalyzer } from './analyzers/material-analyzer';
-import { ColorAnalyzer } from './analyzers/color-analyzer';
-import { OCRAnalyzer } from './analyzers/ocr';
+import type { AnalysisType, VisionResult, AnalyzerConfig } from './types.js';
+import { ProductAnalyzer } from './analyzers/product-analyzer.js';
+import { MaterialAnalyzer } from './analyzers/material-analyzer.js';
+import { ColorAnalyzer } from './analyzers/color-analyzer.js';
+import { OCRAnalyzer } from './analyzers/ocr.js';
 
 export class VisionEngine {
   private analyzers: Map<AnalysisType, any>;

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-import type { MarketplaceEntry } from './types';
+import type { MarketplaceEntry } from './types.js';
 
 export const BUILTIN_PLUGINS: MarketplaceEntry[] = [
   {
