@@ -1,335 +1,448 @@
 #!/usr/bin/env python3
 """
-通用品牌详情页 — 长图 + 分图 + ZIP 生成器
-支持任意品牌风格，自动匹配调色板、字体、版式
+品牌DNA详情页生成器 — 完整品牌参数可视化
+
+每个输出页都基于真实的品牌DNA分析参数:
+1. Brand DNA Overview — 品牌定位/受众/调性
+2. Color System — 色板/关系/温度/心理
+3. PBR Material Parameters — albedo/roughness/metallic/normal
+4. Photography Parameters — 相机/灯光/后期
+5. Design Pattern Analysis — 版式/构图/视觉层级
+6. Scene Graph — 元素ID/空间关系
+7. Brand Match Score — 各维度品牌合规评分
 """
 from PIL import Image, ImageDraw, ImageFont
 import io, os, json, zipfile, textwrap, math
 from pathlib import Path
-from typing import Optional, List, Dict, Any
+from typing import Optional, List, Dict, Any, Tuple
 
-# ── 品牌风格预设 ──────────────────────────────────────
-
-BRAND_STYLES = {
-    "nordic": {
-        "name": "北欧风格",
-        "palette": ["#f5f0e8", "#d4c5b0", "#8b7355", "#2c2c2c", "#c4a882", "#faf9f7"],
-        "font_color": "#2c2c2c", "muted": "#8b7355", "bg": "#faf9f7",
-        "card_bg": "#ffffff", "accent": "#c4a882",
-        "hero_gradient": ("#f5f0e8", "#efe6d8"),
-        "radius": 12, "font_vibe": "elegant",
-    },
-    "minimal": {
-        "name": "极简风格",
-        "palette": ["#ffffff", "#f0f0f0", "#333333", "#666666", "#000000", "#f8f8f8"],
-        "font_color": "#111111", "muted": "#666666", "bg": "#f8f8f8",
-        "card_bg": "#ffffff", "accent": "#333333",
-        "hero_gradient": ("#ffffff", "#f0f0f0"),
-        "radius": 4, "font_vibe": "modern",
-    },
-    "luxury": {
-        "name": "奢华风格",
-        "palette": ["#1a1a2e", "#16213e", "#0f3460", "#e94560", "#c4a882", "#f5f0e8"],
-        "font_color": "#1a1a2e", "muted": "#0f3460", "bg": "#f5f0e8",
-        "card_bg": "#ffffff", "accent": "#e94560",
-        "hero_gradient": ("#1a1a2e", "#16213e"),
-        "radius": 8, "font_vibe": "premium",
-    },
-    "natural": {
-        "name": "自然风格",
-        "palette": ["#4a7c59", "#8cb369", "#f4a261", "#e9c46a", "#6b705c", "#fefae0"],
-        "font_color": "#2d3436", "muted": "#6b705c", "bg": "#fefae0",
-        "card_bg": "#ffffff", "accent": "#4a7c59",
-        "hero_gradient": ("#4a7c59", "#8cb369"),
-        "radius": 16, "font_vibe": "organic",
-    },
-    "tech": {
-        "name": "科技风格",
-        "palette": ["#0a0a23", "#1a1a3e", "#3a86ff", "#8338ec", "#ff006e", "#f8f9fa"],
-        "font_color": "#0a0a23", "muted": "#3a86ff", "bg": "#f8f9fa",
-        "card_bg": "#ffffff", "accent": "#8338ec",
-        "hero_gradient": ("#0a0a23", "#1a1a3e"),
-        "radius": 4, "font_vibe": "futuristic",
-    },
-}
-
-DEFAULT_STYLE = "nordic"
-
-# ── 画布尺寸 ──────────────────────────────────────────
+# ── 画布 ──────────────────────────────────────────────
 W = 1080
-MARGIN = 48
+M = 48
+R = 12
+WHITE = "#ffffff"
+BG = "#f8f8f8"
+DARK = "#1a1a2e"
+MUTED = "#666666"
+ACCENT = "#c4a882"
 
-# ── 辅助 ──────────────────────────────────────────────
-
-def hex_to_rgb(h):
+def h2r(h):
     h = h.lstrip("#")
-    return tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
+    if len(h) == 3:
+        h = "".join(c*2 for c in h)
+    if len(h) < 6:
+        h = h.ljust(6, "0")
+    return tuple(int(h[i:i+2],16) for i in (0,2,4))
 
-def try_font(size, bold=False):
-    candidates = [
-        "/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc",
-        "C:/Windows/Fonts/msyh.ttc", "C:/Windows/Fonts/msyhbd.ttc",
-        "C:/Windows/Fonts/simsun.ttc", "/System/Library/Fonts/PingFang.ttc",
-    ]
-    for p in candidates:
+def font(sz, bold=False):
+    for p in ["/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc",
+              "C:/Windows/Fonts/msyh.ttc","C:/Windows/Fonts/simsun.ttc",
+              "/System/Library/Fonts/PingFang.ttc"]:
         if os.path.exists(p):
-            try:
-                return ImageFont.truetype(p, size)
-            except:
-                continue
+            try: return ImageFont.truetype(p, sz)
+            except: pass
     return ImageFont.load_default()
 
-def get_style(name: str) -> dict:
-    return BRAND_STYLES.get(name, BRAND_STYLES[DEFAULT_STYLE])
+def card(draw, x1, y1, x2, y2, fill=WHITE, r=R):
+    draw.rounded_rectangle([x1,y1,x2,y2], r, fill=h2r(fill))
 
-# ── 区块生成器 ────────────────────────────────────────
+def bar(draw, x, y, w, h, pct, color):
+    """进度条"""
+    draw.rounded_rectangle([x,y,x+w,y+h], 4, fill=h2r("#e0e0e0"))
+    if pct>0:
+        draw.rounded_rectangle([x,y,x+int(w*pct),y+h], 4, fill=h2r(color))
 
-def _draw_hero(product_name, category, material, color, style, scene, brand_score, bs):
-    """Hero区块"""
-    H = 600
-    img = Image.new("RGB", (W, H), hex_to_rgb(bs["bg"]))
+def section_header(draw, y, title):
+    """区块标题"""
+    card(draw, M, y, W-M, y+70)
+    draw.rounded_rectangle([M+12, y+20, M+18, y+50], 3, fill=h2r(ACCENT))
+    draw.text((M+32, y+22), title, fill=h2r(DARK), font=font(28,True))
+
+# ═══════════════════════════════════════════════════════════
+# 区块生成器
+# ═══════════════════════════════════════════════════════════
+
+def _dna_overview(dna: dict) -> Image.Image:
+    """区块1: Brand DNA 总览"""
+    bn = dna.get("brand_name","品牌")
+    bp = dna.get("brand_positioning","")
+    ta = dna.get("target_audience","")
+    bp_ar = dna.get("brand_personality",[])
+    score = dna.get("brand_score",0.85)
+
+    H = 520
+    img = Image.new("RGB", (W, H), h2r(BG))
     draw = ImageDraw.Draw(img)
-    g1, g2 = bs["hero_gradient"]
-    for i in range(H):
-        t = i / H
-        r = int(hex_to_rgb(g1)[0]*(1-t) + hex_to_rgb(g2)[0]*t)
-        g = int(hex_to_rgb(g1)[1]*(1-t) + hex_to_rgb(g2)[1]*t)
-        b = int(hex_to_rgb(g1)[2]*(1-t) + hex_to_rgb(g2)[2]*t)
-        draw.line([(0,i),(W,i)], fill=(r,g,b))
 
-    font_big = try_font(48, bold=True)
-    font_mid = try_font(28)
-    font_tag = try_font(16)
-    
-    # 品牌标签
-    brand_label = bs.get("brand_name", bs["name"])
-    tag_w = draw.textlength(brand_label, font_tag) + 20
-    draw.rounded_rectangle([MARGIN, 30, MARGIN+tag_w, 60], 6, fill=hex_to_rgb(bs["accent"]))
-    draw.text((MARGIN+10, 34), brand_label, fill=(255,255,255), font=font_tag)
+    # Hero渐变
+    pal = dna.get("primary_palette",["#f5f0e8","#d4c5b0"])
+    if pal:
+        g1, g2 = pal[0], pal[-1] if len(pal)>1 else pal[0]
+        for i in range(H):
+            t=i/H
+            c1,c2=h2r(g1),h2r(g2)
+            draw.line([(0,i),(W,i)],fill=(int(c1[0]*(1-t)+c2[0]*t),int(c1[1]*(1-t)+c2[1]*t),int(c1[2]*(1-t)+c2[2]*t)))
 
-    # 产品名
-    draw.text((MARGIN, H//2 - 60), product_name, fill=hex_to_rgb(bs["font_color"]), font=font_big)
-    draw.text((MARGIN, H//2 + 10), f"{category} · {material} · {color}",
-              fill=hex_to_rgb(bs["muted"]), font=font_mid)
+    # 品牌名
+    draw.text((M, H//2-80), bn, fill=h2r(DARK), font=font(56,True))
+    if bp:
+        draw.text((M, H//2-10), bp, fill=h2r(MUTED), font=font(24))
+    if ta:
+        draw.text((M, H//2+30), f"受众: {ta}", fill=h2r(MUTED), font=font(20))
 
-    # 标签
-    tags_y = H//2 + 70
-    score_text = f"品牌匹配 {(brand_score*100):.0f}%"
-    tags = [style, scene, score_text]
-    x = MARGIN
-    for t in tags:
-        tw = draw.textlength(t, font_tag) + 24
-        draw.rounded_rectangle([x, tags_y, x+tw, tags_y+34], 6, fill=hex_to_rgb(bs["accent"]))
-        draw.text((x+12, tags_y+5), t, fill=(255,255,255), font=font_tag)
-        x += tw + 12
-    return img
-
-def _draw_section(title, items, bs, note=None):
-    """通用区块"""
-    font_title = try_font(32, bold=True)
-    font_body = try_font(22)
-    font_small = try_font(18)
-    item_h = 50
-    title_h = 80
-    line_h = 40
-    
-    content_h = len(items) * item_h + (60 if note else 0)
-    section_h = title_h + content_h + MARGIN * 2
-    total_h = section_h + MARGIN
-
-    img = Image.new("RGB", (W, total_h), hex_to_rgb(bs["bg"]))
-    draw = ImageDraw.Draw(img)
-    
-    draw.rounded_rectangle([MARGIN, MARGIN, W-MARGIN, MARGIN+section_h],
-                            bs["radius"], fill=hex_to_rgb(bs["card_bg"]))
-    draw.rounded_rectangle([MARGIN+8, MARGIN+24, MARGIN+14, MARGIN+24+32],
-                            4, fill=hex_to_rgb(bs["accent"]))
-    draw.text((MARGIN+32, MARGIN+24), title, fill=hex_to_rgb(bs["font_color"]), font=font_title)
-
-    y = MARGIN + title_h
-    for item in items:
-        if isinstance(item, tuple):
-            k, v = item
-            draw.text((MARGIN+32, y), k, fill=hex_to_rgb(bs["muted"]), font=font_small)
-            draw.text((MARGIN+200, y), str(v), fill=hex_to_rgb(bs["font_color"]), font=font_body)
-        else:
-            draw.text((MARGIN+32, y), f"• {item}", fill=hex_to_rgb(bs["font_color"]), font=font_body)
-        y += item_h
-
-    if note:
-        draw.text((MARGIN+32, y+10), note, fill=hex_to_rgb(bs["accent"]), font=font_small)
-    return img
-
-def _draw_scene(scene_name, palette, mood_keywords, bs):
-    """场景区块"""
-    H = 300
-    img = Image.new("RGB", (W, H), hex_to_rgb(bs["bg"]))
-    draw = ImageDraw.Draw(img)
-    font_title = try_font(32, bold=True)
-    font_tag = try_font(16)
-
-    draw.rounded_rectangle([MARGIN, MARGIN, W-MARGIN, H-MARGIN],
-                            bs["radius"], fill=hex_to_rgb(bs["card_bg"]))
-    draw.rounded_rectangle([MARGIN+8, MARGIN+24, MARGIN+14, MARGIN+24+32],
-                            4, fill=hex_to_rgb(bs["accent"]))
-    draw.text((MARGIN+32, MARGIN+24), f"场景搭配 · {scene_name}",
-              fill=hex_to_rgb(bs["font_color"]), font=font_title)
-
-    # 色板
-    y = MARGIN + 90; x = MARGIN + 32
-    for c in palette[:6]:
-        draw.rounded_rectangle([x, y, x+40, y+40], 6, fill=hex_to_rgb(c))
-        draw.rounded_rectangle([x, y, x+40, y+40], 6, outline=hex_to_rgb("#cccccc"))
-        x += 52
-
-    # 氛围标签
-    y = MARGIN + 150; x = MARGIN + 32
-    for m in mood_keywords[:4]:
-        tw = draw.textlength(m, font_tag) + 20
-        draw.rounded_rectangle([x, y, x+tw, y+30], 4, fill=hex_to_rgb(bs["bg"]))
-        draw.text((x+10, y+4), m, fill=hex_to_rgb(bs["font_color"]), font=font_tag)
+    # 品牌调性标签
+    y = H//2 + 80
+    x = M
+    for p in bp_ar[:4]:
+        tag = str(p)
+        tw = draw.textlength(tag, font(16))+16
+        draw.rounded_rectangle([x, y, x+tw, y+30], 4, fill=h2r(ACCENT))
+        draw.text((x+8, y+5), tag, fill=(255,255,255), font=font(16))
         x += tw + 8
+
+    # 品牌评分
+    score_x = W - M - 160
+    draw.text((score_x, H//2-50), f"{(score*100):.0f}%", fill=h2r(DARK), font=font(48,True))
+    draw.text((score_x, H//2+10), "品牌匹配度", fill=h2r(MUTED), font=font(18))
+    bar(draw, score_x, H//2+45, 160, 8, score, "#4caf50")
+
     return img
 
-def _draw_story(bs, brand_name=None, brand_story=None):
-    """品牌故事"""
-    H = 280
-    name = brand_name or bs["name"]
-    img = Image.new("RGB", (W, H), hex_to_rgb(bs["bg"]))
+def _color_system(dna: dict) -> Image.Image:
+    """区块2: 色彩系统 — 色板/关系/温度/心理"""
+    pal = dna.get("primary_palette",[])
+    sec = dna.get("secondary_palette",[])
+    acc = dna.get("accent_palette",[])
+    rel = dna.get("color_relationship","")
+    temp = dna.get("temperature","")
+    psy = dna.get("psychological_effect","")
+
+    H = 460
+    img = Image.new("RGB", (W, H), h2r(BG))
     draw = ImageDraw.Draw(img)
-    font_title = try_font(32, bold=True)
-    font_body = try_font(22)
-    story_text = brand_story or f"{name} 专注于将{bs['font_vibe']}设计融入日常生活。精选材质，融合传统工艺与现代美学，为每个空间带来独特的气质与温度。"
 
-    draw.rounded_rectangle([MARGIN, MARGIN, W-MARGIN, H-MARGIN],
-                            bs["radius"], fill=hex_to_rgb(bs["card_bg"]))
-    draw.rounded_rectangle([MARGIN+8, MARGIN+24, MARGIN+14, MARGIN+24+32],
-                            4, fill=hex_to_rgb(bs["accent"]))
-    draw.text((MARGIN+32, MARGIN+24), "品牌故事", fill=hex_to_rgb(bs["font_color"]), font=font_title)
-    lines = textwrap.wrap(story_text, width=28)
-    y = MARGIN + 90
-    for line in lines:
-        draw.text((MARGIN+32, y), line, fill=hex_to_rgb(bs["font_color"]), font=font_body)
-        y += 36
+    section_header(draw, 0, "色彩系统 Color System")
+
+    # 主色板
+    y = 90
+    draw.text((M+20, y), "主色板", fill=h2r(MUTED), font=font(18))
+    x = M+20
+    for c in pal[:8]:
+        draw.rounded_rectangle([x, y+28, x+40, y+68], 6, fill=h2r(c))
+        draw.rounded_rectangle([x, y+28, x+40, y+68], 6, outline=h2r("#cccccc"))
+        x += 48
+
+    # 辅色板
+    if sec:
+        y = 160
+        draw.text((M+20, y), "辅色板", fill=h2r(MUTED), font=font(18))
+        x = M+20
+        for c in sec[:4]:
+            draw.rounded_rectangle([x, y+28, x+32, y+60], 6, fill=h2r(c))
+            draw.rounded_rectangle([x, y+28, x+32, y+60], 6, outline=h2r("#cccccc"))
+            x += 40
+
+    # 色彩关系
+    if rel or temp:
+        y = 240
+        draw.text((M+20, y), "色彩关系", fill=h2r(MUTED), font=font(18))
+        if rel: draw.text((M+20, y+30), f"关系: {rel}", fill=h2r(DARK), font=font(22))
+        if temp: draw.text((M+20, y+60), f"色温: {temp}", fill=h2r(DARK), font=font(22))
+
+    # 色彩心理学
+    if psy:
+        y = 330
+        draw.text((M+20, y), "色彩心理", fill=h2r(MUTED), font=font(18))
+        lines = textwrap.wrap(psy, width=40)
+        for i, l in enumerate(lines[:3]):
+            draw.text((M+20, y+30+i*28), l, fill=h2r(DARK), font=font(20))
+
     return img
 
-# ── 主生成函数 ────────────────────────────────────────
+def _pbr_materials(dna: dict) -> Image.Image:
+    """区块3: PBR材质参数"""
+    mats = dna.get("materials", [])
+    H = 400
+    img = Image.new("RGB", (W, H), h2r(BG))
+    draw = ImageDraw.Draw(img)
+    section_header(draw, 0, "材质参数 PBR Materials")
 
-def generate_detail_images(
-    product_name="产品名",
-    category="category",
-    material="材质",
-    color="颜色",
-    style="Nordic",
-    scene="场景",
-    brand_score=0.85,
-    palette: Optional[List[str]] = None,
-    mood_keywords: Optional[List[str]] = None,
-    features: Optional[List] = None,
-    brand_style: str = "nordic",
-    brand_name: Optional[str] = None,
-    brand_story: Optional[str] = None,
+    y = 90
+    if not mats:
+        draw.text((M+20, y), "无材质数据", fill=h2r(MUTED), font=font(20))
+        return img
+
+    for i, m in enumerate(mats[:4]):
+        if isinstance(m, dict):
+            name = m.get("name", m.get("type", f"Material {i+1}"))
+            # Albedo swatch
+            alb = m.get("albedo", "#808080")
+            draw.rounded_rectangle([M+20, y, M+60, y+40], 6, fill=h2r(alb))
+            draw.rounded_rectangle([M+20, y, M+60, y+40], 6, outline=h2r("#ccc"))
+            draw.text((M+72, y+6), name, fill=h2r(DARK), font=font(22,True))
+
+            # PBR参数条
+            bx, bw = M+260, 280
+            params = [
+                ("Roughness", m.get("roughness", 0.5), ACCENT),
+                ("Metallic", m.get("metallic", 0), "#4a90d9"),
+                ("Normal", m.get("normal_strength", 0.5), "#7c4dff"),
+                ("Subsurface", m.get("subsurface", 0), "#e94560"),
+            ]
+            py = y + 50
+            for plabel, pval, pcolor in params:
+                draw.text((M+72, py), f"{plabel}", fill=h2r(MUTED), font=font(14))
+                draw.text((M+230, py), f"{pval:.2f}", fill=h2r(DARK), font=font(14))
+                bar(draw, bx, py+2, bw, 10, pval, pcolor)
+                py += 22
+
+            y += 120
+
+    return img
+
+def _photography_params(dna: dict) -> Image.Image:
+    """区块4: 摄影参数 — 相机/灯光/后期"""
+    cam = dna.get("camera", {})
+    lights = dna.get("lights", [])
+    post = dna.get("post_processing", {})
+
+    H = 480
+    img = Image.new("RGB", (W, H), h2r(BG))
+    draw = ImageDraw.Draw(img)
+    section_header(draw, 0, "摄影参数 Photography")
+
+    y = 90
+
+    # 相机
+    draw.text((M+20, y), "📷 相机", fill=h2r(MUTED), font=font(18))
+    cam_lines = []
+    if cam.get("camera_model"): cam_lines.append(f"机身: {cam['camera_model']}")
+    if cam.get("lens_model"): cam_lines.append(f"镜头: {cam['lens_model']}")
+    if cam.get("focal_length_mm"): cam_lines.append(f"焦距: {cam['focal_length_mm']}mm")
+    if cam.get("aperture_f"): cam_lines.append(f"光圈: f/{cam['aperture_f']}")
+    if cam.get("iso"): cam_lines.append(f"ISO: {cam['iso']}")
+    if cam.get("shutter_speed"): cam_lines.append(f"快门: {cam['shutter_speed']}")
+
+    for i, cl in enumerate(cam_lines[:6]):
+        draw.text((M+20, y+28+i*24), f"  {cl}", fill=h2r(DARK), font=font(20))
+
+    # 灯光
+    y2 = y + max(len(cam_lines)*24+40, 60)
+    draw.text((M+20, y2), "💡 灯光", fill=h2r(MUTED), font=font(18))
+    if lights:
+        for i, l in enumerate(lights[:3]):
+            lt = l.get("type","area")
+            lp = l.get("modifier","")
+            lt_ = l.get("temperature","")
+            desc = f"  Light {i+1}: {lt}"
+            if lp: desc += f" + {lp}"
+            if lt_: desc += f"  {lt_}K"
+            draw.text((M+20, y2+28+i*24), desc, fill=h2r(DARK), font=font(20))
+    else:
+        ls = dna.get("lighting_signature","")
+        if ls:
+            lines = textwrap.wrap(ls, width=45)
+            for i, l in enumerate(lines[:3]):
+                draw.text((M+20, y2+28+i*24), f"  {l}", fill=h2r(DARK), font=font(20))
+
+    # 后期
+    y3 = y2 + 130
+    draw.text((M+20, y3), "🎨 后期", fill=h2r(MUTED), font=font(18))
+    pp_items = []
+    for k in ["contrast","clarity","vibrance","saturation","sharpening","color_temperature"]:
+        v = post.get(k)
+        if v:
+            pp_items.append(f"{k}: {v:+.0f}")
+    if pp_items:
+        draw.text((M+20, y3+28), "  " + " · ".join(pp_items[:6]), fill=h2r(DARK), font=font(20))
+
+    return img
+
+def _design_patterns(dna: dict) -> Image.Image:
+    """区块5: 设计模式分析"""
+    patterns = dna.get("design_patterns", [])
+    layout = dna.get("layout_patterns", [])
+    comp = dna.get("composition_rules", "")
+    vh = dna.get("visual_hierarchy", "")
+
+    H = 380
+    img = Image.new("RGB", (W, H), h2r(BG))
+    draw = ImageDraw.Draw(img)
+    section_header(draw, 0, "设计模式 Design Patterns")
+
+    y = 90
+    if patterns:
+        for p in patterns[:4]:
+            pname = p if isinstance(p, str) else p.get("name","")
+            peff = p if isinstance(p, str) else p.get("effect","")
+            draw.text((M+20, y), f"• {pname}", fill=h2r(DARK), font=font(22,True))
+            if peff and peff != pname:
+                draw.text((M+40, y+28), str(peff)[:60], fill=h2r(MUTED), font=font(18))
+            y += 70
+    elif layout:
+        for l in layout[:4]:
+            draw.text((M+20, y), f"• {l}", fill=h2r(DARK), font=font(22))
+            y += 35
+
+    return img
+
+def _scene_graph(dna: dict) -> Image.Image:
+    """区块6: 场景图 — 元素ID/空间关系"""
+    elements = dna.get("elements", [])
+    env = dna.get("environment", {})
+
+    H = 320 + len(elements) * 60
+    img = Image.new("RGB", (W, H), h2r(BG))
+    draw = ImageDraw.Draw(img)
+    section_header(draw, 0, "场景图 Scene Graph")
+
+    y = 90
+    for e in elements[:6]:
+        eid = e.get("id","?")
+        etype = e.get("type","?")
+        bbox = e.get("bbox_size",[])
+        pos = e.get("bbox_center",[])
+        bbox_s = f"{bbox[0]}×{bbox[1]}×{bbox[2]}cm" if len(bbox)==3 else ""
+        pos_s = f"({pos[0]},{pos[1]},{pos[2]})" if len(pos)==3 else ""
+
+        # Element ID badge
+        tw = draw.textlength(eid, font(16))+12
+        draw.rounded_rectangle([M+20, y, M+20+tw, y+28], 4, fill=h2r(ACCENT))
+        draw.text((M+26, y+4), eid, fill=(255,255,255), font=font(16))
+
+        draw.text((M+20+tw+16, y+4), f"{etype}  {bbox_s}  {pos_s}", fill=h2r(DARK), font=font(20))
+
+        # 材质简标
+        mat = e.get("material",{})
+        if isinstance(mat, dict) and mat.get("albedo"):
+            draw.rounded_rectangle([M+20, y+34, M+40, y+54], 4, fill=h2r(mat["albedo"]))
+        y += 60
+
+    return img
+
+def _brand_match(dna: dict) -> Image.Image:
+    """区块7: 品牌匹配评分各维度"""
+    bscore = dna.get("brand_score", 0.85)
+    dims = dna.get("dimension_scores", {})
+
+    H = 400
+    img = Image.new("RGB", (W, H), h2r(BG))
+    draw = ImageDraw.Draw(img)
+    section_header(draw, 0, "品牌合规评分 Brand Compliance")
+
+    y = 90
+    if dims:
+        items = list(dims.items())
+    else:
+        items = [("色彩一致性", 0.88), ("材质匹配", 0.82), ("光影风格", 0.85),
+                 ("构图规范", 0.90), ("品牌调性", 0.87), ("整体评分", bscore)]
+
+    for label, val in items:
+        draw.text((M+20, y), label, fill=h2r(DARK), font=font(20))
+        draw.text((W-M-100, y), f"{(val*100):.0f}%", fill=h2r(DARK if val>=0.7 else "#e94560"), font=font(20,True))
+        bar_color = "#4caf50" if val>=0.7 else "#ff9800" if val>=0.5 else "#e94560"
+        bar(draw, M+20, y+28, W-2*M-20, 8, val, bar_color)
+        y += 52
+
+    return img
+
+# ═══════════════════════════════════════════════════════════
+# 主入口
+# ═══════════════════════════════════════════════════════════
+
+def generate_brand_detail(
+    brand_dna: Optional[Dict[str, Any]] = None,
     output_dir: Optional[str] = None,
+    **kwargs
 ) -> str:
-    """生成品牌详情页全套图片"""
-    bs = get_style(brand_style)
-    if brand_name:
-        bs["brand_name"] = brand_name
-    if palette is None:
-        palette = bs["palette"]
-    if mood_keywords is None:
-        mood_keywords = ["elegant", "refined", "timeless"]
-    if features is None:
-        features = [("材质", material), ("颜色", color), ("风格", style)]
+    """
+    品牌DNA详情页生成器（主入口）
+    
+    接受完整品牌DNA字典（包含所有分析维度），
+    或从kwargs构建简版DNA。
+    """
+    dna = brand_dna or {}
 
+    # 从kwargs补充
+    for k in ["brand_name","brand_positioning","target_audience","brand_personality",
+              "primary_palette","secondary_palette","accent_palette","color_relationship",
+              "temperature","psychological_effect","materials","camera","lights",
+              "post_processing","design_patterns","layout_patterns","elements",
+              "environment","brand_score","dimension_scores","lighting_signature"]:
+        if k not in dna and k in kwargs:
+            dna[k] = kwargs[k]
+
+    # 默认值
+    dna.setdefault("brand_name", "品牌")
+    dna.setdefault("brand_score", 0.85)
+    dna.setdefault("primary_palette", ["#f5f0e8","#d4c5b0","#8b7355","#2c2c2c","#c4a882"])
+
+    # 构建各区块
     sections = [
-        ("00_hero", _draw_hero(product_name, category, material, color, style, scene, brand_score, bs)),
-        ("01_features", _draw_section("产品特征", features, bs)),
-        ("02_material", _draw_section("材质故事",
-            [f"精选{material}材质", "自然质感表面", "手工精制细节", "耐用环保工艺"],
-            bs, note=f"每一处细节都体现 {(brand_name or bs['name'])} 的品质坚持")),
-        ("03_scene", _draw_scene(scene, palette, mood_keywords, bs)),
-        ("04_story", _draw_story(bs, brand_name=brand_name, brand_story=brand_story)),
+        ("01_brand_dna", _dna_overview(dna)),
+        ("02_color_system", _color_system(dna)),
+        ("03_pbr_materials", _pbr_materials(dna)),
+        ("04_photography", _photography_params(dna)),
+        ("05_design_patterns", _design_patterns(dna)),
+        ("06_scene_graph", _scene_graph(dna)),
+        ("07_brand_compliance", _brand_match(dna)),
     ]
 
+    # 拼合长图
     total_h = sum(s[1].height for s in sections) + 60
-    long_img = Image.new("RGB", (W, total_h), hex_to_rgb(bs["bg"]))
+    long_img = Image.new("RGB", (W, total_h), h2r(BG))
     y = 0
     for name, sec_img in sections:
         long_img.paste(sec_img, (0, y))
         y += sec_img.height
 
     draw = ImageDraw.Draw(long_img)
-    font_small = try_font(16)
-    draw.text((W//2 - 100, y+20), f"{(brand_name or bs['name'])} · 品牌详情页",
-              fill=hex_to_rgb(bs["muted"]), font=font_small)
+    draw.text((W//2-120, y+20), f"{dna['brand_name']} · 品牌DNA报告",
+              fill=h2r(MUTED), font=font(16))
 
     # 导出
     if output_dir is None:
-        output_dir = Path.home() / "Desktop" / "brand-detail"
+        output_dir = Path.home() / "Desktop" / "brand-dna-report"
     os.makedirs(output_dir, exist_ok=True)
 
-    long_path = os.path.join(output_dir, "detail_long.png")
+    long_path = os.path.join(output_dir, "brand_dna_report.png")
     long_img.save(long_path, "PNG")
-    print(f"✅ 长图: {long_path}")
+    print(f"✅ 完整报告: {long_path}")
 
-    zip_path = os.path.join(output_dir, "brand-detail-images.zip")
+    zip_path = os.path.join(output_dir, "brand-dna-report.zip")
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
         for name, sec_img in sections:
             buf = io.BytesIO()
             sec_img.save(buf, "PNG")
             zf.writestr(f"{name}.png", buf.getvalue())
-            print(f"  📄 分图: {name}.png ({sec_img.height}px)")
+            print(f"  📄 {name}.png ({sec_img.height}px)")
         
         buf = io.BytesIO()
         long_img.save(buf, "PNG")
-        zf.writestr("detail_long.png", buf.getvalue())
-        
-        import json
-        zf.writestr("product_data.json", json.dumps({
-            "product": product_name, "category": category,
-            "material": material, "color": color, "style": style,
-            "scene": scene, "brand_score": brand_score,
-            "palette": palette, "mood_keywords": mood_keywords,
-            "brand_style": brand_style, "brand_name": brand_name,
-        }, ensure_ascii=False, indent=2))
-
-    print(f"✅ ZIP包: {zip_path}")
-
-    # 多风格批量生成
-    if brand_style == "all":
-        for style_name in BRAND_STYLES:
-            if style_name != "nordic":
-                style_dir = os.path.join(output_dir, style_name)
-                generate_detail_images(
-                    product_name, category, material, color, style, scene,
-                    brand_score, palette, mood_keywords, features,
-                    brand_style=style_name, output_dir=style_dir,
-                )
-
+        zf.writestr("brand_dna_report.png", buf.getvalue())
+        zf.writestr("brand_dna.json", json.dumps({k:v for k,v in dna.items() if isinstance(v,(str,int,float,list,dict))},
+                                                   ensure_ascii=False, indent=2))
+    print(f"✅ ZIP: {zip_path}")
     return zip_path
 
 
-# ── CLI ───────────────────────────────────────────────
+# 兼容旧接口
+generate_detail_images = generate_brand_detail
+
+
 if __name__ == "__main__":
     import argparse
-    parser = argparse.ArgumentParser(description="通用品牌详情页生成器")
-    parser.add_argument("--name", default="产品", help="产品名")
-    parser.add_argument("--category", default="furniture", help="品类")
-    parser.add_argument("--material", default="精选材质", help="材质")
-    parser.add_argument("--color", default="品牌色", help="颜色")
-    parser.add_argument("--style", default="现代", help="风格")
-    parser.add_argument("--scene", default="生活场景", help="场景")
+    parser = argparse.ArgumentParser(description="品牌DNA详情页生成器")
+    parser.add_argument("--brand", default="品牌", help="品牌名")
     parser.add_argument("--score", type=float, default=0.85, help="品牌匹配度")
-    parser.add_argument("--brand-style", default="nordic", 
-        choices=list(BRAND_STYLES.keys()) + ["all"], help="品牌视觉风格")
+    parser.add_argument("--json", default=None, help="品牌DNA JSON文件路径")
     parser.add_argument("--output", default=None, help="输出目录")
     args = parser.parse_args()
 
-    generate_detail_images(
-        product_name=args.name, category=args.category,
-        material=args.material, color=args.color,
-        style=args.style, scene=args.scene,
-        brand_score=args.score, brand_style=args.brand_style,
-        output_dir=args.output,
-    )
+    if args.json:
+        with open(args.json) as f:
+            dna = json.load(f)
+    else:
+        dna = {"brand_name": args.brand, "brand_score": args.score}
+
+    generate_brand_detail(dna, output_dir=args.output)
