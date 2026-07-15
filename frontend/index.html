@@ -3,62 +3,668 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hermes OS — Brand DNA Studio</title>
+<title>Hermes OS — 4A Brand Studio</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="/static/css/style.css">
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.phase-active{background:#eef2ff!important;color:#4f46e5!important;font-weight:600;border-left:3px solid #4f46e5}
+.dark .phase-active{background:#1e1b4b!important;color:#a5b4fc!important}
+.card{@apply bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6}
+.stat{@apply text-3xl font-bold text-gray-800 dark:text-white}
+.badge{@apply inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium}
+.badge-blue{@apply bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200}
+.badge-green{@apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200}
+.badge-gray{@apply bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200}
+.btn{@apply px-4 py-2 rounded-lg font-medium text-sm transition-all duration-150}
+.btn-p{@apply bg-blue-600 text-white hover:bg-blue-700 active:scale-95}
+.btn-s{@apply bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600}
+.inp{@apply w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none}
+.spin{@apply inline-block w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin}
+.sel{@apply inp appearance-none cursor-pointer}
+pre{@apply text-xs leading-relaxed overflow-auto max-h-60}
+</style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 transition-colors">
+<body class="bg-gray-50 dark:bg-gray-900">
 <div id="app" class="flex h-screen">
   <!-- Sidebar -->
-  <nav class="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-shrink-0 overflow-y-auto">
-    <div class="p-6">
-      <h1 class="text-xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
-        <span class="w-3 h-3 bg-blue-500 rounded-full"></span>
-        Hermes OS
+  <nav class="w-72 bg-white dark:bg-gray-800 border-r flex-shrink-0 overflow-y-auto">
+    <div class="p-5 border-b border-gray-200 dark:border-gray-700">
+      <h1 class="text-lg font-bold flex items-center gap-2">
+        <span class="w-3 h-3 bg-blue-500 rounded-full"></span> Hermes OS
       </h1>
-      <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Brand DNA Studio</p>
+      <p class="text-xs text-gray-400 mt-1">4A Brand Studio</p>
     </div>
-    <div class="px-3 space-y-1" id="nav-items">
-      <a href="#" data-page="dashboard" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
-        <span>📊</span><span>仪表盘</span>
+    <div class="px-3 py-3 space-y-1">
+      <div class="text-xs font-semibold text-gray-400 uppercase px-3 mb-2 mt-2">4A 流程</div>
+      <a href="#" data-page="briefing" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 text-sm transition-all">
+        <span class="text-lg">📋</span><span>1. Briefing 简报</span>
       </a>
-      <a href="#" data-page="research" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
-        <span>🔍</span><span>品牌研究</span>
+      <a href="#" data-page="strategy" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 text-sm transition-all">
+        <span class="text-lg">📐</span><span>2. Strategy 策略</span>
       </a>
-      <a href="#" data-page="brands" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
-        <span>🧬</span><span>品牌DNA</span>
+      <a href="#" data-page="creative" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 text-sm transition-all">
+        <span class="text-lg">🎨</span><span>3. Creative 创意</span>
       </a>
-      <a href="#" data-page="generate" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
-        <span>🖼️</span><span>生成</span>
+      <a href="#" data-page="execution" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 text-sm transition-all">
+        <span class="text-lg">🖼️</span><span>4. Execution 执行</span>
       </a>
-      <a href="#" data-page="knowledge" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
-        <span>📚</span><span>知识库</span>
+      <a href="#" data-page="pitch" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 text-sm transition-all">
+        <span class="text-lg">🚀</span><span>5. Pitch 提案</span>
       </a>
-      <a href="#" data-page="evolution" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
-        <span>🔄</span><span>进化</span>
+      <div class="text-xs font-semibold text-gray-400 uppercase px-3 mb-2 mt-6">工具</div>
+      <a href="#" data-page="mcp" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 text-sm transition-all">
+        <span class="text-lg">🔧</span><span>MCP 设计指南</span>
+      </a>
+      <a href="#" data-page="evolution" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 text-sm transition-all">
+        <span class="text-lg">🧬</span><span>自进化</span>
+      </a>
+      <a href="#" data-page="dna" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 text-sm transition-all">
+        <span class="text-lg">🧪</span><span>DNA 浏览器</span>
       </a>
     </div>
   </nav>
 
   <!-- Main -->
   <main class="flex-1 overflow-y-auto">
-    <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-8 py-4 flex items-center justify-between">
+    <header class="bg-white dark:bg-gray-800 border-b px-8 py-4 flex items-center justify-between sticky top-0 z-10">
       <div>
-        <h2 class="text-lg font-semibold text-gray-800 dark:text-white" id="page-title">仪表盘</h2>
-        <p class="text-sm text-gray-500 dark:text-gray-400" id="page-desc">系统概览</p>
+        <h2 class="text-lg font-semibold" id="page-title">4A Brand Studio</h2>
+        <p class="text-sm text-gray-400" id="page-desc">按 4A 流程完成品牌全案</p>
       </div>
       <div class="flex items-center gap-3">
-        <button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">🌓</button>
-        <span class="text-sm text-gray-500" id="status-badge">● 运行中</span>
+        <span class="h-2 w-2 rounded-full bg-green-500 inline-block"></span>
+        <span class="text-xs text-gray-400" id="status-text">就绪</span>
+        <button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">🌓</button>
       </div>
     </header>
-
-    <div class="p-8" id="page-content">
-      <!-- Pages render here via JS -->
-    </div>
+    <div class="p-8" id="page-content"></div>
   </main>
 </div>
 
-<script src="/static/js/app.js"></script>
+<script>
+// ── State ──
+let currentPage = 'briefing';
+let researchResult = null;
+let dnaResults = {};
+
+// ── Navigation ──
+document.querySelectorAll('[data-page]').forEach(el => {
+  el.addEventListener('click', e => { e.preventDefault(); go(el.dataset.page); });
+});
+function go(page) {
+  currentPage = page;
+  document.querySelectorAll('[data-page]').forEach(el => el.classList.toggle('phase-active', el.dataset.page === page));
+  render();
+}
+
+// ── Page Info ──
+const INFO = {
+  briefing:  { title: '📋 1. Briefing 品牌简报', desc: '输入品牌信息，启动4A全案流程' },
+  strategy:  { title: '📐 2. Strategy 品牌策略', desc: '深度研究 + 竞争分析 + 策略定调' },
+  creative:  { title: '🎨 3. Creative 创意设计', desc: '视觉DNA提取 + 设计模式应用 + MCP指南' },
+  execution: { title: '🖼️ 4. Execution 执行输出', desc: '生成详情页 + 设计规范 + 交付物' },
+  pitch:     { title: '🚀 5. Pitch 提案', desc: '品牌全案汇总 + 设计溯源报告' },
+  mcp:       { title: '🔧 MCP 设计指南工具', desc: '13 项设计审美工具' },
+  evolution: { title: '🧬 自进化引擎', desc: '4A案例学习 + 趋势追踪 + DNA优化' },
+  dna:       { title: '🧪 DNA 浏览器', desc: '浏览已研究的品牌DNA档案' },
+};
+
+function render() {
+  const info = INFO[currentPage] || INFO.briefing;
+  document.getElementById('page-title').textContent = info.title;
+  document.getElementById('page-desc').textContent = info.desc;
+  const ct = document.getElementById('page-content');
+  ct.innerHTML = '<div class="flex justify-center py-20"><div class="spin mr-3"></div>加载...</div>';
+  const fns = {
+    briefing: renderBriefing, strategy: renderStrategy, creative: renderCreative,
+    execution: renderExecution, pitch: renderPitch, mcp: renderMCP,
+    evolution: renderEvolution, dna: renderDNA
+  };
+  (fns[currentPage] || renderBriefing)(ct);
+}
+
+// ── API ──
+async function api(method, path, body) {
+  const opts = { method, headers: {'Content-Type':'application/json'} };
+  if (body) opts.body = JSON.stringify(body);
+  const r = await fetch('/api' + path, opts);
+  return r.json();
+}
+
+// ═══════════════════════════════════════════════════════════
+// 1. BRIEFING
+// ═══════════════════════════════════════════════════════════
+function renderBriefing(ct) {
+  ct.innerHTML = `
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2">
+      <div class="card mb-4">
+        <h3 class="font-semibold mb-4">品牌信息</h3>
+        <div class="space-y-4">
+          <div><label class="text-sm text-gray-500 mb-1 block">品牌名 *</label>
+            <input id="b-brand" class="inp" placeholder="如：MUJI 無印良品" value="MUJI"></div>
+          <div><label class="text-sm text-gray-500 mb-1 block">品类</label>
+            <select id="b-cat" class="sel"><option>furniture</option><option>fashion</option><option>electronics</option><option>food</option><option>home</option><option>lifestyle</option></select></div>
+          <div><label class="text-sm text-gray-500 mb-1 block">产品描述 (可选)</label>
+            <textarea id="b-desc" class="inp" rows="2" placeholder="简要描述产品特点..."></textarea></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 class="font-semibold mb-3">4A 流程启动</h3>
+        <div class="flex gap-2">
+          <button onclick="startResearch()" class="btn btn-p flex-1">🔍 启动深度研究</button>
+          <button onclick="go('strategy')" class="btn btn-s">下一步 →</button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card mb-4">
+        <h3 class="font-semibold mb-3 text-sm">📊 系统状态</h3>
+        <div id="sys-stats" class="text-sm space-y-2"><p class="text-gray-400">加载中...</p></div>
+      </div>
+      <div class="card">
+        <h3 class="font-semibold mb-3 text-sm">🏢 已研究品牌</h3>
+        <div id="brand-list" class="text-sm space-y-1"></div>
+      </div>
+    </div>
+  </div>`;
+  loadStats();
+  loadBrands();
+}
+
+async function loadStats() {
+  const d = await api('GET','/status');
+  const db = d.database || {};
+  document.getElementById('sys-stats').innerHTML = `
+    <div class="flex justify-between"><span class="text-gray-400">品牌库</span><span>${db.brands||0}</span></div>
+    <div class="flex justify-between"><span class="text-gray-400">设计模式</span><span>${db.patterns||0}</span></div>
+    <div class="flex justify-between"><span class="text-gray-400">4A案例</span><span>${db.agency_cases||0}</span></div>
+    <div class="flex justify-between"><span class="text-gray-400">进化次数</span><span>${db.evolution_log||0}</span></div>`;
+}
+async function loadBrands() {
+  const d = await api('GET','/brands');
+  const brands = d.brands || [];
+  const el = document.getElementById('brand-list');
+  if (brands.length) {
+    el.innerHTML = brands.map(b => `<div class="flex justify-between p-2 bg-gray-50 dark:bg-gray-700 rounded cursor-pointer hover:bg-blue-50" onclick="go('dna')"><span>${b.name}</span><span class="text-xs text-gray-400">×${b.research_count||0}</span></div>`).join('');
+  } else { el.innerHTML = '<p class="text-gray-400 text-xs">暂无研究过的品牌</p>'; }
+}
+
+async function startResearch() {
+  const brand = document.getElementById('b-brand').value.trim();
+  if (!brand) return alert('请输入品牌名');
+  document.getElementById('status-text').textContent = '研究中...';
+  researchResult = null;
+  try {
+    const r = await fetch('/api/deep-research', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({brand, category: document.getElementById('b-cat').value})
+    });
+    researchResult = await r.json();
+    document.getElementById('status-text').textContent = '✅ 研究完成';
+    alert(`✅ ${brand} 研究完成! 点击 "策略" 查看详细分析。`);
+  } catch(e) {
+    document.getElementById('status-text').textContent = '❌ 失败';
+    alert('研究失败: ' + e.message);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// 2. STRATEGY
+// ═══════════════════════════════════════════════════════════
+async function renderStrategy(ct) {
+  if (!researchResult) {
+    ct.innerHTML = `<div class="card text-center py-16"><p class="text-gray-400 mb-4">还未进行品牌研究</p>
+      <button onclick="go('briefing')" class="btn btn-p">去 Briefing 阶段开始</button></div>`;
+    return;
+  }
+  const d = researchResult;
+  const vd = d.visual_dna || {};
+  const cs = vd.color_system || {};
+  const cl = d.competitor_landscape || {};
+  const dp = d.design_patterns || [];
+  const wr = d.why_rationale || {};
+  
+  ct.innerHTML = `
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2 space-y-4">
+      <div class="card">
+        <h3 class="font-semibold mb-3">🎯 品牌定位</h3>
+        <p class="text-gray-600 dark:text-gray-300">${(d.brand_profile||{}).short_description||'无'}</p>
+        <div class="mt-3 grid grid-cols-2 gap-3 text-sm">
+          <div><span class="text-gray-400">理念:</span> ${(d.brand_profile||{}).brand_philosophy||'-'}</div>
+          <div><span class="text-gray-400">受众:</span> ${JSON.stringify((d.brand_profile||{}).target_audience||{})}</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 class="font-semibold mb-3">🎨 色彩系统 <span class="badge badge-blue">${cs.primary_colors?.length||0}主色</span></h3>
+        <div class="flex gap-2 mb-3">
+          ${(cs.primary_colors||[]).map(c => `<div title="${c.name}" style="background:${c.hex||'#ccc'}" class="w-12 h-12 rounded-xl border shadow-sm"></div>`).join('')}
+        </div>
+        <div class="space-y-2 text-sm max-h-40 overflow-y-auto">
+          ${(cs.primary_colors||[]).map(c => `<div class="flex justify-between p-2 bg-gray-50 dark:bg-gray-700 rounded"><span class="font-medium">${c.name}</span><span>${c.hex}</span><span class="text-gray-400 text-xs ml-2">${(c.why||'').slice(0,60)}</span></div>`).join('')}
+        </div>
+        <p class="mt-2 text-xs text-gray-400">${cs.color_psychology||''}</p>
+      </div>
+      <div class="card">
+        <h3 class="font-semibold mb-3">🔤 字体系统</h3>
+        <div class="grid grid-cols-2 gap-3 text-sm">
+          <div class="p-3 bg-gray-50 dark:bg-gray-700 rounded">
+            <span class="text-gray-400">标题:</span>
+            <div class="font-bold text-lg">${(vd.typography||{}).heading_font?.name||'-'}</div>
+            <div class="text-xs text-gray-400">${(vd.typography||{}).heading_font?.why||''}</div>
+          </div>
+          <div class="p-3 bg-gray-50 dark:bg-gray-700 rounded">
+            <span class="text-gray-400">正文:</span>
+            <div>${(vd.typography||{}).body_font?.name||'-'}</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 class="font-semibold mb-3">🏢 竞争格局 <span class="badge badge-blue">${cl.top_competitors?.length||0}家</span></h3>
+        <div class="space-y-2">
+          ${(cl.top_competitors||[]).map(c => `
+            <div class="p-3 bg-gray-50 dark:bg-gray-700 rounded text-sm">
+              <div class="flex justify-between"><span class="font-medium">${c.name}</span><span class="text-gray-400">${c.positioning||''}</span></div>
+              <div class="text-xs text-gray-400 mt-1">${c.visual_style||''} | 优势: ${(c.strength||'').slice(0,50)}</div>
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="space-y-4">
+      <div class="card">
+        <h3 class="font-semibold mb-3 text-sm">📐 版式系统</h3>
+        <div class="text-sm space-y-1">
+          <div class="flex justify-between"><span class="text-gray-400">类型</span><span>${vd.layout_grid?.type||'-'}</span></div>
+          <div class="flex justify-between"><span class="text-gray-400">列数</span><span>${vd.layout_grid?.columns||'-'}</span></div>
+          <div class="flex justify-between"><span class="text-gray-400">信息密度</span><span>${vd.layout_grid?.information_density||'-'}</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 class="font-semibold mb-3 text-sm">💡 WHY 溯源 <span class="badge badge-blue">${wr.key_design_decisions?.length||0}条</span></h3>
+        <div class="space-y-2 max-h-60 overflow-y-auto">
+          ${(wr.key_design_decisions||[]).map(dd => `
+            <div class="p-2 bg-gray-50 dark:bg-gray-700 rounded text-xs">
+              <div class="font-medium text-sm">${dd.decision||''}</div>
+              <div class="text-gray-400 mt-1">${(dd.psychological_effect||'').slice(0,80)}</div>
+            </div>`).join('')||'<p class="text-xs text-gray-400">无数据</p>'}
+        </div>
+      </div>
+      <button onclick="go('creative')" class="btn btn-p w-full">下一步: 创意设计 →</button>
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+// 3. CREATIVE (with MCP Integration)
+// ═══════════════════════════════════════════════════════════
+function renderCreative(ct) {
+  ct.innerHTML = `
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2 space-y-4">
+      <div class="card">
+        <h3 class="font-semibold mb-3">🎨 设计模式库 <span class="badge badge-blue" id="pattern-count"></span></h3>
+        <div id="patterns-list" class="space-y-2"></div>
+      </div>
+      <div class="card">
+        <h3 class="font-semibold mb-3">📸 摄影风格</h3>
+        <div id="photo-style" class="text-sm"></div>
+      </div>
+    </div>
+    <div class="space-y-4">
+      <div class="card">
+        <h3 class="font-semibold mb-3 text-sm">🔧 MCP 设计指南</h3>
+        <div class="space-y-2">
+          <button onclick="mcpTool('trends')" class="btn btn-s w-full text-xs">📈 2026设计趋势</button>
+          <button onclick="mcpTool('palettes')" class="btn btn-s w-full text-xs">🎨 流行色板</button>
+          <button onclick="mcpTool('typography')" class="btn btn-s w-full text-xs">🔤 字体搭配</button>
+          <button onclick="mcpTool('layout')" class="btn btn-s w-full text-xs">📐 版式模式</button>
+          <button onclick="mcpTool('accessibility')" class="btn btn-s w-full text-xs">♿ 无障碍</button>
+        </div>
+        <div id="mcp-result" class="mt-3 text-xs text-gray-400"></div>
+      </div>
+      <button onclick="go('execution')" class="btn btn-p w-full">下一步: 执行输出 →</button>
+    </div>
+  </div>`;
+  loadPatterns();
+  loadPhoto();
+}
+
+async function loadPatterns() {
+  const k = await api('GET','/knowledge');
+  const patterns = k.patterns || [];
+  document.getElementById('pattern-count').textContent = patterns.length + '条';
+  const el = document.getElementById('patterns-list');
+  if (patterns.length) {
+    el.innerHTML = patterns.map(p => `
+      <div class="p-3 bg-gray-50 dark:bg-gray-700 rounded text-sm">
+        <div class="flex items-center gap-2"><span class="badge badge-blue">${p.category||'通用'}</span><span class="font-medium">${p.name}</span></div>
+        <p class="text-xs text-gray-400 mt-1">${(p.description||'').slice(0,120)}</p>
+        ${p.rationale ? `<p class="text-xs text-blue-500 mt-1">WHY: ${p.rationale.slice(0,80)}</p>` : ''}
+      </div>`).join('');
+  } else { el.innerHTML = '<p class="text-sm text-gray-400">暂无模式。运行自进化获取4A案例模式。</p>'; }
+}
+
+async function loadPhoto() {
+  if (!researchResult) return;
+  const ps = researchResult.visual_dna?.photography_style || {};
+  document.getElementById('photo-style').innerHTML = `
+    <div class="grid grid-cols-2 gap-2">
+      <div class="p-2 bg-gray-50 dark:bg-gray-700 rounded"><span class="text-gray-400">灯光:</span> ${ps.lighting_setup||'-'}</div>
+      <div class="p-2 bg-gray-50 dark:bg-gray-700 rounded"><span class="text-gray-400">色调:</span> ${ps.color_tone||'-'}</div>
+      <div class="p-2 bg-gray-50 dark:bg-gray-700 rounded"><span class="text-gray-400">构图:</span> ${ps.composition||'-'}</div>
+      <div class="p-2 bg-gray-50 dark:bg-gray-700 rounded"><span class="text-gray-400">布景:</span> ${ps.product_staging||'-'}</div>
+    </div>`;
+}
+
+async function mcpTool(tool) {
+  const el = document.getElementById('mcp-result');
+  el.innerHTML = '<span class="spin inline-block mr-2"></span>查询MCP...';
+  try {
+    const r = await api('POST','/mcp/'+tool);
+    el.innerHTML = '<pre class="bg-gray-100 dark:bg-gray-900 p-2 rounded">' + JSON.stringify(r, null, 2).slice(0,500) + '</pre>';
+  } catch(e) {
+    el.innerHTML = '❌ ' + e.message;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// 4. EXECUTION
+// ═══════════════════════════════════════════════════════════
+function renderExecution(ct) {
+  ct.innerHTML = `
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="card">
+      <h3 class="font-semibold mb-3">🖼️ 生成详情页</h3>
+      <div class="space-y-3">
+        <input id="e-brand" class="inp" placeholder="品牌名" value="${researchResult?._meta?.brand||'NORHOR'}">
+        <select id="e-cat" class="sel"><option>furniture</option><option>fashion</option><option>lifestyle</option></select>
+        <button onclick="runGenerate()" class="btn btn-p w-full">🚀 生成</button>
+      </div>
+      <div id="gen-result" class="mt-3 text-sm"></div>
+    </div>
+    <div class="card">
+      <h3 class="font-semibold mb-3">📦 交付物清单</h3>
+      <div class="space-y-2 text-sm">
+        <div class="p-3 bg-gray-50 dark:bg-gray-700 rounded flex items-center gap-3">
+          <span>📄</span><span>品牌DNA报告 (JSON)</span><span class="badge badge-green ml-auto">就绪</span>
+        </div>
+        <div class="p-3 bg-gray-50 dark:bg-gray-700 rounded flex items-center gap-3">
+          <span>🎨</span><span>视觉规范手册</span><span class="badge badge-gray ml-auto">待生成</span>
+        </div>
+        <div class="p-3 bg-gray-50 dark:bg-gray-700 rounded flex items-center gap-3">
+          <span>🖼️</span><span>详情页图片 (ZIP)</span><span class="badge badge-gray ml-auto">待生成</span>
+        </div>
+        <div class="p-3 bg-gray-50 dark:bg-gray-700 rounded flex items-center gap-3">
+          <span>📊</span><span>竞争分析报告</span><span class="badge badge-gray ml-auto">待生成</span>
+        </div>
+      </div>
+      <button onclick="go('pitch')" class="btn btn-p w-full mt-4">下一步: 提案 →</button>
+    </div>
+  </div>`;
+}
+
+async function runGenerate() {
+  const brand = document.getElementById('e-brand').value.trim();
+  if (!brand) return alert('输入品牌名');
+  const el = document.getElementById('gen-result');
+  el.innerHTML = '<span class="spin inline-block mr-2"></span>生成中...';
+  const r = await api('POST','/generate', {brand, category: document.getElementById('e-cat').value});
+  el.innerHTML = r.output?.zip ? `✅ 已生成: <code class="text-blue-600 text-xs">${r.output.zip}</code>` : `⚠️ ${JSON.stringify(r.stages||{})}`;
+}
+
+// ═══════════════════════════════════════════════════════════
+// 5. PITCH
+// ═══════════════════════════════════════════════════════════
+function renderPitch(ct) {
+  const brand = researchResult?._meta?.brand || '品牌';
+  ct.innerHTML = `
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="lg:col-span-2 card">
+      <h3 class="font-semibold mb-4">🚀 ${brand} 品牌全案提案</h3>
+      <div class="grid grid-cols-5 gap-3 text-center text-sm">
+        <div class="p-3 bg-blue-50 dark:bg-blue-900 rounded"><div class="text-2xl">📋</div><div class="mt-1">Briefing</div><div class="text-green-500 text-xs">${researchResult?'✅':'⬜'}</div></div>
+        <div class="p-3 bg-blue-50 dark:bg-blue-900 rounded"><div class="text-2xl">📐</div><div class="mt-1">Strategy</div><div class="text-green-500 text-xs">${researchResult?'✅':'⬜'}</div></div>
+        <div class="p-3 bg-blue-50 dark:bg-blue-900 rounded"><div class="text-2xl">🎨</div><div class="mt-1">Creative</div><div class="text-green-500 text-xs">${researchResult?'✅':'⬜'}</div></div>
+        <div class="p-3 bg-blue-50 dark:bg-blue-900 rounded"><div class="text-2xl">🖼️</div><div class="mt-1">Execution</div><div class="text-yellow-500 text-xs">进行中</div></div>
+        <div class="p-3 bg-purple-50 dark:bg-purple-900 rounded"><div class="text-2xl">🚀</div><div class="mt-1">Pitch</div><div class="text-gray-400 text-xs">当前</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="font-semibold mb-3">📊 溯源报告</h3>
+      <div id="trace-report" class="text-sm"></div>
+    </div>
+    <div class="card">
+      <h3 class="font-semibold mb-3">📥 导出</h3>
+      <div class="space-y-2">
+        <button onclick="exportJSON()" class="btn btn-s w-full text-sm">📄 导出 DNA JSON</button>
+        <button onclick="exportReport()" class="btn btn-s w-full text-sm">📊 导出溯源报告</button>
+      </div>
+    </div>
+  </div>`;
+  if (researchResult) {
+    const wr = researchResult.why_rationale || {};
+    document.getElementById('trace-report').innerHTML = `
+      <p class="text-gray-600 dark:text-gray-300 mb-2"><strong>设计哲学:</strong> ${wr.overall_design_philosophy||'无'}</p>
+      ${(wr.key_design_decisions||[]).map(dd => `
+        <div class="p-2 bg-gray-50 dark:bg-gray-700 rounded mb-2 text-xs">
+          <div class="font-medium">${dd.decision||''}</div>
+          <div class="text-gray-400 mt-1">🧠 ${(dd.psychological_effect||'').slice(0,100)}</div>
+          <div class="text-gray-400">📊 ${(dd.market_value||'').slice(0,100)}</div>
+        </div>`).join('')||'<p class="text-gray-400">无溯源数据</p>'}`;
+  }
+}
+
+function exportJSON() {
+  if (!researchResult) return alert('无数据');
+  const blob = new Blob([JSON.stringify(researchResult, null, 2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = `${(researchResult._meta?.brand||'brand').replace(/\s/g,'_')}_dna.json`;
+  a.click();
+}
+
+function exportReport() {
+  alert('报告导出功能即将上线');
+}
+
+// ═══════════════════════════════════════════════════════════
+// MCP TOOLS
+// ═══════════════════════════════════════════════════════════
+function renderMCP(ct) {
+  const tools = [
+    ['trends','📈','2026设计趋势','get_modern_trends'],
+    ['palettes','🎨','流行色板','get_modern_palettes'],
+    ['typography','🔤','字体搭配','get_typography_guidance'],
+    ['layout','📐','版式模式','get_layout_patterns'],
+    ['color','🌈','色彩心理学','get_color_guidance'],
+    ['accessibility','♿','无障碍标准','get_accessibility_guidance'],
+    ['components','🧩','组件设计','get_component_guidance'],
+    ['animation','✨','动效指南','get_animation_guidance'],
+    ['responsive','📱','响应式设计','get_responsive_guidance'],
+    ['section','📄','页面段落','get_section_guidance'],
+    ['principles','📏','设计原则','get_design_principles'],
+    ['inspiration','💡','灵感来源','get_inspiration_by_mood'],
+    ['holistic','🔍','全面审查','get_holistic_design_review'],
+  ];
+  ct.innerHTML = `
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-6">
+    ${tools.map(([id,icon,name]) => `
+      <button onclick="mcpQuery('${id}')" class="card text-center hover:shadow-lg transition-shadow cursor-pointer">
+        <div class="text-2xl mb-1">${icon}</div>
+        <div class="text-xs font-medium">${name}</div>
+      </button>`).join('')}
+  </div>
+  <div id="mcp-output" class="card"><p class="text-gray-400 text-sm">点击上方工具查询设计指南</p></div>`;
+}
+
+async function mcpQuery(tool) {
+  const el = document.getElementById('mcp-output');
+  el.innerHTML = '<div class="flex items-center gap-2"><div class="spin"></div>查询中...</div>';
+  try {
+    const r = await api('POST','/mcp/'+tool);
+    el.innerHTML = '<pre class="bg-gray-100 dark:bg-gray-900 p-4 rounded text-xs leading-relaxed">' +
+      JSON.stringify(r, null, 2).slice(0, 3000) + '</pre>';
+  } catch(e) {
+    el.innerHTML = '<p class="text-red-500">❌ ' + e.message + '</p>';
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// EVOLUTION
+// ═══════════════════════════════════════════════════════════
+function renderEvolution(ct) {
+  ct.innerHTML = `
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2 space-y-4">
+      <div class="card">
+        <h3 class="font-semibold mb-3">🧬 自进化引擎</h3>
+        <p class="text-sm text-gray-400 mb-4">研究4A顶尖公司案例 → 提取设计模式 → 丰富DNA库 → 自我优化</p>
+        <div class="flex gap-3">
+          <button onclick="runEvolution()" class="btn btn-p">🚀 运行进化周期</button>
+          <button onclick="loadEvolutionHistory()" class="btn btn-s">📋 历史记录</button>
+        </div>
+      </div>
+      <div id="evolution-result"></div>
+      <div class="card">
+        <h3 class="font-semibold mb-3">🏢 4A案例库</h3>
+        <div id="agency-cases" class="space-y-2"></div>
+      </div>
+    </div>
+    <div class="space-y-4">
+      <div class="card">
+        <h3 class="font-semibold mb-3 text-sm">📊 进化统计</h3>
+        <div id="evo-stats" class="text-sm space-y-2"></div>
+      </div>
+      <div class="card">
+        <h3 class="font-semibold mb-3 text-sm">🔄 MCP 趋势学习</h3>
+        <div class="space-y-2">
+          <button onclick="mcpTool('trends')" class="btn btn-s w-full text-xs">📈 学习2026趋势</button>
+          <button onclick="mcpTool('palettes')" class="btn btn-s w-full text-xs">🎨 学习流行色</button>
+        </div>
+        <div id="mcp-learn" class="mt-2 text-xs text-gray-400"></div>
+      </div>
+    </div>
+  </div>`;
+  loadEvoStats();
+  loadAgencyCases();
+}
+
+async function runEvolution() {
+  const el = document.getElementById('evolution-result');
+  el.innerHTML = '<div class="card text-center py-8"><div class="spin mx-auto mb-3"></div><p class="text-gray-400">运行自进化 (约30秒)...</p></div>';
+  try {
+    const r = await api('POST','/evolution');
+    const steps = r.steps || {};
+    el.innerHTML = `
+      <div class="card">
+        <h3 class="font-semibold mb-3 text-green-600">✅ 进化完成</h3>
+        <div class="space-y-1 text-sm">
+          ${Object.entries(steps).map(([k,v]) => `<div class="flex justify-between p-2 bg-gray-50 dark:bg-gray-700 rounded"><span>${k}</span><span>${typeof v === 'string' ? (v.includes('✅')?'✅':v) : JSON.stringify(v)}</span></div>`).join('')}
+          ${r.total_cases !== undefined ? `<div class="mt-2 p-2 bg-blue-50 dark:bg-blue-900 rounded text-xs">累计案例: ${r.total_cases}</div>` : ''}
+        </div>
+      </div>`;
+    loadEvoStats(); loadAgencyCases();
+  } catch(e) {
+    el.innerHTML = `<div class="card text-red-500">❌ 失败: ${e.message}</div>`;
+  }
+}
+
+async function loadEvoStats() {
+  const k = await api('GET','/knowledge');
+  const s = k.stats || {};
+  document.getElementById('evo-stats').innerHTML = `
+    <div class="flex justify-between"><span class="text-gray-400">4A案例</span><span>${s.agency_cases||0}</span></div>
+    <div class="flex justify-between"><span class="text-gray-400">设计模式</span><span>${s.patterns||0}</span></div>
+    <div class="flex justify-between"><span class="text-gray-400">品牌档案</span><span>${s.brands||0}</span></div>
+    <div class="flex justify-between"><span class="text-gray-400">进化次数</span><span>${s.evolution_log||0}</span></div>`;
+}
+
+async function loadAgencyCases() {
+  try {
+    const k = await api('GET','/knowledge');
+    const cases = k.agency_cases || [];
+    const el = document.getElementById('agency-cases');
+    if (cases.length) {
+      el.innerHTML = cases.map(c => `
+        <div class="p-3 bg-gray-50 dark:bg-gray-700 rounded text-sm">
+          <div class="font-medium">${c.agency}</div>
+          <div class="text-xs text-gray-400">${(c.rationale||c.project||'').slice(0,80)}</div>
+        </div>`).join('');
+    } else { el.innerHTML = '<p class="text-sm text-gray-400">暂无案例。运行进化获取。</p>'; }
+  } catch(e) { /* ignore */ }
+}
+
+function loadEvolutionHistory() {
+  document.getElementById('evolution-result').innerHTML = '<div class="card text-center py-8"><p class="text-gray-400">进化历史功能即将上线</p></div>';
+}
+
+// ═══════════════════════════════════════════════════════════
+// DNA BROWSER
+// ═══════════════════════════════════════════════════════════
+async function renderDNA(ct) {
+  ct.innerHTML = '<div class="card text-center py-10"><div class="spin mx-auto"></div></div>';
+  const d = await api('GET','/brands');
+  const brands = d.brands || [];
+  ct.innerHTML = `
+  <div class="mb-4"><input id="dna-search" class="inp max-w-md" placeholder="搜索品牌..." oninput="filterDNA()"></div>
+  <div id="dna-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    ${brands.length ? brands.map(b => `
+      <div class="card cursor-pointer hover:shadow-lg transition-shadow" onclick="viewDNA('${b.name}')">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-semibold">${b.name}</h3>
+          <span class="badge badge-blue text-xs">${b.category||'通用'}</span>
+        </div>
+        <div class="text-xs text-gray-400">研究 ${b.research_count||0} 次</div>
+      </div>`).join('') : '<div class="col-span-3 card text-center py-10 text-gray-400">暂无品牌数据</div>'}
+  </div>
+  <div id="dna-detail" class="mt-6"></div>`;
+}
+
+function filterDNA() {
+  const q = document.getElementById('dna-search').value.toLowerCase();
+  document.querySelectorAll('#dna-grid > div').forEach(el => {
+    el.style.display = el.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+async function viewDNA(name) {
+  const el = document.getElementById('dna-detail');
+  el.innerHTML = '<div class="card"><div class="spin mx-auto"></div></div>';
+  const d = await api('GET','/brand/'+encodeURIComponent(name));
+  el.innerHTML = `
+  <div class="card">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-lg font-semibold">${name}</h3>
+      <button onclick="document.getElementById('dna-detail').innerHTML=''" class="text-gray-400 hover:text-gray-600">✕</button>
+    </div>
+    ${d.brand ? `
+    <div class="grid grid-cols-2 gap-4 text-sm mb-4">
+      <div><span class="text-gray-400">品类:</span> ${d.brand.category||'-'}</div>
+      <div><span class="text-gray-400">研究:</span> ${d.brand.research_count||0}次</div>
+      <div><span class="text-gray-400">置信度:</span> ${((d.brand.confidence||0)*100).toFixed(0)}%</div>
+    </div>` : '<p class="text-gray-400 text-sm">无详细档案</p>'}
+    ${d.knowledge?.length ? `
+    <h4 class="font-medium mb-2 text-sm">设计知识 (${d.knowledge.length}条)</h4>
+    <div class="space-y-2 max-h-60 overflow-y-auto">
+      ${d.knowledge.slice(0,10).map(k => `
+        <div class="p-3 bg-gray-50 dark:bg-gray-700 rounded text-xs">
+          <span class="badge badge-gray mb-1">${k.type}</span>
+          <p>${typeof k.content === 'string' ? k.content.slice(0,200) : JSON.stringify(k.content).slice(0,200)}</p>
+        </div>`).join('')}
+    </div>` : ''}
+  </div>`;
+}
+
+// ── Theme ──
+function toggleTheme() {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+}
+if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+
+// ── Init ──
+go('briefing');
+</script>
 </body>
 </html>
