@@ -137,23 +137,32 @@ class ModelHealthMonitor:
             return health
 
         except requests.Timeout:
-            health = self.health_map.get(key) or ModelHealth(model_name, provider)
-            health.status = "dead"
-            health.error_count += 1
-            health.last_error = "Timeout (>15s)"
-            health.last_checked = datetime.utcnow().isoformat()
-            self.health_map[key] = health
-            self._save()
+            last_error = "Timeout (>15s)"
+            health = self._update_health(key, model_name, provider, "dead", last_error)
+            return health
+        except requests.ConnectionError:
+            last_error = "Connection refused"
+            health = self._update_health(key, model_name, provider, "dead", last_error)
             return health
         except Exception as e:
-            health = self.health_map.get(key) or ModelHealth(model_name, provider)
-            health.status = "dead"
-            health.error_count += 1
-            health.last_error = str(e)[:100]
-            health.last_checked = datetime.utcnow().isoformat()
-            self.health_map[key] = health
-            self._save()
+            # Sanitize: remove any API key from error message
+            safe = str(e).replace(api_key, "[REDACTED]") if api_key in str(e) else str(e)
+            health = self._update_health(key, model_name, provider, "dead", safe[:100])
             return health
+
+    def _update_health(self, key: str, model_name: str, provider: str,
+                        status: str, error: str = "") -> ModelHealth:
+        health = self.health_map.get(key) or ModelHealth(model_name, provider)
+        health.status = status
+        health.last_checked = datetime.utcnow().isoformat()
+        if error:
+            health.last_error = error
+            health.error_count += 1
+        else:
+            health.success_count += 1
+        self.health_map[key] = health
+        self._save()
+        return health
 
     def check_all(self, models: List[Tuple[str, str]]) -> Dict[str, ModelHealth]:
         """检查所有配置的模型"""
