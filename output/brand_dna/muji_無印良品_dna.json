@@ -1,0 +1,232 @@
+{
+  "brand_profile": {
+    "name": "MUJI 無印良品",
+    "category": "Home Lifestyle",
+    "mission": "To provide simple, affordable, and high-quality products that enhance everyday living.",
+    "brand_values": [
+      "Simplicity",
+      "Functionality",
+      "Sustainability",
+      "Affordability"
+    ],
+    "target_audience": "Minimalists, eco-conscious consumers, and individuals seeking functional design."
+  },
+  "visual_dna": {
+    "color_system": {
+      "primary_colors": [
+        {
+          "name": "White",
+          "hex": "#FFFFFF",
+          "usage": "Backgrounds, product packaging",
+          "why": "Represents simplicity and purity, aligns with minimalist aesthetic."
+        },
+        {
+          "name": "Black",
+          "hex": "#000000",
+          "usage": "Text, logos",
+          "why": "Provides contrast and clarity, emphasizes MUJI's straightforward design."
+        },
+        {
+          "name": "Gray",
+          "hex": "#B2B2B2",
+          "usage": "Accents, secondary text",
+          "why": "Neutral tone that complements primary colors, maintains understated elegance."
+        },
+        {
+          "name": "Beige",
+          "hex": "#F5F5DC",
+          "usage": "Product materials, backgrounds",
+          "why": "Natural and warm, reflects MUJI's focus on sustainability and natural materials."
+        },
+        {
+          "name": "Brown",
+          "hex": "#8B4513",
+          "usage": "Product materials, accents",
+          "why": "Earthy tone that signifies MUJI's commitment to natural, sustainable materials."
+        }
+      ],
+      "secondary_colors": [
+        {
+          "name": "Soft Blue",
+          "hex": "#A9C4D4",
+          "usage": "Limited edition products, seasonal items"
+        },
+        {
+          "name": "Olive Green",
+          "hex": "#808000",
+          "usage": "Eco-friendly product lines"
+        }
+      ],
+      "accent_colors": [
+        {
+          "name": "Red",
+          "hex": "#FF0000",
+          "usage": "Promotional materials, call-to-action elements"
+        }
+      ],
+      "color_psychology": "MUJI's color palette evokes calmness, simplicity, and a connection to nature.",
+      "color_temperature": "Neutral to warm",
+      "contrast_style": "High contrast between text and background for readability, subtle contrast in product design for harmony."
+    },
+    "typography": {
+      "heading_font": {
+        "name": "Helvetica",
+        "category": "Sans-serif",
+        "weights": [
+          "Regular",
+          "Bold"
+        ],
+        "why": "Clean and modern, aligns with MUJI's minimalist aesthetic."
+      },
+      "body_font": {
+        "name": "Arial",
+        "category": "Sans-serif",
+        "why": "Simple and legible, supports MUJI's focus on clarity and functionality."
+      },
+      "type_scale": "1.25",
+      "line_height": "1.5"
+    },
+    "layout_grid": {
+      "type": "Modular grid",
+      "columns": "12",
+      "information_density": 0.5,
+      "white_space_usage": "Generous use of white space to emphasize simplicity and focus on product."
+    },
+    "photography_style": {
+      "lighting_setup": "Soft, natural lighting",
+      "color_tone": "Neutral",
+      "composition": "Centered, balanced",
+      "product_staging": "Minimalist, with focus on product functionality"
+    }
+  },
+  "market_position": {
+    "price_tier": "Mid-range",
+    "differentiation": "Minimalist design, sustainable materials, functional products",
+    "competitors": [
+      "IKEA",
+      "HAY",
+      "Uniqlo",
+      "Zara Home",
+      "Crate & Barrel"
+    ]
+  },
+  "competitor_landscape": {
+    "top_competitors": [
+      {
+        "name": "IKEA",
+        "positioning": "Affordable, stylish home furnishings",
+        "visual_style": "Bright, colorful, Scandinavian",
+        "strength": "Wide product range, global presence",
+        "weakness": "Perceived lower quality",
+        "our_differentiation": "Focus on simplicity and sustainability."
+      },
+      {
+        "name": "HAY",
+        "positioning": "Contemporary, design-forward furniture",
+        "visual_style": "Bold, modern, colorful",
+        "strength": "Design innovation",
+        "weakness": "Higher price point",
+        "our_differentiation": "Affordability and simplicity."
+      },
+      {
+        "name": "Uniqlo",
+        "positioning": "Basic, functional clothing",
+        "visual_style": "Minimalist, functional",
+        "strength": "Quality basics, global reach",
+        "weakness": "Limited home product range",
+        "our_differentiation": "Broader home lifestyle focus."
+      },
+      {
+        "name": "Zara Home",
+        "positioning": "Trendy, stylish home accessories",
+        "visual_style": "Chic, seasonal",
+        "strength": "Fashion-forward designs",
+        "weakness": "Higher price point",
+        "our_differentiation": "Timeless, minimalist design."
+      },
+      {
+        "name": "Crate & Barrel",
+        "positioning": "Modern, high-quality home furnishings",
+        "visual_style": "Sophisticated, elegant",
+        "strength": "Quality craftsmanship",
+        "weakness": "Higher price point",
+        "our_differentiation": "Simplicity and affordability."
+      }
+    ]
+  },
+  "design_patterns": [
+    {
+      "pattern_name": "Minimalist Product Display",
+      "description": "Products are displayed with minimal props and distractions.",
+      "category": "Product Presentation",
+      "extractable_rule": "Use neutral backgrounds and minimal props to focus on product features.",
+      "why_effective": "Keeps attention on the product, enhancing perceived value and functionality."
+    },
+    {
+      "pattern_name": "Neutral Color Palette",
+      "description": "Use of whites, grays, and natural tones.",
+      "category": "Color Usage",
+      "extractable_rule": "Maintain a neutral color palette to emphasize simplicity and elegance.",
+      "why_effective": "Creates a calming and cohesive brand experience."
+    },
+    {
+      "pattern_name": "Generous White Space",
+      "description": "Ample white space around text and images.",
+      "category": "Layout",
+      "extractable_rule": "Incorporate generous white space to enhance readability and focus.",
+      "why_effective": "Improves user experience by reducing cognitive load."
+    },
+    {
+      "pattern_name": "Functional Typography",
+      "description": "Use of clean, sans-serif fonts for readability.",
+      "category": "Typography",
+      "extractable_rule": "Select sans-serif fonts for clarity and modernity.",
+      "why_effective": "Enhances readability and aligns with minimalist design principles."
+    },
+    {
+      "pattern_name": "Sustainable Material Highlight",
+      "description": "Emphasizing natural materials in product design.",
+      "category": "Material Usage",
+      "extractable_rule": "Highlight natural materials to communicate sustainability.",
+      "why_effective": "Appeals to eco-conscious consumers and reinforces brand values."
+    }
+  ],
+  "why_rationale": {
+    "overall_design_philosophy": "MUJI's design philosophy centers around simplicity, functionality, and sustainability, aiming to create products that enhance everyday life without unnecessary embellishments.",
+    "key_design_decisions": [
+      {
+        "decision": "Use of minimalist design",
+        "supporting_research": "Minimalism reduces cognitive load and enhances user experience.",
+        "psychological_effect": "Creates a sense of calm and focus.",
+        "market_value": "Differentiates MUJI in a crowded market, appealing to consumers seeking simplicity."
+      },
+      {
+        "decision": "Focus on sustainable materials",
+        "supporting_research": "Growing consumer demand for eco-friendly products.",
+        "psychological_effect": "Builds trust and loyalty among eco-conscious consumers.",
+        "market_value": "Enhances brand reputation and aligns with global sustainability trends."
+      },
+      {
+        "decision": "Neutral color palette",
+        "supporting_research": "Neutral colors are timeless and versatile.",
+        "psychological_effect": "Conveys sophistication and timelessness.",
+        "market_value": "Ensures longevity of product design, reducing need for frequent updates."
+      }
+    ]
+  },
+  "extracted_parameters": {
+    "camera_style": "Static, focused on product",
+    "lighting_temperature": "Warm to neutral",
+    "contrast_range": "High for text, subtle for product imagery",
+    "saturation_level": "Low to medium",
+    "information_hierarchy": "Clear and logical, with emphasis on product features"
+  },
+  "_meta": {
+    "brand": "MUJI 無印良品",
+    "category": "home lifestyle",
+    "sources": [],
+    "analyzed_at": "2026-07-15T03:09:42.773778",
+    "model": "gpt-4o",
+    "pages_analyzed": 0
+  }
+}
