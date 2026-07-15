@@ -16,6 +16,7 @@ Module D: Validator — 生成后自动校验 + 风格库迭代更新
 import json
 import logging
 import copy
+import re
 from typing import Optional, List, Dict, Any, Tuple, Set
 from dataclasses import dataclass, field, asdict
 from datetime import datetime
