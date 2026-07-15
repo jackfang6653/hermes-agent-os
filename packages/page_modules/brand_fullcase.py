@@ -121,7 +121,6 @@ class BrandFullCase:
                 "messages": messages,
                 "max_tokens": 4096,
                 "temperature": 0.3,
-                "response_format": {"type": "json_object"},
             },
             timeout=120
         )
