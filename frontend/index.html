@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes OS — Brand DNA Studio</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors">
+<div id="app" class="flex h-screen">
+  <!-- Sidebar -->
+  <nav class="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-shrink-0 overflow-y-auto">
+    <div class="p-6">
+      <h1 class="text-xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
+        <span class="w-3 h-3 bg-blue-500 rounded-full"></span>
+        Hermes OS
+      </h1>
+      <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Brand DNA Studio</p>
+    </div>
+    <div class="px-3 space-y-1" id="nav-items">
+      <a href="#" data-page="dashboard" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
+        <span>📊</span><span>仪表盘</span>
+      </a>
+      <a href="#" data-page="research" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
+        <span>🔍</span><span>品牌研究</span>
+      </a>
+      <a href="#" data-page="brands" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
+        <span>🧬</span><span>品牌DNA</span>
+      </a>
+      <a href="#" data-page="generate" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
+        <span>🖼️</span><span>生成</span>
+      </a>
+      <a href="#" data-page="knowledge" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
+        <span>📚</span><span>知识库</span>
+      </a>
+      <a href="#" data-page="evolution" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
+        <span>🔄</span><span>进化</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="flex-1 overflow-y-auto">
+    <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-8 py-4 flex items-center justify-between">
+      <div>
+        <h2 class="text-lg font-semibold text-gray-800 dark:text-white" id="page-title">仪表盘</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400" id="page-desc">系统概览</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">🌓</button>
+        <span class="text-sm text-gray-500" id="status-badge">● 运行中</span>
+      </div>
+    </header>
+
+    <div class="p-8" id="page-content">
+      <!-- Pages render here via JS -->
+    </div>
+  </main>
+</div>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>
