@@ -12,7 +12,12 @@
 7. Brand Match Score — 各维度品牌合规评分
 """
 from PIL import Image, ImageDraw, ImageFont
-import io, os, json, zipfile, textwrap, math
+import io
+import os
+import json
+import zipfile
+import textwrap
+import math
 from pathlib import Path
 from typing import Optional, List, Dict, Any, Tuple
 
@@ -113,7 +118,7 @@ def _color_system(dna: dict) -> Image.Image:
     """区块2: 色彩系统 — 色板/关系/温度/心理"""
     pal = dna.get("primary_palette",[])
     sec = dna.get("secondary_palette",[])
-    acc = dna.get("accent_palette",[])
+    dna.get("accent_palette",[])
     rel = dna.get("color_relationship","")
     temp = dna.get("temperature","")
     psy = dna.get("psychological_effect","")
@@ -264,8 +269,8 @@ def _design_patterns(dna: dict) -> Image.Image:
     """区块5: 设计模式分析"""
     patterns = dna.get("design_patterns", [])
     layout = dna.get("layout_patterns", [])
-    comp = dna.get("composition_rules", "")
-    vh = dna.get("visual_hierarchy", "")
+    dna.get("composition_rules", "")
+    dna.get("visual_hierarchy", "")
 
     H = 380
     img = Image.new("RGB", (W, H), h2r(BG))
@@ -291,7 +296,7 @@ def _design_patterns(dna: dict) -> Image.Image:
 def _scene_graph(dna: dict) -> Image.Image:
     """区块6: 场景图 — 元素ID/空间关系"""
     elements = dna.get("elements", [])
-    env = dna.get("environment", {})
+    dna.get("environment", {})
 
     H = 320 + len(elements) * 60
     img = Image.new("RGB", (W, H), h2r(BG))

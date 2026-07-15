@@ -356,7 +356,7 @@ class PageCrawler:
         return bg_match.group(1) if bg_match else ""
 
     def _associate_module_crops(self, modules: List[ModuleRegion], html: str) -> None:
-        soup = BeautifulSoup(html, "html.parser")
+        BeautifulSoup(html, "html.parser")
         for module in modules:
             if module.image_urls:
                 img_url = module.image_urls[0]

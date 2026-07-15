@@ -11,7 +11,9 @@
 每阶段输出独立的结构化 step_status
 最终产出: 品牌视觉报告 + DNA详情页 + Pitch Deck + ZIP
 """
-import os, json, sys
+import os
+import json
+import sys
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 
@@ -83,7 +85,7 @@ class Agency4A:
 
         step_status: Dict[str, Any] = {}
         print(f"\n{'='*60}")
-        print(f"  🏢  4A Agency — 品牌视觉全流程")
+        print("  🏢  4A Agency — 品牌视觉全流程")
         print(f"  品牌: {brand}  |  项目: {project}")
         print(f"  输出: {od}")
         print(f"  🤖 团队: {', '.join([a.name for a in self._team.agents.values()])}")
@@ -92,8 +94,8 @@ class Agency4A:
         # ════════════════════════════════════════════════════════
         # PHASE 1: Briefing — 接收多产品输入
         # ════════════════════════════════════════════════════════
-        print(f"\n  ── Phase 1/5: Briefing ──")
-        phase1_start = datetime.utcnow()
+        print("\n  ── Phase 1/5: Briefing ──")
+        datetime.utcnow()
         try:
             if products:
                 brief = self._briefing.multi_product_brief(brand, products)
@@ -119,8 +121,8 @@ class Agency4A:
         # ════════════════════════════════════════════════════════
         # PHASE 2: Strategy — 多产品SceneGraph分析
         # ════════════════════════════════════════════════════════
-        print(f"\n  ── Phase 2/5: Strategy ──")
-        phase2_start = datetime.utcnow()
+        print("\n  ── Phase 2/5: Strategy ──")
+        datetime.utcnow()
         try:
             visual_system = self._strategy.analyze_brand_system(products or [])
             strategy_doc = self._strategy.brand_strategy_doc(visual_system, brief)
@@ -146,7 +148,7 @@ class Agency4A:
             strategy_doc = {}
 
         # ── Phase 2.5: Rationale (WHY) ──
-        print(f"\n  ── Phase 2.5/5: Rationale (WHY) ──")
+        print("\n  ── Phase 2.5/5: Rationale (WHY) ──")
         rationale_report = None
         try:
             if visual_system and hasattr(visual_system, 'scene_graphs') and visual_system.scene_graphs:
@@ -163,8 +165,8 @@ class Agency4A:
         # ── Phase 3/5: Creative ──
         # PHASE 3: Creative — 5套创意概念
         # ════════════════════════════════════════════════════════
-        print(f"\n  ── Phase 3/5: Creative ──")
-        phase3_start = datetime.utcnow()
+        print("\n  ── Phase 3/5: Creative ──")
+        datetime.utcnow()
         try:
             concepts = self._creative.brainstorm(visual_system, brand)
             best_concept = self._creative.select_best_concept()
@@ -197,8 +199,8 @@ class Agency4A:
         # ════════════════════════════════════════════════════════
         # PHASE 4: Execution — 品牌DNA详情页生成
         # ════════════════════════════════════════════════════════
-        print(f"\n  ── Phase 4/5: Execution ──")
-        phase4_start = datetime.utcnow()
+        print("\n  ── Phase 4/5: Execution ──")
+        datetime.utcnow()
         zip_path = ""
         brand_report_path = ""
         try:
@@ -270,8 +272,8 @@ class Agency4A:
         # ════════════════════════════════════════════════════════
         # PHASE 5: Pitch — 提报 Deck
         # ════════════════════════════════════════════════════════
-        print(f"\n  ── Phase 5/5: Pitch ──")
-        phase5_start = datetime.utcnow()
+        print("\n  ── Phase 5/5: Pitch ──")
+        datetime.utcnow()
         try:
             deck = self._pitch.build_pitch_deck(brand, strategy_doc, concepts, brief)
             deck_path = self._pitch.export_deck(deck, od)

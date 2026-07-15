@@ -331,7 +331,7 @@ class DNADatabase:
             token_name = dtcg_path.split(".")[-1]
 
             # Infer token type category from path
-            type_category = dtcg_path.split(".")[0] if "." in dtcg_path else "unknown"
+            dtcg_path.split(".")[0] if "." in dtcg_path else "unknown"
 
             token_id = f"{brand_id}_{dtcg_path.replace('.', '_')}"
 
@@ -493,7 +493,7 @@ class DNADatabase:
         """, (
             version_id, brand_id, max_ver + 1,
             row["dna_schema"], row["token_set"], row["quality_gates"],
-            f"Auto-snapshot before update", row["overall_confidence"],
+            "Auto-snapshot before update", row["overall_confidence"],
             now,
         ))
         self._conn.commit()

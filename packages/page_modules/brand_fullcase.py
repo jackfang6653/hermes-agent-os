@@ -20,7 +20,10 @@
   6. 全链路设计溯源手册
   7. 品牌视觉规范库
 """
-import os, json, requests, time
+import os
+import json
+import requests
+import time
 from typing import Optional, Dict, Any, List, Tuple
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -166,7 +169,7 @@ class BrandFullCase:
             print(f"{status} ({module_result.duration_s:.1f}s)")
 
         # ── 因果溯源模块 ──
-        print(f"  🔗 因果溯源模块...", end=" ")
+        print("  🔗 因果溯源模块...", end=" ")
         t0 = time.time()
         all_research = "\n\n".join([f"[{n}]\n{self.results[k].raw_output[:1500]}"
                                     for _, n, _, k in self.MODULES])
@@ -176,7 +179,7 @@ class BrandFullCase:
         print(f"{'✅' if raw else '❌'} ({result.traceability.duration_s:.1f}s)")
 
         # ── 7交付物生成 ──
-        print(f"  📦 生成7套交付物...", end=" ")
+        print("  📦 生成7套交付物...", end=" ")
         t0 = time.time()
         full_context = "\n\n".join([
             f"[Market]\n{result.market.raw_output[:1500]}",
@@ -239,7 +242,8 @@ class BrandFullCase:
 
     def _package_deliverables(self, docs: Dict[str, str], brand: str) -> str:
         """打包7份交付物为ZIP"""
-        import zipfile, io
+        import zipfile
+        import io
         
         session = datetime.now().strftime("%Y%m%d_%H%M%S")
         dir_path = os.path.join(self.output_dir, f"{brand}_{session}")

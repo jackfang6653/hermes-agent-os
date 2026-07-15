@@ -3,7 +3,8 @@
 
 产出: 策略文档 + 创意方案 + 执行排期
 """
-import json, os
+import json
+import os
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 
@@ -79,7 +80,7 @@ class PresentationDept:
             json.dump(deck, f, ensure_ascii=False, indent=2)
         
         # 摘要
-        print(f"\n  📋 提报摘要")
+        print("\n  📋 提报摘要")
         print(f"  {'='*40}")
         best = deck.get("sections",[{}])[1].get("content",{}).get("recommended",{})
         if best:

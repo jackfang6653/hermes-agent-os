@@ -8,7 +8,8 @@
 4. 仅替换场景/背景
 5. 输出匹配后的生图Prompt
 """
-import os, json
+import os
+import json
 from typing import Optional
 from .types import ImageAnalysisResult, SceneReplaceRequest
 
@@ -77,7 +78,7 @@ class SceneReplacer:
             cam_desc.append(f"shot on {cam.camera_model}")
         if cam_desc:
             params.append(f"Camera: {', '.join(cam_desc)}")
-            params.append(f"Depth of field: shallow, natural bokeh")
+            params.append("Depth of field: shallow, natural bokeh")
 
         # 灯光参数（保留原有 + 场景默认混合）
         lit = analysis.lighting

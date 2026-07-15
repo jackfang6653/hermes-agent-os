@@ -8,7 +8,11 @@
 4. 存入品牌DNA数据库 → 优化决策数据支撑
 5. 定时执行 (cron)
 """
-import os, json, requests, time, re
+import os
+import json
+import requests
+import time
+import re
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 from dataclasses import dataclass, field
@@ -317,7 +321,7 @@ class EvolutionScheduler:
                     print(f"     存入 {saved} 条")
                 else:
                     cycle["steps"]["store"] = "no kb"
-                    print(f"     无知识库连接，跳过")
+                    print("     无知识库连接，跳过")
             else:
                 cycle["steps"]["store"] = "no cases"
         except Exception as e:
@@ -340,14 +344,14 @@ class EvolutionScheduler:
     def generate_evolution_report(self) -> str:
         """生成进化报告"""
         lines = ["# 品牌DNA自进化报告", f"生成时间: {datetime.now().isoformat()}", ""]
-        lines.append(f"## 总览")
+        lines.append("## 总览")
         lines.append(f"- 4A公司: {len(TOP_4A_AGENCIES)} 家")
         lines.append(f"- 已研究案例: {len(self.researcher.cases)} 个")
         lines.append(f"- 进化周期: {len(self.history)} 轮")
         lines.append("")
         
         if self.researcher.cases:
-            lines.append(f"## 最新案例")
+            lines.append("## 最新案例")
             for c in self.researcher.cases[-5:]:
                 lines.append(f"- [{c.agency}] {c.project_name or c.brand}")
                 if c.design_rationale:

@@ -141,7 +141,7 @@ class PipelineResult:
             f"╔══ Pipeline Result: {self.brand} ══╗",
             f"║ URL: {self.url}",
             f"║ Duration: {self.total_duration_ms / 1000:.1f}s",
-            f"╠══ Stages ══╣",
+            "╠══ Stages ══╣",
             f"║ {_status_icon(self.crawl.status if self.crawl else 'pending')} Crawl    : {self._stage_ms(self.crawl)}ms",
             f"║ {_status_icon(self.analyze.status if self.analyze else 'pending')} Analyze  : {self._stage_ms(self.analyze)}ms",
             f"║ {_status_icon(self.style.status if self.style else 'pending')} Style    : {self._stage_ms(self.style)}ms",

@@ -8,7 +8,9 @@
 4. 识别设计工具和参数
 5. 推断设计工作流
 """
-import os, json, requests
+import os
+import json
+import requests
 from typing import Optional, List, Dict, Any
 from dataclasses import dataclass, field
 

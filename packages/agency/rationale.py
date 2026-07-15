@@ -8,7 +8,9 @@
 
 这是4A公司真正的价值: 知道"为什么"这样设计
 """
-import os, json, requests
+import os
+import json
+import requests
 from typing import Optional, List, Dict, Any
 from dataclasses import dataclass, field
 

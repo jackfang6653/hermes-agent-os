@@ -487,7 +487,6 @@ class PromptGenerator:
         # 如果提供了指纹，加入针对性约束
         if fingerprint:
             acr = fingerprint.acr_params
-            vd = fingerprint.visual_dna
 
             # 色温锁定
             temp_k = acr.get("temperature_k", 5500)

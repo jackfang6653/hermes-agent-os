@@ -8,7 +8,11 @@
 4. 理解设计效果和目的
 5. 产出结构化设计报告
 """
-import os, json, requests, re, time
+import os
+import json
+import requests
+import re
+import time
 from typing import Optional, List, Dict, Any
 from dataclasses import dataclass, field
 from datetime import datetime

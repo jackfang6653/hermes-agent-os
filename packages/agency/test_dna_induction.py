@@ -8,7 +8,9 @@ Mock-data 验证测试 — 测试 dna_induction 管线: aggregate → induce →
   4. 边缘情况 (空列表、单品页、单品类)
 """
 
-import os, sys, json
+import os
+import sys
+import json
 
 # Ensure we can import from packages/agency
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -326,7 +328,7 @@ def test_induce_brand_vi():
     print(f"    typography: {brand_vi.brand_typography}")
     print(f"    layout: {brand_vi.brand_layout_system}")
     print(f"    consistency_score: {brand_vi.consistency_score}")
-    print(f"    photography rules:")
+    print("    photography rules:")
     for r in brand_vi.brand_photography_rules:
         print(f"      • {r}")
     return brand_vi

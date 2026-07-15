@@ -11,7 +11,10 @@
 
 每个品牌有完整档案，支持查询和复用
 """
-import os, json, sqlite3, time
+import os
+import json
+import sqlite3
+import time
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 from dataclasses import dataclass, field

@@ -9,7 +9,9 @@
 - 后期处理参数
 - 空间关系（遮挡/比例/层次）
 """
-import os, json, requests
+import os
+import json
+import requests
 from typing import Optional
 from .scene_graph import *
 

@@ -14,7 +14,10 @@ CEO不亲自做具体工作，而是:
 - 产出结构化报告 → 存入项目档案
 - 贡献新知识 → 优化DNA库
 """
-import os, json, sys, time
+import os
+import json
+import sys
+import time
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 from dataclasses import dataclass, field
@@ -186,13 +189,13 @@ class CEOSystem:
         """CEO撰写项目总结 — 把控大方向"""
         lines = [
             f"\n  {'='*60}",
-            f"  📋 CEO项目总结",
+            "  📋 CEO项目总结",
             f"  {'='*60}",
             f"  项目: {project_id}",
             f"  品牌: {brand}",
-            f"  状态: 完成",
-            f"",
-            f"  Agent产出汇总:",
+            "  状态: 完成",
+            "",
+            "  Agent产出汇总:",
         ]
         
         for agent_name, result in outputs.items():
@@ -200,9 +203,9 @@ class CEOSystem:
             lines.append(f"    {status} {agent_name}: {result.get('summary','')[:80]}")
         
         lines.extend([
-            f"",
-            f"  📚 品牌DNA库更新: 本次项目的新知识已自动入库",
-            f"  下次同类项目可直接参考调用",
+            "",
+            "  📚 品牌DNA库更新: 本次项目的新知识已自动入库",
+            "  下次同类项目可直接参考调用",
             f"  {'='*60}",
         ])
         

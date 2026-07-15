@@ -8,7 +8,10 @@
 模块 5: AI 自主学习迭代 — Self-Learning Iteration Engine
 模块 6: 标准化最终产出 — Standardized Deliverables Generator
 """
-import os, json, requests, time
+import os
+import json
+import requests
+import time
 from typing import Optional, List, Dict, Any, Tuple
 from dataclasses import dataclass, field
 from datetime import datetime

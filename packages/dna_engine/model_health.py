@@ -7,7 +7,10 @@
 3. 记录模型健康历史
 4. 发出告警
 """
-import os, json, requests, time
+import os
+import json
+import requests
+import time
 from typing import Optional, List, Dict, Any, Tuple
 from datetime import datetime
 from dataclasses import dataclass, field
@@ -126,7 +129,7 @@ class ModelHealthMonitor:
             elif resp.status_code == 429:
                 health.status = "degraded"
                 health.error_count += 1
-                health.last_error = f"Rate limited (429)"
+                health.last_error = "Rate limited (429)"
             else:
                 health.status = "dead"
                 health.error_count += 1

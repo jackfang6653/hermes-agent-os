@@ -8,7 +8,9 @@
 4. 自进化 — 每个新分析更新品牌模型
 5. 跨品牌对比
 """
-import json, os, sqlite3
+import json
+import os
+import sqlite3
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 from .types import ImageAnalysisResult

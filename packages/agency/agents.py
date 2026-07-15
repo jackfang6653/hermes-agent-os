@@ -8,7 +8,8 @@
 4. 质量标准
 5. 持续学习机制
 """
-import os, json
+import os
+import json
 from typing import Optional, List, Dict, Any
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -223,14 +224,14 @@ class AgentEmployee:
         lines = [
             f"  👤 {self.name} ({self.role.seniority})",
             f"  🏢 {self.role.department} · {self.role.title}",
-            f"  📋 职责:",
+            "  📋 职责:",
         ]
         for r in self.role.responsibilities:
             lines.append(f"    • {r}")
-        lines.append(f"  🛠️  核心技能:")
+        lines.append("  🛠️  核心技能:")
         for s in self.role.skills[:3]:
             lines.append(f"    • {s.name}: {s.description} ({s.proficiency})")
-        lines.append(f"  📚 专业知识:")
+        lines.append("  📚 专业知识:")
         for k, v in list(self.role.domain_knowledge.items())[:3]:
             lines.append(f"    • {k}: {v[:50]}...")
         return "\n".join(lines)

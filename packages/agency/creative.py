@@ -18,7 +18,8 @@
     concepts = creative.brainstorm(brand_visual_system, "IKEA")
     best = creative.select_best_concept()
 """
-import sys, os
+import sys
+import os
 from typing import Optional, List, Dict, Any
 from dataclasses import dataclass, field
 
@@ -256,7 +257,7 @@ class CreativeDept:
             "mood": "温馨自然，生活气息",
         }
 
-        light_pattern = self._pick(vs.lighting_patterns, "自然光+补光")
+        self._pick(vs.lighting_patterns, "自然光+补光")
         lighting = {
             "setup": "自然光主导 + 辅助补光",
             "key_light": {"type": "window_light", "position": "左侧大面积窗光", "temperature": 5000},

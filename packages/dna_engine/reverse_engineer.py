@@ -11,7 +11,11 @@
 
 输出：结构化的 ImageAnalysisResult
 """
-import os, json, base64, time, requests
+import os
+import json
+import base64
+import time
+import requests
 from typing import Optional
 from .types import *
 

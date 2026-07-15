@@ -1,7 +1,10 @@
 """
 设计审美自进化桥接层 — 通过 MCP 协议连接设计指南服务
 """
-import os, json, subprocess, threading
+import os
+import json
+import subprocess
+import threading
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 from queue import Queue

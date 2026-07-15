@@ -4,7 +4,8 @@ social cognition, product positioning, visual communication, marketing conversio
 
 Also splits analysis into job-specific deliverables.
 """
-import json, os
+import json
+import os
 from typing import Optional, List, Dict, Any
 from dataclasses import dataclass, field
 
@@ -68,10 +69,10 @@ class WhyEngine:
         # Generic fallback
         return {
             "consumer_psychology": f"The parameter {param}={value} affects user perception at subconscious level.",
-            "social_cognition": f"This follows established design conventions in the target market.",
-            "product_positioning": f"This supports the product's market position and target segment.",
-            "visual_communication": f"This parameter controls information priority in the visual hierarchy.",
-            "marketing_conversion": f"This directly or indirectly influences purchase decision metrics.",
+            "social_cognition": "This follows established design conventions in the target market.",
+            "product_positioning": "This supports the product's market position and target segment.",
+            "visual_communication": "This parameter controls information priority in the visual hierarchy.",
+            "marketing_conversion": "This directly or indirectly influences purchase decision metrics.",
         }
 
     def trace_all(self, dna) -> List[Dict[str, Any]]:
@@ -151,7 +152,7 @@ class WhyEngine:
                     f"Brand color system: {dna.colors.primary}/{dna.colors.secondary}/{dna.colors.accent}",
                     f"Typography: {dna.typography.primary_font}, scale ratio {dna.typography.type_scale_ratio}",
                     f"Photography rules: {dna.images.common_compositions} + {dna.images.common_angles}",
-                    f"Design tokens extracted for AI designer reuse",
+                    "Design tokens extracted for AI designer reuse",
                 ],
                 design_tokens={
                     "brand": dna.brand,
@@ -163,7 +164,7 @@ class WhyEngine:
 
     def format_markdown(self, dna, why_traces: List[Dict], deliverables: Dict[str, JobDeliverable]) -> str:
         """Output everything as standardized Markdown tables"""
-        lines = [f"# Full Parametric DNA Report: {dna.brand} - {dna.product_name}", f""]
+        lines = [f"# Full Parametric DNA Report: {dna.brand} - {dna.product_name}", ""]
 
         # Page layout table
         lines.extend([

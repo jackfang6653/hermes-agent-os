@@ -27,9 +27,9 @@ class SceneRenderer:
         products = [e for e in graph.elements if e.type == "product"]
         if products:
             p = products[0]
-            lines.append(f"\n## PRODUCT")
+            lines.append("\n## PRODUCT")
             lines.append(f"Type: {p.label or p.id}")
-            lines.append(f"Position: center of frame")
+            lines.append("Position: center of frame")
             lines.append(f"Scale in frame: {p.relative_scale_to_frame:.0%}")
             lines.append(f"Distance from camera: {p.distance_to_camera_cm}cm")
             lines.append(f"Rotation: pitch={p.rotation[0]}° yaw={p.rotation[1]}° roll={p.rotation[2]}°")
@@ -60,7 +60,7 @@ class SceneRenderer:
         floors = [e for e in graph.elements if e.type == "floor"]
         walls = [e for e in graph.elements if e.type == "wall"]
 
-        lines.append(f"\n## SCENE ENVIRONMENT")
+        lines.append("\n## SCENE ENVIRONMENT")
         if target_scene:
             lines.append(f"Target scene: {target_scene}")
         lines.append(f"Background: {graph.background_color}")
@@ -76,14 +76,14 @@ class SceneRenderer:
                 lines.append(f"  - {pr.label or pr.id}: {pr.bbox_size[0]}×{pr.bbox_size[1]}×{pr.bbox_size[2]}cm at pos{pr.bbox_center}")
 
         # 3. 空间关系
-        lines.append(f"\n## SPATIAL RELATIONS")
+        lines.append("\n## SPATIAL RELATIONS")
         for e in graph.elements:
             if e.distance_to_camera_cm:
                 lines.append(f"{e.id}: {e.distance_to_camera_cm}cm from camera, {e.angle_to_camera_deg}° angle")
 
         # 4. 相机参数
         c = graph.camera
-        lines.append(f"\n## CAMERA SYSTEM")
+        lines.append("\n## CAMERA SYSTEM")
         if c.camera_model:
             lines.append(f"Body: {c.camera_model}")
         if c.lens_model:
@@ -116,7 +116,7 @@ class SceneRenderer:
 
         # 6. 后期
         pp = graph.post_processing
-        lines.append(f"\n## POST PROCESSING")
+        lines.append("\n## POST PROCESSING")
         for key in ["exposure", "contrast", "highlights", "shadows", "whites", "blacks",
                      "texture", "clarity", "vibrance", "saturation",
                      "color_temperature", "tint", "sharpening", "noise_reduction", "vignette"]:
@@ -125,7 +125,7 @@ class SceneRenderer:
                 lines.append(f"{key}: {val:+d}" if isinstance(val, int) else f"{key}: {val:+.1f}")
 
         # 7. 质量控制
-        lines.append(f"\n## QUALITY CONTROL")
+        lines.append("\n## QUALITY CONTROL")
         lines.append("Sharp focus on product")
         lines.append("Natural depth of field")
         lines.append("Professional color grading")
@@ -133,7 +133,7 @@ class SceneRenderer:
         lines.append("No watermark, no text overlay")
 
         # 8. Negative
-        lines.append(f"\n## NEGATIVE PROMPT")
+        lines.append("\n## NEGATIVE PROMPT")
         lines.append("amateur, snapshot, low quality, blurry, distorted, deformed, watermark, text, logo, signature")
 
         return "\n".join(lines)

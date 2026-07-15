@@ -1,5 +1,8 @@
 """Verification script for dna_engine package."""
-import sys, os, tempfile, json
+import sys
+import os
+import tempfile
+import json
 
 # Ensure the project root is on sys.path
 _project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -212,7 +215,7 @@ def test_quality_gates():
     assert not result2.overall_passed
     assert result2.results[3].status.value == 'failed'
     assert result2.failed_at_gate == 3
-    print(f'   OK pipeline correctly fails at Gate 3 (no logo)')
+    print('   OK pipeline correctly fails at Gate 3 (no logo)')
 
 
 def test_compare(dna):

@@ -13,7 +13,11 @@
 - 策略文档
 - brand_visual_system_report.json
 """
-import json, os, sys, time, statistics
+import json
+import os
+import sys
+import time
+import statistics
 from typing import Optional, List, Dict, Any, Tuple
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -132,7 +136,7 @@ class StrategyDept:
         brand = products[0].get("brand", products[0].get("brand_name", "unknown"))
         print(f"\n  📊 [Strategy v2] SceneGraph分析品牌视觉系统: {brand}")
         print(f"    产品样本数: {len(products)}")
-        print(f"    方法: 逐个调用SceneParser → 跨产品聚合")
+        print("    方法: 逐个调用SceneParser → 跨产品聚合")
 
         scene_graphs = []
         errors = []
@@ -161,20 +165,20 @@ class StrategyDept:
                 errors.append({"product": name, "image": image_url, "error": err_msg})
 
         if not scene_graphs:
-            print(f"    ❌ 无成功解析的场景图，试图从产品预分析数据回退...")
+            print("    ❌ 无成功解析的场景图，试图从产品预分析数据回退...")
             fallback = self._fallback_from_product_analysis(products, brand)
             if fallback.products_analyzed > 0:
                 print(f"    ✅ 回退成功 — {fallback.products_analyzed} 产品启发式聚合")
                 self._save_to_knowledge(fallback, errors)
                 return fallback
-            print(f"    ❌ 无成功解析的场景图，无法构建视觉系统")
+            print("    ❌ 无成功解析的场景图，无法构建视觉系统")
             return BrandVisualSystem(brand=brand, confidence=0.0)
 
         print(f"\n    📐 聚合 {len(scene_graphs)} 个SceneGraph → 参数范围...")
         system = self._aggregate_scene_graphs(scene_graphs, brand)
         system.scene_graphs = scene_graphs
 
-        print(f"    ✅ 聚合完成")
+        print("    ✅ 聚合完成")
         print(f"       核心色: {len(system.core_palette)} 色")
         print(f"       焦距范围: {system.focal_length_range.min}-{system.focal_length_range.max}mm")
         print(f"       光圈范围: f/{system.aperture_range.min}-f/{system.aperture_range.max}")

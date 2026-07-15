@@ -21,7 +21,9 @@
         layout     → LayoutInfo (grid, columns, width, flow)
 """
 
-import os, json, base64
+import os
+import json
+import base64
 from typing import Optional, List, Dict, Any, Tuple
 from dataclasses import dataclass, field, asdict
 from datetime import datetime
@@ -150,28 +152,28 @@ class PageDesignDNA:
     def to_markdown(self) -> str:
         """生成人类可读的Markdown分析报告"""
         lines = [
-            f"# 页面设计DNA分析报告",
-            f"",
+            "# 页面设计DNA分析报告",
+            "",
             f"**URL**: {self.url}",
             f"**标题**: {self.title}",
             f"**品牌**: {self.brand}",
             f"**分析时间**: {self.analyzed_at}",
-            f"",
-            f"## 整体风格",
-            f"",
+            "",
+            "## 整体风格",
+            "",
             f"- **设计语言**: {self.design_language}",
             f"- **风格描述**: {self.overall_style}",
             f"- **总结**: {self.summary}",
-            f"",
+            "",
         ]
 
         # 排版
         t = self.typography
         lines += [
-            f"## 排版系统",
-            f"",
-            f"| 参数 | 值 |",
-            f"|------|-----|",
+            "## 排版系统",
+            "",
+            "| 参数 | 值 |",
+            "|------|-----|",
             f"| 主字体 | {t.primary_font} |",
             f"| 辅字体 | {t.secondary_font} |",
             f"| 标题字体 | {t.heading_font} |",
@@ -180,16 +182,16 @@ class PageDesignDNA:
             f"| 辅助字号 | {t.caption_size} |",
             f"| 行高 | {t.line_height} |",
             f"| 字重规律 | {t.weight_usage} |",
-            f"",
+            "",
         ]
 
         # 色彩
         c = self.colors
         lines += [
-            f"## 色彩体系",
-            f"",
-            f"| 角色 | 色值 |",
-            f"|------|------|",
+            "## 色彩体系",
+            "",
+            "| 角色 | 色值 |",
+            "|------|------|",
             f"| 主色 | {c.primary} |",
             f"| 辅色 | {c.secondary} |",
             f"| 强调色 | {c.accent} |",
@@ -198,19 +200,19 @@ class PageDesignDNA:
             f"| 主文字 | {c.text_primary} |",
             f"| 辅文字 | {c.text_secondary} |",
             f"| 边框色 | {c.border} |",
-            f"",
+            "",
             f"**色彩关系**: {c.color_harmony}",
             f"**完整色板**: {', '.join(c.all_colors) if c.all_colors else '-'}",
-            f"",
+            "",
         ]
 
         # 图片
         img = self.images
         lines += [
-            f"## 图片系统",
-            f"",
-            f"| 指标 | 值 |",
-            f"|------|-----|",
+            "## 图片系统",
+            "",
+            "| 指标 | 值 |",
+            "|------|-----|",
             f"| 图片总数 | {img.total_count} |",
             f"| Hero大图 | {img.hero_images} |",
             f"| 产品图 | {img.product_images} |",
@@ -220,23 +222,23 @@ class PageDesignDNA:
             f"| 图片比例 | {img.image_ratio} |",
             f"| 构图类型 | {', '.join(img.composition_styles) if img.composition_styles else '-'} |",
             f"| 拍摄角度 | {', '.join(img.dominant_angles) if img.dominant_angles else '-'} |",
-            f"",
+            "",
         ]
 
         # 布局
         l = self.layout
         lines += [
-            f"## 布局系统",
-            f"",
-            f"| 参数 | 值 |",
-            f"|------|-----|",
+            "## 布局系统",
+            "",
+            "| 参数 | 值 |",
+            "|------|-----|",
             f"| 网格类型 | {l.grid_type} |",
             f"| 列数 | {l.column_count} |",
             f"| 内容最大宽度 | {l.content_max_width} |",
             f"| 阅读流 | {l.reading_flow} |",
             f"| 板块总数 | {l.section_count} |",
             f"| 纵向节奏 | {l.vertical_rhythm} |",
-            f"",
+            "",
         ]
 
         # 逐板块详情
@@ -245,9 +247,9 @@ class PageDesignDNA:
         for i, sec in enumerate(self.sections):
             lines += [
                 f"### {i+1}. {sec.type} `{sec.id}`",
-                f"",
-                f"| 参数 | 值 |",
-                f"|------|-----|",
+                "",
+                "| 参数 | 值 |",
+                "|------|-----|",
                 f"| 文案 | {sec.content[:80]}{'...' if len(sec.content) > 80 else ''} |",
                 f"| 字体 | {sec.font} |",
                 f"| 字号 | {sec.size} |",
@@ -260,7 +262,7 @@ class PageDesignDNA:
                 f"| 背景 | {sec.background} |",
                 f"| 图片数 | {sec.image_count} ({', '.join(sec.image_types) if sec.image_types else 'none'}) |",
                 f"| 置信度 | {sec.confidence:.0%} |",
-                f"",
+                "",
             ]
 
         return "\n".join(lines)
@@ -784,7 +786,7 @@ def extract_brand_rules(dna: PageDesignDNA) -> Dict[str, List[Dict]]:
         rules["color"].append({
             "parameter": "primary_color",
             "value": dna.colors.primary,
-            "why": f"品牌主色，用于关键CTA和品牌标识",
+            "why": "品牌主色，用于关键CTA和品牌标识",
             "brand_strategy_link": f"{dna.brand}品牌识别核心",
             "confidence": 0.85,
         })
@@ -792,7 +794,7 @@ def extract_brand_rules(dna: PageDesignDNA) -> Dict[str, List[Dict]]:
         rules["color"].append({
             "parameter": "color_harmony",
             "value": dna.colors.color_harmony,
-            "why": f"色彩搭配策略",
+            "why": "色彩搭配策略",
             "brand_strategy_link": f"{dna.brand}设计语言: {dna.design_language}",
             "confidence": 0.80,
         })
@@ -819,7 +821,7 @@ def extract_brand_rules(dna: PageDesignDNA) -> Dict[str, List[Dict]]:
         rules["composition"].append({
             "parameter": "image_composition",
             "value": ", ".join(dna.images.composition_styles),
-            "why": f"产品图片构图风格",
+            "why": "产品图片构图风格",
             "brand_strategy_link": f"{dna.brand}视觉规范",
             "confidence": 0.80,
         })
@@ -827,7 +829,7 @@ def extract_brand_rules(dna: PageDesignDNA) -> Dict[str, List[Dict]]:
         rules["composition"].append({
             "parameter": "layout_grid",
             "value": dna.layout.grid_type,
-            "why": f"页面网格系统",
+            "why": "页面网格系统",
             "confidence": 0.80,
         })
 

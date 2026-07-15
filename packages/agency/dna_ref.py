@@ -12,7 +12,9 @@
     rules = ref.query("NORHOR", "camera")
     # → [{"参数": "85mm", "理由": "..."}]
 """
-import os, json, sqlite3
+import os
+import json
+import sqlite3
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 

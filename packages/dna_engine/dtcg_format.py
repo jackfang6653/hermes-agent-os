@@ -4,7 +4,9 @@ W3C DTCG Design Tokens Format — 2025.10 标准实现
 将品牌DNA参数转换为标准W3C设计令牌格式
 支持跨工具互操作（Figma/Adobe/代码）
 """
-import json, os, uuid
+import json
+import os
+import uuid
 from typing import Optional, Dict, Any, List
 from datetime import datetime
 

@@ -11,7 +11,10 @@
 
 输出: 每个文档同时有 Markdown + JSON 两种格式
 """
-import os, json, zipfile, io
+import os
+import json
+import zipfile
+import io
 from typing import Optional, Dict, Any, List
 from datetime import datetime
 
@@ -102,7 +105,7 @@ class DeliverablesGenerator:
 
     def _build_element_sheet(self, results: dict) -> dict:
         m1 = self._extract_data(results, 1)
-        m5 = self._extract_data(results, 5)
+        self._extract_data(results, 5)
         return {
             "document_type": "Element Parameter Disassembled Data Sheet",
             "source_modules": {"element_analysis": "M1", "iteration_data": "M5"},

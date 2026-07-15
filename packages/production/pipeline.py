@@ -19,7 +19,12 @@
     # 从一个品牌名
     result = pipeline.run_from_brand("NORHOR 北欧表情")
 """
-import os, sys, io, zipfile, time, json
+import os
+import sys
+import io
+import zipfile
+import time
+import json
 from typing import Optional, Dict, Any, List, Tuple
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -297,7 +302,7 @@ class BrandDesignPipeline:
         load_status = self._lazy_load()
 
         print(f"\n  {'='*60}")
-        print(f"  🏭 4A Design Pipeline v3 — 从图片/URL启动")
+        print("  🏭 4A Design Pipeline v3 — 从图片/URL启动")
         print(f"  {'='*60}")
         print(f"  📸 输入: {image_url}")
         if brand_name:
@@ -426,12 +431,12 @@ class BrandDesignPipeline:
                 if self._can_use_vision():
                     research_result = self._researcher.research_brand(brand_name)
                     _rec("brand_research", True, "品牌研究完成", dur=time.monotonic() - t5)
-                    print(f"     ✅ 品牌研究完成")
+                    print("     ✅ 品牌研究完成")
                 else:
                     fallback = self._lookup_knowledge(brand_name)
                     _rec("brand_research", True, fallback,
                          error="降级模式 — 使用知识库", dur=time.monotonic() - t5)
-                    print(f"     ⚠️  降级: 使用知识库数据")
+                    print("     ⚠️  降级: 使用知识库数据")
             except Exception as e:
                 _rec("brand_research", False, None, error=str(e), dur=time.monotonic() - t5)
                 print(f"     ❌ 品牌研究失败: {e}")
@@ -448,7 +453,7 @@ class BrandDesignPipeline:
 
         # Step 6: 并行 — 设计分析 + 色彩分析 + 场景图解析
         print("  ⚡ Phase 2 并行: 设计/色彩/场景分析...")
-        t6 = time.monotonic()
+        time.monotonic()
         parallel_results = {}
 
         if self._can_use_vision():
@@ -524,7 +529,7 @@ class BrandDesignPipeline:
                 if self._patterns and design_analysis:
                     self._patterns.add_from_analysis(design_analysis, resolved_brand)
                 _rec("knowledge_store", True, "品牌已入库", dur=time.monotonic() - t7)
-                print(f"     ✅ 品牌知识已入库")
+                print("     ✅ 品牌知识已入库")
             except Exception as e:
                 _rec("knowledge_store", False, None, error=str(e), dur=time.monotonic() - t7)
                 print(f"     ❌ 入库失败: {e}")
@@ -690,7 +695,7 @@ class BrandDesignPipeline:
             return cached
 
         print(f"\n  {'='*60}")
-        print(f"  🏭 4A Design Pipeline v3 — 从品牌名启动")
+        print("  🏭 4A Design Pipeline v3 — 从品牌名启动")
         print(f"  {'='*60}")
         print(f"  🏷️  品牌: {brand_name}")
         print(f"  🔑 API: {'✅ 已配置' if self._can_use_vision() else '⚠️  降级模式'}")
@@ -741,7 +746,7 @@ class BrandDesignPipeline:
             print(f"\n  ── 分析URL [{idx+1}/{len(urls_to_crawl)}]: {url} ──")
 
             # Step 2: page_crawler — 抓取分块
-            print(f"  🕷️  [page_modules] 页面抓取分块...")
+            print("  🕷️  [page_modules] 页面抓取分块...")
             t = time.monotonic()
             crawl_result = None
             crawl_data = None
@@ -768,7 +773,7 @@ class BrandDesignPipeline:
                 best_crawl_data = crawl_data
 
             # Step 3: acr_analyzer — 并行分析
-            print(f"  🔬 [page_modules] ACR 并行分析...")
+            print("  🔬 [page_modules] ACR 并行分析...")
             t_ = time.monotonic()
             if self._acr_analyzer and crawl_result and crawl_result.chunks:
                 try:
@@ -789,7 +794,7 @@ class BrandDesignPipeline:
 
         # ── 聚合多个URL的ACR结果 ──
         # Step 4: style_engine — 生成样式
-        print(f"\n  🎨 [page_modules] 样式引擎生成...")
+        print("\n  🎨 [page_modules] 样式引擎生成...")
         t4 = time.monotonic()
 
         if self._style_engine and all_acr_results:
@@ -830,7 +835,7 @@ class BrandDesignPipeline:
             _rec("style_engine", False, None, error="StyleEngine 未加载", dur=0)
 
         # Step 5: validator — 校验
-        print(f"  ✅ [page_modules] 结果校验...")
+        print("  ✅ [page_modules] 结果校验...")
         t5 = time.monotonic()
         if self._validator and best_style_spec_data:
             try:
@@ -855,7 +860,7 @@ class BrandDesignPipeline:
         # Phase 2: 品牌研究 + 知识库
         # ───────────────────────────────────────────────────
 
-        print(f"\n  🔍 Phase 2: 品牌研究 & 知识库...")
+        print("\n  🔍 Phase 2: 品牌研究 & 知识库...")
         t6 = time.monotonic()
         research_result = None
 
@@ -863,7 +868,7 @@ class BrandDesignPipeline:
             try:
                 research_result = self._researcher.research_brand(brand_name, urls=target_urls[:3])
                 _rec("brand_research", True, "API 研究完成", dur=time.monotonic() - t6)
-                print(f"     ✅ 品牌研究完成")
+                print("     ✅ 品牌研究完成")
             except Exception as e:
                 fallback = self._lookup_knowledge(brand_name)
                 _rec("brand_research", False, fallback, error=str(e), dur=time.monotonic() - t6)
@@ -871,14 +876,13 @@ class BrandDesignPipeline:
         else:
             fallback = self._lookup_knowledge(brand_name)
             _rec("brand_research", True, fallback, error="降级模式", dur=time.monotonic() - t6)
-            print(f"     ⚠️  降级模式: 使用知识库")
+            print("     ⚠️  降级模式: 使用知识库")
 
         # ── 知识库存储 ──
         t7 = time.monotonic()
         if self._knowledge:
             try:
                 if research_result and hasattr(research_result, '__dict__'):
-                    rd = research_result.__dict__
                     profile = self._BrandProfile(brand_name=brand_name)
                     if hasattr(research_result, 'primary_palette') and research_result.primary_palette:
                         profile.primary_palette = research_result.primary_palette
@@ -904,7 +908,7 @@ class BrandDesignPipeline:
                             {"design_patterns": patterns_raw}, brand_name
                         )
                 _rec("knowledge_store", True, f"品牌 {brand_name} 已入库", dur=time.monotonic() - t7)
-                print(f"     ✅ 知识库已更新")
+                print("     ✅ 知识库已更新")
             except Exception as e:
                 _rec("knowledge_store", False, None, error=str(e), dur=time.monotonic() - t7)
                 print(f"     ❌ {e}")
@@ -926,7 +930,7 @@ class BrandDesignPipeline:
         # ───────────────────────────────────────────────────
         # Phase 3: 图片生成
         # ───────────────────────────────────────────────────
-        print(f"\n  🖼️  Phase 3: 图片生成...")
+        print("\n  🖼️  Phase 3: 图片生成...")
         t9 = time.monotonic()
         zip_path = ""
 

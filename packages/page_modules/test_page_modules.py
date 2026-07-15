@@ -1,11 +1,12 @@
 """基础测试: page_modules 模块"""
-import sys, os as _os
+import sys
+import os as _os
 _script_dir = _os.path.dirname(__file__)
 sys.path.insert(0, _os.path.join(_script_dir, '..'))
 
 def test_module_importable():
     try:
-        exec(f'import page_modules')
+        exec('import page_modules')
     except ImportError:
         pass
 

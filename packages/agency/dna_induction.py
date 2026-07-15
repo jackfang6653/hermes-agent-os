@@ -270,7 +270,7 @@ def induce_brand_vi(categories: List[CategoryDNASummary], brand: str = "") -> Br
 
     categories_analyzed = [c.category for c in categories]
     total_pages = sum(c.sample_count for c in categories)
-    n_cats = len(categories)
+    len(categories)
 
     # ── 1. Brand colors (cross-category weighted aggregation) ──
     # Fuse common_colors across categories with sample_count weighting
