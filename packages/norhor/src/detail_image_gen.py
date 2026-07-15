@@ -40,7 +40,8 @@ def font(sz, bold=False):
               "/System/Library/Fonts/PingFang.ttc"]:
         if os.path.exists(p):
             try: return ImageFont.truetype(p, sz)
-            except: pass
+            except Exception:
+                pass
     return ImageFont.load_default()
 
 def card(draw, x1, y1, x2, y2, fill=WHITE, r=R):

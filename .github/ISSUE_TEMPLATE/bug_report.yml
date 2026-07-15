@@ -1,0 +1,43 @@
+name: Bug Report
+description: Report a bug to help improve Hermes Agent OS
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: What happened? What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this?
+      placeholder: |
+        1. Run '...'
+        2. See error
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Python version, Node version
+      placeholder: Windows 10, Python 3.11, Node 20
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs/output
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-submit checklist
+      options:
+        - label: I've searched existing issues
+          required: true
+        - label: This is a single reproducible bug
+          required: true
